@@ -1,4 +1,4 @@
-use crate::Error;
+use crate::{Error, InputErrorKind};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 use std::collections::BTreeMap;
@@ -93,16 +93,53 @@ pub struct SystemOneRequest {
     pub extra_body: Map<String, Value>,
 }
 impl SystemOneRequest {
+    /// Decode JSON into typed state and questions, validating before HTTP.
+    ///
+    /// State accepts text, objects, and arrays. Known question kinds and fields
+    /// are checked strictly. Missing fields and explicit null remain distinct;
+    /// score criteria retain their order and must contain at least one element.
+    ///
+    /// Failures have [`crate::ErrorKind::Input`] and [`Error::input_details`].
+    /// Selection order is state, then questions sorted by name. Within a question:
+    /// object shape, type, unknown fields (sorted), instructions, then criteria.
+    /// Noul criteria check unknown fields, true, then false; choice labels sort
+    /// by name and score levels follow array order. Each question's semantic
+    /// checks run before decoding the next question.
+    ///
+    /// `json!` has already collapsed duplicate keys to the last value and encodes
+    /// interpolated `None` as null. Omit a key to omit a field. For custom fallible
+    /// serialization use `serde_json::to_value(data)?` rather than interpolating
+    /// it in `json!`, which can panic on serialization failure. Neither path
+    /// preserves nonfinite floats: check them before they become JSON null.
+    ///
+    /// ```
+    /// use serde_json::json;
+    /// use typesafe_sdk::SystemOneRequest;
+    /// # fn example() -> Result<(), Box<dyn std::error::Error>> {
+    /// let state = serde_json::to_value(["Payment failed", "Deadline today"])?;
+    /// let request = SystemOneRequest::from_json(state, json!({
+    ///     "urgent": {"type": "noul", "instructions": "Is this urgent?"},
+    ///     "team": {"type": "choice", "instructions": null,
+    ///              "criteria": {"billing": "Payments", "other": null}}
+    /// }))?;
+    /// # Ok(()) }
+    /// # example().unwrap();
+    /// ```
+    pub fn from_json(state: Value, questions: Value) -> Result<Self, Error> {
+        crate::request::from_json(state, questions)
+    }
+
+    /// Validate typed questions. Rejects an empty map or empty score criteria.
+    /// Request input diagnostics use the same paths/reasons as [`Self::from_json`].
     pub fn new(state: Content, questions: BTreeMap<String, Question>) -> Result<Self, Error> {
         if questions.is_empty() {
-            return Err(Error::input("At least one question is required."));
+            return Err(Error::request_input(
+                InputErrorKind::EmptyQuestions,
+                "/questions",
+            ));
         }
         for (name, q) in &questions {
-            if matches!(q, Question::Score { criteria, .. } if criteria.is_empty()) {
-                return Err(Error::input(format!(
-                    "Score question {name:?} has no criteria; at least one score is required."
-                )));
-            }
+            crate::request::validate_question(name, q)?;
         }
         Ok(Self {
             state,

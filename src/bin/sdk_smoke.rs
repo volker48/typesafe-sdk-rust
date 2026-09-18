@@ -1,65 +1,41 @@
-use std::collections::BTreeMap;
-
-use typesafe_sdk::{Client, Content, Field, NoulCriteria, Question, SystemOneRequest};
+use serde_json::json;
+use typesafe_sdk::{Client, SystemOneRequest};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::builder().build()?;
 
-    let questions = BTreeMap::from([
-        (
-            "is_urgent".into(),
-            Question::Noul {
-                instructions: Field::Value(Content::from(
-                    "Does this support request require a fast response?",
-                )),
-                criteria: Field::Value(NoulCriteria {
-                    r#true: Field::Value(Content::from(
-                        "The customer reports a blocked payment or a time-sensitive deadline.",
-                    )),
-                    r#false: Field::Value(Content::from(
-                        "The request is informational or has no stated deadline.",
-                    )),
-                }),
-            },
-        ),
-        (
-            "team".into(),
-            Question::Choice {
-                instructions: Field::Value(Content::from("Which team should handle this request?")),
-                criteria: BTreeMap::from([
-                    (
-                        "billing".into(),
-                        Some(Content::from("Payments, invoices, refunds, or charges.")),
-                    ),
-                    (
-                        "technical".into(),
-                        Some(Content::from("Bugs, outages, or integration problems.")),
-                    ),
-                    (
-                        "account".into(),
-                        Some(Content::from("Login, profile, or account-access problems.")),
-                    ),
-                ]),
-            },
-        ),
-        (
-            "customer_sentiment".into(),
-            Question::Score {
-                instructions: Field::Value(Content::from("How frustrated is the customer?")),
-                criteria: vec![
-                    Content::from("Calm or neutral"),
-                    Content::from("Frustrated"),
-                    Content::from("Very angry or threatening to leave"),
-                ],
-            },
-        ),
-    ]);
+    let questions = json!({
+        "is_urgent": {
+            "type": "noul",
+            "instructions": "Does this support request require a fast response?",
+            "criteria": {
+                "true": "The customer reports a blocked payment or a time-sensitive deadline.",
+                "false": "The request is informational or has no stated deadline."
+            }
+        },
+        "team": {
+            "type": "choice",
+            "instructions": "Which team should handle this request?",
+            "criteria": {
+                "billing": "Payments, invoices, refunds, or charges.",
+                "technical": "Bugs, outages, or integration problems.",
+                "account": "Login, profile, or account-access problems."
+            }
+        },
+        "customer_sentiment": {
+            "type": "score",
+            "instructions": "How frustrated is the customer?",
+            "criteria": [
+                "Calm or neutral",
+                "Frustrated",
+                "Very angry or threatening to leave"
+            ]
+        }
+    });
 
-    let request = SystemOneRequest::new(
-        Content::from(
-            "Help! My payment has failed three times today and I need it fixed before payroll.",
-        ),
+    let request = SystemOneRequest::from_json(
+        json!("Help! My payment has failed three times today and I need it fixed before payroll."),
         questions,
     )?;
     let response = client.system_one(&request).await?;
