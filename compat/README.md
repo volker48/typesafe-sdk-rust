@@ -2,6 +2,8 @@
 
 `cases.json` contains inputs and scripted server responses, **not expected SDK
 outputs**. `expected.json` is recorded by executing the pinned Python public API.
+The foundation follow-up adds `foundation_cases.json` and
+`foundation_expected.json` without modifying that original 40-case oracle.
 `run.py` re-executes Python, detects oracle drift, then compares Rust. Each SDK gets
 a fresh loopback server, process and client per scenario; calls within a scenario
 reuse one client and consume a single ordered response script. Unexpected requests
@@ -35,13 +37,20 @@ preparation, transport, decoding and retries happen in the SDKs.
 - `test_characterization.py` adds six independent Python public-API assertions
   outside the reference checkout, including conflicts and currently unsupported
   numeric cases. These are not counted as cross-language parity.
+- The 68 foundation scenarios characterize score-key spelling/precision/collisions,
+  malformed response paths and error order, non-200 success statuses, and retry
+  metadata/header precedence/request sequences. The six additional tests in
+  `test_foundation_characterization.py` pin Python numeric behavior that Rust
+  deliberately limits. See [the follow-up record](FOUNDATION.md).
 
 ## Comparison contract
 
 Compare the ordered request sequence and ordered call outcomes. For each request,
 compare method, path, ordered query pairs, relevant headers and semantic JSON body.
 Object member order and insignificant JSON whitespace are not contractual here:
-there is no signing protocol. Arrays, request order, strings, missing members and
+there is no signing protocol. Response object order is nevertheless retained in
+fixtures: it determines which invalid map entry is reported first and which
+colliding score key wins. Arrays, request order, strings, missing members and
 explicit null are preserved. No tolerance is applied to numbers. Decimal-token
 sidecars preserve all digits without binary-float rounding; trailing decimal zero
 spelling is normalized, and the sign of zero is retained. Booleans remain distinct
@@ -54,6 +63,9 @@ we do not claim Python message-string compatibility. Missing request IDs are
 observable through absent response headers; Rust returns `Option`, while the
 Python accessor raises. Group accessors are checked natively rather than synthesized
 in the adapters.
+Foundation calls with `observe_retry_after` additionally compare the public
+rate-limit delay in milliseconds (Rust's `Duration` is converted at the adapter
+boundary). The option is removed before invoking Python's public SDK method.
 
 Only these transport details are normalized:
 
@@ -69,10 +81,12 @@ Only these transport details are normalized:
 Retries use zero backoff or fixed Retry-After values to avoid random waits; retry
 budgets use a large margin (3-second delay vs 0.1-second budget). No exact wall-clock
 assertions are made. Hash seed, SDK environment and proxies are controlled; only
-fixture credentials are passed. Timeout-triggered retries, default randomized
-backoff timing, malformed/negative Retry-After values, HTTP-date delay, TLS, cookies,
-non-ASCII/duplicate response headers, non-200 successful statuses and streaming
-are not verified by these shared cases.
+fixture credentials are passed. Foundation cases cover malformed/negative values,
+past HTTP dates, future-date retry budgets, and non-200 successful statuses.
+Native tests cover timeout-triggered retries, opt-out, concurrent overrides,
+cancellation, and deterministic date/backoff calculations. Real randomized wait
+timing, Python's numeric separators/broader email-date syntax, TLS, cookies, non-ASCII/duplicate
+response headers and streaming remain outside shared coverage.
 
 ## Running and updating
 
@@ -80,6 +94,7 @@ are not verified by these shared cases.
 cargo build --locked --example compat_adapter
 uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python
 uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --case round_trip_raw
+uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --cases compat/foundation_cases.json --expected compat/foundation_expected.json
 uv run --locked --project ../typesafe-sdk-python pytest compat/test_characterization.py -v
 ```
 
@@ -88,6 +103,8 @@ observations and updating provenance:
 
 ```sh
 uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --record
+# Record the foundation suite independently:
+uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --cases compat/foundation_cases.json --expected compat/foundation_expected.json --record
 ```
 
 Do not run that command to fix a Rust mismatch. `demonstrate_mismatch.py` copies

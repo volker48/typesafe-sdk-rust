@@ -49,3 +49,13 @@ workflow, read the [interface design](docs/request-ergonomics.md). To implement
 the next changes, follow the [plan and acceptance gates](docs/plans/request-ergonomics.md).
 Domain terms are defined in [CONTEXT.md](CONTEXT.md). Proposed methods in these
 documents are explicitly marked; they are not shipped APIs.
+
+Score keys accept integer decimal spellings, surrounding whitespace, and digit
+separators without rounding. Counts and score keys remain limited to `i64`;
+nonstandard NaN/Infinity JSON literals are rejected. HTTP validation reports nested
+paths and chooses errors in Python schema/wire order. `ApiError::retry_after`
+exposes the server's requested wait as an optional `Duration`.
+
+See the [compatibility checks](compat/README.md) and
+[foundation follow-up record](compat/FOUNDATION.md) for verified behavior and
+remaining work.
