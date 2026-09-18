@@ -88,22 +88,86 @@ pub struct Error {
     pub api: Option<Box<ApiError>>,
     message: String,
     source: Option<Box<dyn StdError + Send + Sync>>,
+    input: Option<Box<InputError>>,
+}
+
+/// Stable reasons for request-construction failures, serialized as snake_case.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "snake_case")]
+#[non_exhaustive]
+pub enum InputErrorKind {
+    InvalidContent,
+    InvalidType,
+    MissingField,
+    UnknownField,
+    UnknownQuestionKind,
+    EmptyQuestions,
+    EmptyScoreCriteria,
+}
+
+/// Local request diagnostic. The path can contain sensitive caller-defined keys.
+/// Debug omits the path; read it explicitly when needed for input repair.
+#[derive(Clone, PartialEq, Eq)]
+#[non_exhaustive]
+pub struct InputError {
+    pub kind: InputErrorKind,
+    /// RFC 6901 JSON Pointer into the conceptual `{state, questions}` input.
+    pub path: String,
+}
+impl fmt::Debug for InputError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("InputError")
+            .field("kind", &self.kind)
+            .finish_non_exhaustive()
+    }
 }
 impl fmt::Debug for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Error")
             .field("kind", &self.kind)
             .field("api", &self.api)
+            .field("input", &self.input)
             .finish_non_exhaustive()
     }
 }
 impl Error {
+    /// Structured local request failure, absent for configuration/HTTP errors.
+    /// Both the path here and an underlying Serde source may contain input data.
+    pub fn input_details(&self) -> Option<&InputError> {
+        self.input.as_deref()
+    }
+
+    pub(crate) fn request_input(kind: InputErrorKind, path: impl Into<String>) -> Self {
+        let message = match kind {
+            InputErrorKind::InvalidContent => "Expected text, an object, or an array",
+            InputErrorKind::InvalidType => "Unexpected JSON type in request",
+            InputErrorKind::MissingField => "Required request field is missing",
+            InputErrorKind::UnknownField => "Unknown request field",
+            InputErrorKind::UnknownQuestionKind => "Expected question type noul, choice, or score",
+            InputErrorKind::EmptyQuestions => "At least one question is required",
+            InputErrorKind::EmptyScoreCriteria => "At least one score criterion is required",
+        };
+        Self {
+            input: Some(Box::new(InputError {
+                kind,
+                path: path.into(),
+            })),
+            ..Self::input(message)
+        }
+    }
+
+    pub(crate) fn with_source(mut self, source: impl StdError + Send + Sync + 'static) -> Self {
+        self.source = Some(Box::new(source));
+        self
+    }
+
     pub(crate) fn input(message: impl Into<String>) -> Self {
         Self {
             kind: ErrorKind::Input,
             api: None,
             message: message.into(),
             source: None,
+            input: None,
         }
     }
     pub(crate) fn transport(error: reqwest::Error) -> Self {
@@ -116,6 +180,7 @@ impl Error {
             api: None,
             message: "HTTP transport failed".into(),
             source: Some(Box::new(error.without_url())),
+            input: None,
         }
     }
     pub(crate) fn response(
@@ -145,6 +210,7 @@ impl Error {
                 retry_after,
             })),
             source,
+            input: None,
         }
     }
 }

@@ -122,6 +122,34 @@ impl Client {
     pub fn builder() -> ClientBuilder {
         ClientBuilder::default()
     }
+    /// Render the effective JSON body without HTTP or transport headers.
+    ///
+    /// Includes the resolved model and shallow final `extra_body` overrides.
+    /// Reserved-field overrides can replace validated state/questions with raw
+    /// values, including null. The result contains potentially sensitive evidence;
+    /// it is never automatically logged. This is a snapshot: later request
+    /// mutations are reflected only by subsequent previews or execution.
+    pub fn system_one_body(&self, request: &SystemOneRequest) -> Result<Value, Error> {
+        let encoding_error =
+            |source| Error::input("Request could not be encoded as JSON").with_source(source);
+        let mut body = serde_json::Map::from_iter([
+            (
+                "state".into(),
+                serde_json::to_value(&request.state).map_err(encoding_error)?,
+            ),
+            (
+                "model".into(),
+                Value::String(request.model.as_ref().unwrap_or(&self.model).clone()),
+            ),
+            (
+                "questions".into(),
+                serde_json::to_value(&request.questions).map_err(encoding_error)?,
+            ),
+        ]);
+        body.extend(request.extra_body.clone());
+        Ok(Value::Object(body))
+    }
+
     pub async fn system_one(
         &self,
         request: &SystemOneRequest,
@@ -141,12 +169,10 @@ impl Client {
         if timeout.is_zero() {
             return Err(Error::input("Timeout must be positive"));
         }
-        let mut body = serde_json::json!({"state": request.state, "model": request.model.as_ref().unwrap_or(&self.model), "questions": request.questions});
-        if let Value::Object(map) = &mut body {
-            map.extend(request.extra_body.clone());
-        }
-        let bytes = serde_json::to_vec(&body)
-            .map_err(|_| Error::input("Request could not be encoded as JSON"))?;
+        let body = self.system_one_body(request)?;
+        let bytes = serde_json::to_vec(&body).map_err(|source| {
+            Error::input("Request could not be encoded as JSON").with_source(source)
+        })?;
         let mut headers = self.headers.clone();
         headers.extend(options.headers.clone());
         headers.remove("x-typesafe-retry-count");

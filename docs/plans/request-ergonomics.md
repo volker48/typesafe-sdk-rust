@@ -1,7 +1,10 @@
 # Request ergonomics implementation plan
 
+Status: steps 1–3 implemented; conditional typed conveniences remain deferred.
+
 This plan follows the [interface design](../request-ergonomics.md). Complete one
-slice before adding another public surface. Baseline: tracked commit `fd8d1a0`.
+slice before adding another public surface. Design baseline: `fd8d1a0`;
+implementation includes foundation commit `6a46c7d`.
 
 ## Completed here: validate the direction
 
@@ -13,11 +16,11 @@ slice before adding another public surface. Baseline: tracked commit `fd8d1a0`.
 - Simplify `sdk_smoke.rs`, README, and the compiled crate example with existing
   `json!` + `serde_json::from_value`. Preserve all smoke prompts and score order.
 - Record the domain vocabulary, decision, known conversion limits, and follow-up
-  gates. A recommendation is accepted; new SDK methods are not yet shipped.
+  gates. The following steps implement the accepted recommendation.
 
-## 1. Ship one JSON construction seam with repairable errors
+## Completed: 1. Ship one JSON construction seam with repairable errors
 
-Implement proposed `SystemOneRequest::from_json(Value, Value) -> Result<Self, Error>`
+Implemented `SystemOneRequest::from_json(Value, Value) -> Result<Self, Error>`
 and structured local input diagnostics together. Keep the existing `new` signature.
 Use a private request-decoding module only if needed to own precise decoding;
 centralize semantic checks with the typed constructor. Add no dependencies.
@@ -45,9 +48,9 @@ Use normal public-interface tests and the existing real loopback HTTP fixture.
 Extend compatibility scenarios only for observable behavior requiring comparison;
 keep Python-generated expectations independent of the Rust implementation.
 
-## 2. Make effective requests inspectable
+## Completed: 2. Make effective requests inspectable
 
-After step 1, add proposed `Client::system_one_body(&SystemOneRequest)` returning
+Added `Client::system_one_body(&SystemOneRequest)` returning
 the effective body as `Result<Value, Error>`. Extract the existing body assembly
 once and use it for both preview and execution.
 
@@ -62,7 +65,7 @@ Completion gates:
 - Tests preserve protected headers, retries, metadata, cancellation, and existing
   raw override semantics. Do not claim the final body is validated after overrides.
 
-## 3. Complete the usage loop in executable examples
+## Completed: 3. Complete the usage loop in executable examples
 
 Add one focused example showing stable questions across changed state, explicit
 total deadline and retry choices, usage/request-ID inspection, and named answer
@@ -95,14 +98,10 @@ invalid values. Keep it a thin expansion through the same typed constructors.
 
 ## Integration and verification
 
-The main checkout also contains ignored `migration/MIGRATION.md` and
-`migration/VERIFICATION.md`, plus uncommitted foundation work. They were consulted
-as context, not copied as verified facts about this baseline or edited across
-worktrees. This tracked plan adds the construction/inspection track to the
-foundation roadmap; it does not replace pending transport-compatibility decisions,
-model listing, raw extensions, or release checks. Reconcile against the foundation
-branch before implementing: its response ordering and decoding changes must remain
-intact. Keep this plan as the authoritative construction roadmap.
+Foundation commit `6a46c7d` was merged before implementation. Its response decoder,
+wire error ordering, and retry behavior are preserved. The only merge conflict
+was README documentation; both intents were retained. This construction track
+complements model listing, raw extensions, and the remaining release checks.
 
 For production implementation run `cargo fmt --check`,
 `cargo check --locked --all-targets`, `cargo test --locked --all-targets`,
@@ -111,7 +110,7 @@ For production implementation run `cargo fmt --check`,
 compatibility harness for any model/transport changes; never re-record its oracle
 to resolve a Rust failure. Inspect the final diff and report any unavailable check.
 
-For this example-and-design change, verification is bounded to compilation,
-formatting/lint, the crate example, offline prototype observations, and a loopback
-comparison of the original and simplified smoke binary. No live inference is
-needed to settle construction ergonomics.
+The [construction issue](../../.scratch/request-ergonomics/issues/01-construction.md)
+records red/green evidence, reviews, and final verification for this implementation.
+No live inference was used. The example policy tests use fixed synthetic judgments;
+model quality and threshold calibration remain application evaluation work.

@@ -9,11 +9,11 @@ use typesafe_sdk::{Client, SystemOneRequest};
 
 async fn example() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::builder().build()?; // TYPESAFE_API_KEY
-    let request = SystemOneRequest::new(
-        "My payment failed".into(),
-        serde_json::from_value(json!({
+    let request = SystemOneRequest::from_json(
+        json!("My payment failed"),
+        json!({
             "urgent": {"type": "noul", "instructions": "Is this urgent?"}
-        }))?,
+        }),
     )?;
     let response = client.system_one(&request).await?;
     for (name, probability) in response.data.nouls() {
@@ -33,22 +33,35 @@ client and per-call configuration, protected authentication headers, retries,
 HTTP metadata, and structured errors. SDK errors expose server payloads explicitly;
 ordinary error formatting excludes them. Treat raw bodies and headers as sensitive.
 
-`json!` supplies familiar literal syntax; `from_value` decodes it into typed
-questions, and `SystemOneRequest::new` checks request invariants before HTTP.
-For structured state, pass `serde_json::from_value(json!({"message": "Help"}))?`
-as the first argument. Typed `Question` construction remains available for Rust
-code that assembles questions programmatically.
+`SystemOneRequest::from_json` converts JSON literals into typed questions and
+validates locally before HTTP. Structured state uses the same syntax:
+`json!({"message": "Help", "attempts": 3})`. Existing typed construction through
+`SystemOneRequest::new` remains available.
+
+Input failures have `ErrorKind::Input`. Use `error.input_details()` for a stable
+reason and a JSON Pointer such as `/questions/team/criteria/billing`; default
+error formatting excludes submitted values and user-defined keys. Pointers and
+underlying Serde sources may contain sensitive input and are accessed explicitly.
+
+`client.system_one_body(&request)?` previews the effective body without HTTP or
+transport headers. It includes model selection and `extra_body` overrides; those
+raw overrides can replace validated fields. The preview contains your evidence
+and is never automatically logged.
 
 Omit a key to omit a field; `null` (including interpolated `None`) sends explicit
 null. Duplicate JSON keys keep the last value. For custom fallible serialization,
 use `serde_json::to_value(data)?`; [`json!` can panic on serialization failures](https://docs.rs/serde_json/1.0.151/serde_json/macro.json.html).
-The full three-question example is in [sdk_smoke.rs](src/bin/sdk_smoke.rs).
+Nonfinite floats can become null during serialization, so validate those before
+conversion when the distinction matters.
 
-For construction tradeoffs, validation contracts, and the proposed inspection
-workflow, read the [interface design](docs/request-ergonomics.md). To implement
-the next changes, follow the [plan and acceptance gates](docs/plans/request-ergonomics.md).
-Domain terms are defined in [CONTEXT.md](CONTEXT.md). Proposed methods in these
-documents are explicitly marked; they are not shipped APIs.
+See [sdk_smoke.rs](src/bin/sdk_smoke.rs) for all three question kinds, and
+[support_triage.rs](examples/support_triage.rs) for stable criteria, deadline/retry
+controls, usage reporting, and application-owned decisions with a review branch.
+The examples make live calls when run; their automated checks use local fixtures.
+
+Read the [interface design](docs/request-ergonomics.md) for contracts and tradeoffs,
+the [implementation record](docs/plans/request-ergonomics.md) for acceptance gates,
+and [CONTEXT.md](CONTEXT.md) for domain terms.
 
 Score keys accept integer decimal spellings, surrounding whitespace, and digit
 separators without rounding. Counts and score keys remain limited to `i64`;

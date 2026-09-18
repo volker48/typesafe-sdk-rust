@@ -1,12 +1,11 @@
 use serde_json::json;
-use typesafe_sdk::{Client, Content, SystemOneRequest};
+use typesafe_sdk::{Client, SystemOneRequest};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::builder().build()?;
 
-    // Decode familiar JSON syntax into the SDK's typed questions before validation.
-    let questions = serde_json::from_value(json!({
+    let questions = json!({
         "is_urgent": {
             "type": "noul",
             "instructions": "Does this support request require a fast response?",
@@ -33,12 +32,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 "Very angry or threatening to leave"
             ]
         }
-    }))?;
+    });
 
-    let request = SystemOneRequest::new(
-        Content::from(
-            "Help! My payment has failed three times today and I need it fixed before payroll.",
-        ),
+    let request = SystemOneRequest::from_json(
+        json!("Help! My payment has failed three times today and I need it fixed before payroll."),
         questions,
     )?;
     let response = client.system_one(&request).await?;

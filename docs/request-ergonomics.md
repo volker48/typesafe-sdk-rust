@@ -1,14 +1,14 @@
 # Request construction and the agent workflow
 
-Status: the smoke example, README, and crate example now use existing `json!` +
-typed deserialization. The convenience methods below are **proposed**, not public
-SDK methods. [Implementation plan](plans/request-ergonomics.md).
+Status: implemented. `SystemOneRequest::from_json`, structured local input
+diagnostics, and `Client::system_one_body` are public SDK interfaces.
+[Implementation record and acceptance gates](plans/request-ergonomics.md).
 
 ## Decision
 
 Use familiar JSON literals to author nested data, precise Rust types to establish
-request invariants, and the existing client to execute. Add one fallible JSON
-construction method next; keep the current typed constructor. Do not introduce a
+request invariants, and the existing client to execute. One fallible JSON
+construction method complements the existing typed constructor. Do not introduce a
 custom macro language for question definitions.
 
 The useful abstraction is a locally validated, inspectable request. Removing
@@ -22,7 +22,7 @@ evidence + named questions
 typed request ── local input error ──► repair the identified field
        │ resolve model and explicit overrides
        ▼
-effective body ── inspect locally (proposed)
+effective body ── inspect locally
        │ execute with explicit time/retry policy
        ▼
 typed answers + usage + transport metadata
@@ -59,9 +59,9 @@ adapter; construction needs neither a new dependency nor a transport trait.
 use serde_json::json;
 use typesafe_sdk::SystemOneRequest;
 
-let request = SystemOneRequest::new(
-    serde_json::from_value(json!({"message": "Payment failed", "attempts": 3}))?,
-    serde_json::from_value(json!({
+let request = SystemOneRequest::from_json(
+    json!({"message": "Payment failed", "attempts": 3}),
+    json!({
         "urgent": {
             "type": "noul",
             "instructions": "Does this require a fast response?",
@@ -70,16 +70,15 @@ let request = SystemOneRequest::new(
                 "false": "Informational request with no deadline."
             }
         }
-    }))?,
+    }),
 )?;
 ```
 
-The caller's return type must accommodate both Serde and SDK errors, as the smoke
-binary's `Result<(), Box<dyn std::error::Error>>` does. This is why the intermediate
-form is useful today but is not the final ergonomic interface. Raw Serde errors
-also do not carry the SDK's default error-redaction contract.
+The constructor returns the SDK's `Error`, so callers need not combine Serde
+and SDK errors just to author a literal. Custom fallible serialization remains
+explicit through `serde_json::to_value(data)?`.
 
-## Proposed construction interface
+## Construction interface
 
 ```rust
 impl SystemOneRequest {
@@ -90,7 +89,7 @@ impl SystemOneRequest {
 }
 ```
 
-Usage becomes `SystemOneRequest::from_json(json!(state), json!({...}))?`.
+Usage is `SystemOneRequest::from_json(json!(state), json!({...}))?`.
 Both `from_json` and existing `new(Content, BTreeMap<String, Question>)` converge
 on the same semantic validation. The client continues to accept a typed request.
 Do not accept arbitrary JSON directly in `Client::system_one`.
@@ -146,27 +145,32 @@ for a number at `questions.q.criteria.billing`. Adding `serde_path_to_error`
 around the existing enum decode did not recover the nested location. Do not ship
 the facade with an unsupported claim that Serde already provides useful paths.
 
-Require an input diagnostic on `Error`, separate from `ApiError`, containing a
-machine-readable reason and an RFC 6901 JSON Pointer. For this example it should
-identify `/questions/q/criteria/billing` with reason `invalid_content`. Escape
-`~` and `/` in user-defined names. Missing fields identify the missing member;
-array failures identify the index. Document first-error ordering (state, question
-names in sorted order, then fields in a fixed order) so fixes are reproducible.
+`Error::input_details()` exposes an `InputError`, separate from `ApiError`, with
+an `InputErrorKind` reason and an RFC 6901 JSON Pointer in `path`. For this example
+it identifies `/questions/q/criteria/billing` with reason `invalid_content`.
+Pointers escape `~` and `/` in user-defined names. Missing fields identify the
+missing member; array failures identify the index. First-error selection is state,
+then questions sorted by name. Each question checks object shape, type, sorted
+unknown fields, instructions, then criteria, including semantic validation before
+the next question. Noul criteria check sorted unknown fields, true, then false;
+choice labels sort by name; score levels follow array order. This local input
+order is separate from the existing Python-compatible HTTP response error order.
 
-Default Display/Debug must describe the failure without echoing supplied values
+Default Display/Debug describe the failure without echoing supplied values
 or user-defined keys. Access to the pointer and underlying source is explicit:
 both can contain caller-controlled data. Keep `ErrorKind::Input` for local
 failures, preserve a Serde source where one exists, and do not fabricate HTTP
 metadata. Existing HTTP validation paths and compatibility behavior stay intact.
 
-Implement kind-specific decoding behind one private construction module if enum
-buffering prevents precise paths. Centralize semantic checks with `new`; avoid a
-second validator in a macro, example, or client method. Integration fixtures must
-establish that typed and JSON construction accept the same domain values.
+The private `request` module decodes fields individually to avoid enum buffering
+while retaining Serde error causes for typed conversions. Semantic checks are
+shared with `new`; integration fixtures compare the two construction paths across
+presence and content shapes. Failures detected without Serde, such as a missing
+field or empty criteria, have no fabricated underlying source.
 
 ## Inspection and execution
 
-Proposed next interface:
+Effective-body interface:
 
 ```rust
 impl Client {
@@ -176,8 +180,8 @@ impl Client {
 ```
 
 This computes the effective JSON body without HTTP and without authorization
-headers. Share its private rendering implementation with `system_one_with` so
-preview includes the resolved model and final `extra_body` overrides. Test equality
+headers. `system_one_with` calls this same renderer, so preview includes the
+resolved model and final `extra_body` overrides. Integration tests compare it
 against the actual captured HTTP body. The preview contains evidence and is
 explicitly requested, never automatically logged. Request options affect
 transport, not this body. Preview is a snapshot; mutation afterward changes what
@@ -205,8 +209,9 @@ exactly-once inference or a token/cost ceiling from retry settings alone.
 
 ## Interpretation and accumulating useful knowledge
 
-Examples should use `answers.get(name)` and match the expected kind when an action
-depends on one answer. Absence or an unexpected kind must not silently become
+The [support triage example](../examples/support_triage.rs) uses `answers.get(name)`
+and matches expected kinds before escalating. Absence or an unexpected kind must
+not silently become
 false, zero, or a default route. Current group iterators are useful for inspection
 but do not establish that every requested answer arrived. Future answer kinds are
 currently omitted from typed HTTP results and retained in raw metadata.
