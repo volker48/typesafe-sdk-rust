@@ -1,0 +1,2710 @@
+[
+  {
+    "id": "round_trip_raw",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "round_trip_typed",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        },
+        "typed": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "environment_defaults",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "empty_environment_falls_back",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ],
+    "env": {
+      "TYPESAFE_DEFAULT_MODEL": "  "
+    }
+  },
+  {
+    "id": "explicit_config_wins",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      },
+      "model": "client-model"
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "presence",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": [
+          "héllo",
+          null,
+          true,
+          3,
+          {
+            "n": null
+          }
+        ],
+        "questions": {
+          "omitted": {
+            "type": "noul"
+          },
+          "null": {
+            "type": "noul",
+            "instructions": null,
+            "criteria": null
+          },
+          "nested": {
+            "type": "noul",
+            "criteria": {
+              "true": null
+            }
+          },
+          "single": {
+            "type": "score",
+            "criteria": [
+              "only"
+            ]
+          },
+          "empty_choice": {
+            "type": "choice",
+            "criteria": {}
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "headers_and_body",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      },
+      "headers": {
+        "x-custom": "client",
+        "authorization": "invalid",
+        "x-other": "kept"
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        },
+        "model": "call-model",
+        "extra_headers": {
+          "Authorization": "invalid",
+          "Accept": "invalid",
+          "Content-Type": "invalid",
+          "X-TypeSafe-Retry-Count": "17",
+          "User-Agent": "invalid",
+          "X-TypeSafe-SDK": "invalid",
+          "X-TypeSafe-Runtime": "invalid",
+          "X-Custom": "call"
+        },
+        "extra_body": {
+          "model": "body-model",
+          "state": {
+            "replaced": true
+          },
+          "nullable": null
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ],
+    "base_path": "/prefix///"
+  },
+  {
+    "id": "http_301",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 301,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_400",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 400,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_401",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 401,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_403",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 403,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_404",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 404,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_408",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 408,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_418",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 418,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_422",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 422,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_429",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_500",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 500,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "http_529",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 529,
+        "body": {
+          "detail": [
+            {
+              "loc": [
+                "body",
+                "state"
+              ],
+              "msg": "Invalid input"
+            }
+          ]
+        },
+        "headers": {
+          "x-typesafe-request-id": "error-id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "error_text",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 400,
+        "raw": "not JSON"
+      }
+    ]
+  },
+  {
+    "id": "error_empty",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 400,
+        "raw": ""
+      }
+    ]
+  },
+  {
+    "id": "error_json_null",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 400,
+        "raw": "null"
+      }
+    ]
+  },
+  {
+    "id": "missing_model",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "usage": {},
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "missing_usage",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "null_usage",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "missing_answer_type",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "noul": 0.2
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "missing_noul",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "noul"
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "null_answers",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "string_usage",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {
+            "input_tokens": "12"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "invalid_json",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "raw": "broken json"
+      }
+    ]
+  },
+  {
+    "id": "unknown_and_optional",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {
+            "output_tokens": null,
+            "future": 4
+          },
+          "extra": "ignored",
+          "answers": {
+            "future": {
+              "type": "future",
+              "value": [
+                1,
+                2
+              ]
+            },
+            "q": {
+              "type": "noul",
+              "noul": 1.25,
+              "extra": 1
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "missing_answers",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_recover",
+    "config": {
+      "api_key": "test-key"
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {
+          "error": "slow"
+        },
+        "headers": {
+          "retry-after-ms": "1"
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_exhausted",
+    "config": {
+      "api_key": "test-key"
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 529,
+        "body": {
+          "error": "busy"
+        },
+        "headers": {
+          "retry-after": "0"
+        }
+      },
+      {
+        "status": 529,
+        "body": {
+          "error": "busy"
+        },
+        "headers": {
+          "retry-after": "0"
+        }
+      },
+      {
+        "status": 529,
+        "body": {
+          "error": "busy"
+        },
+        "headers": {
+          "retry-after": "0"
+        }
+      }
+    ]
+  },
+  {
+    "id": "multi_call_reset",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        },
+        "retry": {
+          "max_retries": 1,
+          "backoff_initial": 0
+        }
+      },
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      },
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        },
+        "model": "third"
+      }
+    ],
+    "responses": [
+      {
+        "status": 500,
+        "body": {}
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "connection_recovery",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 1,
+        "backoff_initial": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "disconnect": true
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "connection_exhausted",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "disconnect": true
+      }
+    ]
+  },
+  {
+    "id": "budget_stops_before_delay",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 2,
+        "timeout": 0.1
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "3"
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_retry_status",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 1,
+        "http_statuses": [
+          418
+        ],
+        "backoff_initial": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 418,
+        "body": {}
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  },
+  {
+    "id": "connection_retry_disabled",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 2,
+        "api_connection_error": false
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "disconnect": true
+      }
+    ]
+  },
+  {
+    "id": "ignore_retry_after",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 1,
+        "backoff_initial": 0,
+        "timeout": 0.1,
+        "respect_retry_after": false
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "document": "Hello 🌍"
+        },
+        "questions": {
+          "spam": {
+            "type": "noul",
+            "instructions": "Spam?"
+          },
+          "tone": {
+            "type": "choice",
+            "instructions": "Tone?",
+            "criteria": {
+              "friendly": null,
+              "hostile": null
+            }
+          },
+          "quality": {
+            "type": "score",
+            "instructions": "Quality?",
+            "criteria": [
+              "bad",
+              "ok",
+              "great"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "3"
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "jev-latest",
+          "usage": {
+            "input_tokens": 12,
+            "output_tokens": 3
+          },
+          "answers": {
+            "spam": {
+              "type": "noul",
+              "noul": 0.98
+            },
+            "tone": {
+              "type": "choice",
+              "choice": "friendly",
+              "confidence": 0.9,
+              "probabilities": {
+                "friendly": 0.9,
+                "hostile": 0.1
+              }
+            },
+            "quality": {
+              "type": "score",
+              "score": 1.7,
+              "confidence": 0.8,
+              "legend": {
+                "0": "bad",
+                "1": "ok",
+                "2": "great"
+              },
+              "probabilities": {
+                "0": 0.1,
+                "1": 0.1,
+                "2": 0.8
+              }
+            }
+          }
+        },
+        "headers": {
+          "x-typesafe-request-id": "req-fixture"
+        }
+      }
+    ]
+  }
+]

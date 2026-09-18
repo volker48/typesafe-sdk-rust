@@ -1,0 +1,6534 @@
+{
+  "provenance": {
+    "revision": "2ce5c65f13646cab6e6f782328194c9d85f3300a",
+    "cases_sha256": "582c32e4e59f5178df4e16ba14ac73bdebbafa96bb04785ee0ce8aacaedbe97f",
+    "command": "uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --record",
+    "format": 3,
+    "source": "actual Python public API calls to scripted local HTTP server; decimal tokens preserve precision; header value lists preserve duplicate request headers"
+  },
+  "observations": {
+    "round_trip_raw": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "round_trip_typed": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "environment_defaults": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "empty_environment_falls_back": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "jev-latest",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "explicit_config_wins": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "client-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "presence": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": [
+              "héllo",
+              null,
+              true,
+              3,
+              {
+                "n": null
+              }
+            ],
+            "model": "environment-model",
+            "questions": {
+              "omitted": {
+                "type": "noul"
+              },
+              "null": {
+                "type": "noul",
+                "instructions": null,
+                "criteria": null
+              },
+              "nested": {
+                "type": "noul",
+                "criteria": {
+                  "true": null
+                }
+              },
+              "single": {
+                "type": "score",
+                "criteria": [
+                  "only"
+                ]
+              },
+              "empty_choice": {
+                "type": "choice",
+                "criteria": {}
+              }
+            }
+          },
+          "numbers": [
+            {
+              "path": [
+                "state",
+                3
+              ],
+              "value": "0:3e0"
+            }
+          ]
+        }
+      ]
+    },
+    "headers_and_body": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/prefix/v1/systemone",
+          "query": [],
+          "headers": {
+            "x-other": "kept",
+            "content-type": "application/json",
+            "x-custom": "call",
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "x-other": [
+              "kept"
+            ],
+            "content-type": [
+              "application/json"
+            ],
+            "x-custom": [
+              "call"
+            ],
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": {
+            "state": {
+              "replaced": true
+            },
+            "model": "body-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            },
+            "nullable": null
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_301": {
+      "calls": [
+        {
+          "error": "api",
+          "status": 301,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:301e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_400": {
+      "calls": [
+        {
+          "error": "bad_request",
+          "status": 400,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:4e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_401": {
+      "calls": [
+        {
+          "error": "authentication",
+          "status": 401,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:401e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_403": {
+      "calls": [
+        {
+          "error": "permission_denied",
+          "status": 403,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:403e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_404": {
+      "calls": [
+        {
+          "error": "not_found",
+          "status": 404,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:404e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_408": {
+      "calls": [
+        {
+          "error": "api",
+          "status": 408,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:408e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_418": {
+      "calls": [
+        {
+          "error": "api",
+          "status": 418,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:418e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_422": {
+      "calls": [
+        {
+          "error": "unprocessable_entity",
+          "status": 422,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:422e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_429": {
+      "calls": [
+        {
+          "error": "rate_limit",
+          "status": 429,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:429e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_500": {
+      "calls": [
+        {
+          "error": "internal_server",
+          "status": 500,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:5e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "http_529": {
+      "calls": [
+        {
+          "error": "internal_server",
+          "status": 529,
+          "body": {
+            "detail": [
+              {
+                "loc": [
+                  "body",
+                  "state"
+                ],
+                "msg": "Invalid input"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "59",
+            "x-typesafe-request-id": "error-id"
+          },
+          "request_id": "error-id",
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:529e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "error_text": {
+      "calls": [
+        {
+          "error": "bad_request",
+          "status": 400,
+          "body": "not JSON",
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "8"
+          },
+          "request_id": null,
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:4e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "error_empty": {
+      "calls": [
+        {
+          "error": "bad_request",
+          "status": 400,
+          "body": null,
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "0"
+          },
+          "request_id": null,
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:4e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "error_json_null": {
+      "calls": [
+        {
+          "error": "bad_request",
+          "status": 400,
+          "body": null,
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "4"
+          },
+          "request_id": null,
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:4e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "missing_model": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "usage": {},
+            "answers": {}
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "25"
+          },
+          "request_id": null,
+          "field_path": "model",
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "missing_usage": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "model": "m",
+            "answers": {}
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "26"
+          },
+          "request_id": null,
+          "field_path": "usage",
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "null_usage": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "model": "m",
+            "usage": null
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "26"
+          },
+          "request_id": null,
+          "field_path": "usage",
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "missing_answer_type": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "model": "m",
+            "usage": {},
+            "answers": {
+              "q": {
+                "noul": 0.2
+              }
+            }
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "53"
+          },
+          "request_id": null,
+          "field_path": "answers.q.type",
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "body",
+            "answers",
+            "q",
+            "noul"
+          ],
+          "value": "0:2e-1"
+        },
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "missing_noul": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "model": "m",
+            "usage": {},
+            "answers": {
+              "q": {
+                "type": "noul"
+              }
+            }
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "56"
+          },
+          "request_id": null,
+          "field_path": "answers.q.noul",
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "null_answers": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "model": "m",
+            "usage": {},
+            "answers": null
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "39"
+          },
+          "request_id": null,
+          "field_path": "answers",
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "string_usage": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "model": "m",
+            "usage": {
+              "input_tokens": "12"
+            }
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "43"
+          },
+          "request_id": null,
+          "field_path": "usage.input_tokens",
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "invalid_json": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": "broken json",
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "11"
+          },
+          "request_id": null,
+          "field_path": "",
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "unknown_and_optional": {
+      "calls": [
+        {
+          "ok": {
+            "model": "m",
+            "usage": {
+              "input_tokens": null,
+              "output_tokens": null
+            },
+            "answers": {
+              "q": {
+                "type": "noul",
+                "noul": 1.25
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "168"
+            },
+            "raw_hex": "7b226d6f64656c223a226d222c227573616765223a7b226f75747075745f746f6b656e73223a6e756c6c2c22667574757265223a347d2c226578747261223a2269676e6f726564222c22616e7377657273223a7b22667574757265223a7b2274797065223a22667574757265222c2276616c7565223a5b312c325d7d2c2271223a7b2274797065223a226e6f756c222c226e6f756c223a312e32352c226578747261223a317d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "q",
+            "noul"
+          ],
+          "value": "0:125e-2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "missing_answers": {
+      "calls": [
+        {
+          "ok": {
+            "model": "m",
+            "usage": {
+              "input_tokens": null,
+              "output_tokens": null
+            },
+            "answers": {}
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "24"
+            },
+            "raw_hex": "7b226d6f64656c223a226d222c227573616765223a7b7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "retry_recover": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "retry_exhausted": {
+      "calls": [
+        {
+          "error": "internal_server",
+          "status": 529,
+          "body": {
+            "error": "busy"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "16",
+            "retry-after": "0"
+          },
+          "request_id": null,
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:529e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json",
+            "x-typesafe-retry-count": "2"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ],
+            "x-typesafe-retry-count": [
+              "2"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "multi_call_reset": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        },
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        },
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        },
+        {
+          "path": [
+            1,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            1,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        },
+        {
+          "path": [
+            2,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            2,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "third",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "connection_recovery": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "connection_exhausted": {
+      "calls": [
+        {
+          "error": "connection"
+        }
+      ],
+      "numbers": [],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "budget_stops_before_delay": {
+      "calls": [
+        {
+          "error": "rate_limit",
+          "status": 429,
+          "body": {},
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "2",
+            "retry-after": "3"
+          },
+          "request_id": null,
+          "field_path": null,
+          "endpoint": "POST <origin>/v1/systemone"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:429e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "custom_retry_status": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "connection_retry_disabled": {
+      "calls": [
+        {
+          "error": "connection"
+        }
+      ],
+      "numbers": [],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    },
+    "ignore_retry_after": {
+      "calls": [
+        {
+          "ok": {
+            "model": "jev-latest",
+            "usage": {
+              "input_tokens": 12,
+              "output_tokens": 3
+            },
+            "answers": {
+              "spam": {
+                "type": "noul",
+                "noul": 0.98
+              },
+              "tone": {
+                "type": "choice",
+                "choice": "friendly",
+                "confidence": 0.9,
+                "probabilities": {
+                  "friendly": 0.9,
+                  "hostile": 0.1
+                }
+              },
+              "quality": {
+                "type": "score",
+                "score": 1.7,
+                "confidence": 0.8,
+                "legend": {
+                  "0": "bad",
+                  "1": "ok",
+                  "2": "great"
+                },
+                "probabilities": {
+                  "0": 0.1,
+                  "1": 0.1,
+                  "2": 0.8
+                }
+              }
+            }
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "364",
+              "x-typesafe-request-id": "req-fixture"
+            },
+            "raw_hex": "7b226d6f64656c223a226a65762d6c6174657374222c227573616765223a7b22696e7075745f746f6b656e73223a31322c226f75747075745f746f6b656e73223a337d2c22616e7377657273223a7b227370616d223a7b2274797065223a226e6f756c222c226e6f756c223a302e39387d2c22746f6e65223a7b2274797065223a2263686f696365222c2263686f696365223a22667269656e646c79222c22636f6e666964656e6365223a302e392c2270726f626162696c6974696573223a7b22667269656e646c79223a302e392c22686f7374696c65223a302e317d7d2c227175616c697479223a7b2274797065223a2273636f7265222c2273636f7265223a312e372c22636f6e666964656e6365223a302e382c226c6567656e64223a7b2230223a22626164222c2231223a226f6b222c2232223a226772656174227d2c2270726f626162696c6974696573223a7b2230223a302e312c2231223a302e312c2232223a302e387d7d7d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "confidence"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "0"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "1"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "probabilities",
+            "2"
+          ],
+          "value": "0:8e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "quality",
+            "score"
+          ],
+          "value": "0:17e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "spam",
+            "noul"
+          ],
+          "value": "0:98e-2"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "confidence"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "friendly"
+          ],
+          "value": "0:9e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "answers",
+            "tone",
+            "probabilities",
+            "hostile"
+          ],
+          "value": "0:1e-1"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "input_tokens"
+          ],
+          "value": "0:12e0"
+        },
+        {
+          "path": [
+            0,
+            "ok",
+            "usage",
+            "output_tokens"
+          ],
+          "value": "0:3e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": {
+            "state": {
+              "document": "Hello 🌍"
+            },
+            "model": "environment-model",
+            "questions": {
+              "spam": {
+                "type": "noul",
+                "instructions": "Spam?"
+              },
+              "tone": {
+                "type": "choice",
+                "instructions": "Tone?",
+                "criteria": {
+                  "friendly": null,
+                  "hostile": null
+                }
+              },
+              "quality": {
+                "type": "score",
+                "instructions": "Quality?",
+                "criteria": [
+                  "bad",
+                  "ok",
+                  "great"
+                ]
+              }
+            }
+          },
+          "numbers": []
+        }
+      ]
+    }
+  }
+}
