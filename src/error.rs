@@ -1,7 +1,7 @@
 use reqwest::header::HeaderMap;
 use serde::Serialize;
 use serde_json::Value;
-use std::{error::Error as StdError, fmt};
+use std::{error::Error as StdError, fmt, time::Duration};
 
 /// Raw transport metadata is separate from the serializable response data.
 #[derive(Clone)]
@@ -67,6 +67,13 @@ pub struct ApiError {
     pub body: Value,
     pub endpoint: String,
     pub field_path: Option<String>,
+    /// Server-requested retry delay, captured when the response is received.
+    /// Milliseconds take precedence over seconds/HTTP dates. Delays are rounded
+    /// to nanoseconds; invalid, negative or out-of-range delays are `None`.
+    /// Uses the first value of each header and standard HTTP-date syntax;
+    /// Python's numeric separators and broader email-date formats are not supported.
+    /// Available for every HTTP error status.
+    pub retry_after: Option<Duration>,
 }
 impl fmt::Debug for ApiError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -118,6 +125,8 @@ impl Error {
         field_path: Option<String>,
         source: Option<Box<dyn StdError + Send + Sync>>,
     ) -> Self {
+        let retry_after =
+            crate::retry::retry_after(&metadata.headers, std::time::SystemTime::now());
         let body = if metadata.body.is_empty() {
             Value::Null
         } else {
@@ -133,6 +142,7 @@ impl Error {
                 body,
                 endpoint,
                 field_path,
+                retry_after,
             })),
             source,
         }

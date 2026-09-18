@@ -5,7 +5,9 @@ import copy
 import hashlib
 import json
 import os
+import shlex
 import subprocess
+import sys
 import threading
 from decimal import Decimal
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -180,6 +182,8 @@ def main():
     parser.add_argument("--python-repo", type=Path, required=True)
     parser.add_argument("--record", action="store_true")
     parser.add_argument("--case")
+    parser.add_argument("--cases", type=Path, default=ROOT / "compat/cases.json")
+    parser.add_argument("--expected", type=Path, default=ROOT / "compat/expected.json")
     parser.add_argument(
         "--rust-bin", type=Path, default=ROOT / "target/debug/examples/compat_adapter"
     )
@@ -210,9 +214,9 @@ def main():
             "TYPESAFE_DEFAULT_MODEL": " environment-model ",
         }
     )
-    cases_path = ROOT / "compat/cases.json"
+    cases_path = args.cases
     cases = json.loads(cases_path.read_text())
-    expected_path = ROOT / "compat/expected.json"
+    expected_path = args.expected
     saved = {} if args.record else json.loads(expected_path.read_text())
     cases_hash = hashlib.sha256(cases_path.read_bytes()).hexdigest()
     if not args.record and saved["provenance"]["cases_sha256"] != cases_hash:
@@ -268,7 +272,7 @@ def main():
                         "cases_sha256": hashlib.sha256(
                             cases_path.read_bytes()
                         ).hexdigest(),
-                        "command": "uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --record",
+                        "command": "uv run --no-project python " + shlex.join(sys.argv),
                         "format": 3,
                         "source": "actual Python public API calls to scripted local HTTP server; decimal tokens preserve precision; header value lists preserve duplicate request headers",
                     },

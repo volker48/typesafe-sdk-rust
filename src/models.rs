@@ -130,8 +130,9 @@ pub struct ChoiceAnswer {
     pub confidence: f64,
     pub probabilities: BTreeMap<String, f64>,
 }
-/// Score maps use signed 64-bit integer keys. Decimal or whitespace key spellings
-/// accepted by Python (such as `"0.0"`) are not supported in this milestone.
+/// Score maps use signed 64-bit integer keys. Whitespace, signs, underscores
+/// between integer digits and zero-only fractional parts (`"1.00"`) are accepted.
+/// Conversion is exact; exponents, fractional values and out-of-range keys fail.
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct ScoreAnswer {
     pub score: f64,
@@ -146,15 +147,57 @@ where
     D: serde::Deserializer<'de>,
     T: Deserialize<'de>,
 {
-    let strings = BTreeMap::<String, T>::deserialize(deserializer)?;
-    strings
-        .into_iter()
-        .map(|(key, value)| {
-            key.parse()
-                .map(|key| (key, value))
-                .map_err(serde::de::Error::custom)
+    struct Entries<T>(std::marker::PhantomData<T>);
+    impl<'de, T: Deserialize<'de>> serde::de::Visitor<'de> for Entries<T> {
+        type Value = BTreeMap<i64, T>;
+        fn expecting(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            f.write_str("an object with integer score keys")
+        }
+        fn visit_map<A: serde::de::MapAccess<'de>>(
+            self,
+            mut map: A,
+        ) -> Result<Self::Value, A::Error> {
+            let mut result = BTreeMap::new();
+            while let Some(raw) = map.next_key::<String>()? {
+                let key = score_key(&raw).map_err(serde::de::Error::custom)?;
+                result.insert(key, map.next_value()?);
+            }
+            Ok(result)
+        }
+    }
+    deserializer.deserialize_map(Entries(std::marker::PhantomData))
+}
+
+pub(crate) fn score_key(raw: &str) -> Result<i64, &'static str> {
+    let raw = raw.trim();
+    let integer = if let Some((integer, fraction)) = raw.split_once('.') {
+        if fraction.is_empty() || !fraction.bytes().all(|b| b == b'0') {
+            return Err("Expected an integer score key");
+        }
+        integer
+    } else {
+        raw
+    };
+    let digits = integer
+        .strip_prefix(['+', '-'])
+        .unwrap_or(integer)
+        .as_bytes();
+    if digits.is_empty()
+        || !digits.iter().enumerate().all(|(i, b)| {
+            b.is_ascii_digit()
+                || (*b == b'_'
+                    && i > 0
+                    && digits[i - 1].is_ascii_digit()
+                    && digits.get(i + 1).is_some_and(u8::is_ascii_digit))
         })
-        .collect()
+    {
+        return Err("Expected an integer score key");
+    }
+    // Never round through f64: score levels can exceed its exact integer range.
+    integer
+        .replace('_', "")
+        .parse()
+        .map_err(|_| "Score key is outside the i64 range")
 }
 /// Missing/null counts become `None`; integer counts must fit in `i64`.
 /// The Python reference also supports integers outside this range.

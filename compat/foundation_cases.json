@@ -1,0 +1,2475 @@
+[
+  {
+    "id": "score_key_decimal",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "0.0": "rubric"
+              },
+              "probabilities": {
+                "0.0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_whitespace",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "  1  ": "rubric"
+              },
+              "probabilities": {
+                "  1  ": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_underscores",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "1_0.0_0": "rubric"
+              },
+              "probabilities": {
+                "1_0.0_0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_plus",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "+01.00": "rubric"
+              },
+              "probabilities": {
+                "+01.00": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_negative",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "-1.000": "rubric"
+              },
+              "probabilities": {
+                "-1.000": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_negative_zero",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "-0.0": "rubric"
+              },
+              "probabilities": {
+                "-0.0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_exact_large",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "9007199254740993.0": "rubric"
+              },
+              "probabilities": {
+                "9007199254740993.0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_max_i64",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "9223372036854775807.0": "rubric"
+              },
+              "probabilities": {
+                "9223372036854775807.0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_min_i64",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "-9223372036854775808.0": "rubric"
+              },
+              "probabilities": {
+                "-9223372036854775808.0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_invalid",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "abc": "rubric"
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_exponent",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "1e2": "rubric"
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_fractional",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "1.01": "rubric"
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_empty",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "": "rubric"
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_trailing_dot",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "1.": "rubric"
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_leading_dot",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                ".0": "rubric"
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_double_underscore",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "1__0": "rubric"
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_unicode",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "١": "rubric"
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "legend_number",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "0": 3
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "legend_null",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "0": null
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "legend_bool",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "0": true
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_collision",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "0": "first",
+                "0.0": "last"
+              },
+              "probabilities": {
+                "0": 0.2,
+                "0.0": 0.8
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "legend_error_wire_order",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "z": "first",
+                "a": "second"
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_probability_type",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "0": "zero"
+              },
+              "probabilities": {
+                "0": "invalid"
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "key_before_value_error",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "abc": 3
+              },
+              "probabilities": {
+                "0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "envelope_field_order",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "usage": null,
+          "answers": null
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "usage_field_order",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {
+            "output_tokens": "bad",
+            "input_tokens": "bad"
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "answer_field_order",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "probabilities": null,
+              "legend": null,
+              "confidence": false,
+              "score": "bad"
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "answer_missing_field_order",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "choice",
+              "confidence": false
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "answer_wire_order",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "z": {
+              "type": "noul",
+              "noul": false
+            },
+            "a": {
+              "type": "noul",
+              "noul": null
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "type_preflight_order",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "usage": null,
+          "answers": {
+            "z": {},
+            "a": {}
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "type_preflight_before_value",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "a": {
+              "type": "noul",
+              "noul": "bad"
+            },
+            "z": {}
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "unknown_type_before_invalid",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "z": {
+              "type": "future"
+            },
+            "q": {
+              "type": "noul",
+              "noul": "bad"
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "root_null",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": null,
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "root_array",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": [],
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "root_string",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": "bad",
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "usage_bool",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {
+            "input_tokens": true
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "usage_float",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {
+            "input_tokens": 1.0
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "success_201",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 201,
+        "body": {
+          "model": "m",
+          "usage": {}
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "success_202",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 202,
+        "body": {
+          "model": "m",
+          "usage": {}
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "success_204",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 204,
+        "body": {
+          "model": "m",
+          "usage": {}
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "success_299",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 299,
+        "body": {
+          "model": "m",
+          "usage": {}
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_underscores_accepted",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "1_0.00": "rubric"
+              },
+              "probabilities": {
+                "1_0.00": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_underscore_trailing",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "1_": "rubric"
+              },
+              "probabilities": {
+                "1_": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_underscore_leading",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "_1": "rubric"
+              },
+              "probabilities": {
+                "_1": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_underscore_decimal",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "1_.0": "rubric"
+              },
+              "probabilities": {
+                "1_.0": 1
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "score_key_collision_reversed",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "score",
+              "score": 0,
+              "confidence": 1,
+              "legend": {
+                "0.0": "first",
+                "0": "last"
+              },
+              "probabilities": {
+                "0": 0.2,
+                "0.0": 0.8
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_seconds",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "1.5"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_milliseconds",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after-ms": "125"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_precedence",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after-ms": "0",
+          "retry-after": "50"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_negative_ms",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after-ms": "-1",
+          "retry-after": "2"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_invalid_ms",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after-ms": "bad",
+          "retry-after": "2"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_nan_ms",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after-ms": "NaN",
+          "retry-after": "1.5"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_infinite_ms",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after-ms": "inf"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_negative_seconds",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "-1"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_empty_seconds",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": ""
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_overflow",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "1e308"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_malformed",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "garbage"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_past_date",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "Sun, 06 Nov 1994 08:49:37 GMT"
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_metadata_missing",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "observe_retry_after": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "retry_sequence_invalid",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 1,
+        "backoff_initial": 0,
+        "timeout": 0.1
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "bad"
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_sequence_negative",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 1,
+        "backoff_initial": 0,
+        "timeout": 0.1
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "-1"
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_sequence_past",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 1,
+        "backoff_initial": 0,
+        "timeout": 0.1
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "Sun, 06 Nov 1994 08:49:37 GMT"
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "retry_sequence_future",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 1,
+        "backoff_initial": 0,
+        "timeout": 0.1
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {},
+        "headers": {
+          "retry-after": "Thu, 01 Jan 2099 00:00:00 GMT"
+        }
+      }
+    ]
+  },
+  {
+    "id": "choice_probability_empty",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "choice",
+              "choice": "x",
+              "confidence": 1,
+              "probabilities": {
+                "": false
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "choice_probability_dot",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "choice",
+              "choice": "x",
+              "confidence": 1,
+              "probabilities": {
+                ".": false
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "choice_probability_dotted",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "choice",
+              "choice": "x",
+              "confidence": 1,
+              "probabilities": {
+                "a.b": false
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "choice_probability_brackets",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "choice",
+              "choice": "x",
+              "confidence": 1,
+              "probabilities": {
+                "a[0]": false
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  },
+  {
+    "id": "choice_probability_ordinary",
+    "config": {
+      "api_key": "test-key",
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {
+            "q": {
+              "type": "choice",
+              "choice": "x",
+              "confidence": 1,
+              "probabilities": {
+                "z": false
+              }
+            }
+          }
+        },
+        "headers": {}
+      }
+    ]
+  }
+]

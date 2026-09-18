@@ -30,3 +30,13 @@ Supports Noul, Choice and Score, structured state, explicit omitted/null fields,
 client and per-call configuration, protected authentication headers, retries,
 HTTP metadata, and structured errors. Errors expose server payloads explicitly;
 ordinary error formatting excludes them. Treat raw bodies and headers as sensitive.
+
+Score keys accept integer decimal spellings, surrounding whitespace, and digit
+separators without rounding. Counts and score keys remain limited to `i64`;
+nonstandard NaN/Infinity JSON literals are rejected. HTTP validation reports nested
+paths and chooses errors in Python schema/wire order. `ApiError::retry_after`
+exposes the server's requested wait as an optional `Duration`.
+
+See the [compatibility checks](compat/README.md) and
+[foundation follow-up record](compat/FOUNDATION.md) for verified behavior and
+remaining work.

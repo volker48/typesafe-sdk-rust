@@ -2,7 +2,6 @@ use crate::{
     Error, ErrorKind, HeaderMap, HeaderValue, Metadata, Response, RetryPolicy, SystemOneRequest,
     SystemOneResponse,
 };
-use serde::Deserialize;
 use serde_json::Value;
 use std::time::Duration;
 
@@ -230,7 +229,7 @@ impl Client {
                 None,
             ));
         }
-        match decode(&metadata.body) {
+        match crate::decode::system_one(&metadata.body) {
             Ok(data) => Ok(Response { data, metadata }),
             Err((path, source)) => Err(Error::response(
                 ErrorKind::Validation,
@@ -241,75 +240,4 @@ impl Client {
             )),
         }
     }
-}
-type DecodeFailure = (String, Option<Box<dyn std::error::Error + Send + Sync>>);
-fn decode(body: &[u8]) -> Result<SystemOneResponse, DecodeFailure> {
-    let value: Value =
-        serde_json::from_slice(body).map_err(|e| (String::new(), Some(Box::new(e) as _)))?;
-    if !value.is_object() {
-        return Err((String::new(), None));
-    }
-    if let Some(Value::Object(answers)) = value.get("answers") {
-        for (name, raw) in answers.iter() {
-            if raw.get("type").and_then(Value::as_str).is_none() {
-                return Err((format!("answers.{name}.type"), None));
-            }
-        }
-    }
-    // Decode answers separately so paths do not expose Serde's enum internals.
-    #[derive(Deserialize)]
-    struct Envelope {
-        model: String,
-        usage: crate::Usage,
-        #[serde(default)]
-        answers: std::collections::BTreeMap<String, Value>,
-    }
-    let envelope: Envelope = parse(value)?;
-    let mut answers = std::collections::BTreeMap::new();
-    for (name, raw) in envelope.answers {
-        let decoded = match raw["type"].as_str() {
-            Some("noul") => parse(raw).map(crate::Answer::Noul),
-            Some("choice") => parse(raw).map(crate::Answer::Choice),
-            Some("score") => parse(raw).map(crate::Answer::Score),
-            _ => continue,
-        };
-        let answer = decoded.map_err(|(path, source)| {
-            (
-                format!(
-                    "answers.{name}{}",
-                    if path.is_empty() {
-                        String::new()
-                    } else {
-                        format!(".{path}")
-                    }
-                ),
-                source,
-            )
-        })?;
-        answers.insert(name, answer);
-    }
-    Ok(SystemOneResponse {
-        model: envelope.model,
-        usage: envelope.usage,
-        answers,
-    })
-}
-fn parse<T: serde::de::DeserializeOwned>(value: Value) -> Result<T, DecodeFailure> {
-    serde_path_to_error::deserialize(value).map_err(|e| {
-        let mut path = e.path().to_string();
-        if path == "." {
-            path.clear();
-        }
-        let message = e.inner().to_string();
-        if let Some(missing) = message
-            .strip_prefix("missing field `")
-            .and_then(|s| s.split('`').next())
-        {
-            if !path.is_empty() {
-                path.push('.');
-            }
-            path.push_str(missing);
-        }
-        (path, Some(Box::new(e) as _))
-    })
 }

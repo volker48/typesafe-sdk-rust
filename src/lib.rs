@@ -13,6 +13,7 @@
 //! # Ok(()) }
 //! ```
 mod client;
+mod decode;
 mod error;
 mod models;
 mod retry;

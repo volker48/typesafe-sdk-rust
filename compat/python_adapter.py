@@ -13,6 +13,7 @@ from typesafe_sdk import (
     TypeSafeAPIResponseValidationError,
     TypeSafeAPITimeoutError,
     TypeSafeClient,
+    TypeSafeRateLimitError,
 )
 
 
@@ -38,6 +39,7 @@ def main():
     with TypeSafeClient(**config) as client:
         for call in scenario["calls"]:
             args = call.copy()
+            observe_retry_after = args.pop("observe_retry_after", False)
             if args.pop("typed", False):
                 args["questions"] = {
                     key: {"noul": Noul, "choice": Choice, "score": Score}[q["type"]](
@@ -87,6 +89,12 @@ def main():
                         else None,
                     }
                 )
+                if observe_retry_after:
+                    observations[-1]["retry_after_ms"] = (
+                        error.retry_after_ms
+                        if isinstance(error, TypeSafeRateLimitError)
+                        else None
+                    )
             except TypeSafeAPITimeoutError:
                 observations.append({"error": "timeout"})
             except TypeSafeAPIConnectionError:

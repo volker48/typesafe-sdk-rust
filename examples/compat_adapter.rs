@@ -70,6 +70,8 @@ struct Config {
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Call {
+    #[serde(default)]
+    observe_retry_after: bool,
     // Rust always uses typed questions; this selects Python's constructor path.
     #[serde(default, rename = "typed")]
     _typed: bool,
@@ -143,7 +145,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         };
         match client.system_one_with(&request, &options).await {
             Ok(r) => observations.push(json!({"ok": r.data, "metadata": {"status": r.metadata.status, "headers": header_json(&r.metadata.headers)?, "raw_hex": r.metadata.body.iter().map(|b| format!("{b:02x}")).collect::<String>()}})),
-            Err(e) => if let Some(api) = e.api { observations.push(json!({"error": e.kind, "status": api.metadata.status, "body": api.body, "headers": header_json(&api.metadata.headers)?, "request_id": api.metadata.request_id(), "field_path": api.field_path, "endpoint": api.endpoint.replace(&scenario.origin, "<origin>")})); } else { observations.push(json!({"error": e.kind})); }
+            Err(e) => if let Some(api) = e.api {
+                let mut observation = json!({"error": e.kind, "status": api.metadata.status, "body": api.body, "headers": header_json(&api.metadata.headers)?, "request_id": api.metadata.request_id(), "field_path": api.field_path, "endpoint": api.endpoint.replace(&scenario.origin, "<origin>")});
+                if call.observe_retry_after {
+                    observation["retry_after_ms"] = json!(if e.kind == ErrorKind::RateLimit {
+                        api.retry_after.map(|delay| delay.as_secs_f64() * 1000.0)
+                    } else { None });
+                }
+                observations.push(observation);
+            } else { observations.push(json!({"error": e.kind})); }
         }
     }
     println!("{}", serde_json::to_string(&observations)?);
