@@ -4,14 +4,16 @@ A standalone, safe Rust implementation of `POST /v1/systemone`. Production code 
 no Python dependency. This is **not yet a complete port** of the Python SDK.
 
 ```rust,no_run
-use std::collections::BTreeMap;
-use typesafe_sdk::{Client, Question, SystemOneRequest};
+use serde_json::json;
+use typesafe_sdk::{Client, SystemOneRequest};
 
 async fn example() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::builder().build()?; // TYPESAFE_API_KEY
     let request = SystemOneRequest::new(
         "My payment failed".into(),
-        BTreeMap::from([("urgent".into(), Question::noul("Is this urgent?"))]),
+        serde_json::from_value(json!({
+            "urgent": {"type": "noul", "instructions": "Is this urgent?"}
+        }))?,
     )?;
     let response = client.system_one(&request).await?;
     for (name, probability) in response.data.nouls() {
@@ -28,5 +30,22 @@ cancels it; no SDK worker keeps retrying in the background.
 
 Supports Noul, Choice and Score, structured state, explicit omitted/null fields,
 client and per-call configuration, protected authentication headers, retries,
-HTTP metadata, and structured errors. Errors expose server payloads explicitly;
+HTTP metadata, and structured errors. SDK errors expose server payloads explicitly;
 ordinary error formatting excludes them. Treat raw bodies and headers as sensitive.
+
+`json!` supplies familiar literal syntax; `from_value` decodes it into typed
+questions, and `SystemOneRequest::new` checks request invariants before HTTP.
+For structured state, pass `serde_json::from_value(json!({"message": "Help"}))?`
+as the first argument. Typed `Question` construction remains available for Rust
+code that assembles questions programmatically.
+
+Omit a key to omit a field; `null` (including interpolated `None`) sends explicit
+null. Duplicate JSON keys keep the last value. For custom fallible serialization,
+use `serde_json::to_value(data)?`; [`json!` can panic on serialization failures](https://docs.rs/serde_json/1.0.151/serde_json/macro.json.html).
+The full three-question example is in [sdk_smoke.rs](src/bin/sdk_smoke.rs).
+
+For construction tradeoffs, validation contracts, and the proposed inspection
+workflow, read the [interface design](docs/request-ergonomics.md). To implement
+the next changes, follow the [plan and acceptance gates](docs/plans/request-ergonomics.md).
+Domain terms are defined in [CONTEXT.md](CONTEXT.md). Proposed methods in these
+documents are explicitly marked; they are not shipped APIs.

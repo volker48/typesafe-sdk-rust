@@ -1,13 +1,16 @@
 //! Native asynchronous TypeSafe client. Requires a Tokio runtime.
 //!
 //! ```no_run
-//! use std::collections::BTreeMap;
-//! use typesafe_sdk::{Client, Content, Question, SystemOneRequest};
+//! use serde_json::json;
+//! use typesafe_sdk::{Client, SystemOneRequest};
 //! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
 //! let client = Client::builder().build()?;
-//! let request = SystemOneRequest::new(Content::from("Please help"), BTreeMap::from([
-//!     ("urgent".into(), Question::noul("Is this urgent?")),
-//! ]))?;
+//! let request = SystemOneRequest::new(
+//!     "Please help".into(),
+//!     serde_json::from_value(json!({
+//!         "urgent": {"type": "noul", "instructions": "Is this urgent?"}
+//!     }))?,
+//! )?;
 //! let response = client.system_one(&request).await?;
 //! println!("{:?}", response.data.answers);
 //! # Ok(()) }
