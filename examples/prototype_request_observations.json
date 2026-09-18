@@ -1,0 +1,288 @@
+{
+  "baseline": "fd8d1a0",
+  "duplicate_pairs_diagnostic": "Duplicate question name",
+  "limitations": [
+    "Macro only explores literal keys; hygiene and dynamic expressions unverified",
+    "Typed choice helper does not reject duplicate labels",
+    "Debug equality is exploratory evidence, not a production test",
+    "Serde enum buffering loses nested error location"
+  ],
+  "macro_request_constructed": "SystemOneRequest { state: Text(\"Help! My payment has failed three times today and I need it fixed before payroll.\"), questions: {\"urgent\": Noul { instructions: Value(Text(\"Is this urgent?\")), criteria: Omitted }}, model: None, extra_body: {} }",
+  "observations": [
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "smoke",
+      "questions": {
+        "customer_sentiment": {
+          "criteria": [
+            "Calm or neutral",
+            "Frustrated",
+            "Very angry or threatening to leave"
+          ],
+          "instructions": "How frustrated is the customer?",
+          "type": "score"
+        },
+        "is_urgent": {
+          "criteria": {
+            "false": "The request is informational or has no stated deadline.",
+            "true": "The customer reports a blocked payment or a time-sensitive deadline."
+          },
+          "instructions": "Does this support request require a fast response?",
+          "type": "noul"
+        },
+        "team": {
+          "criteria": {
+            "account": "Login, profile, or account-access problems.",
+            "billing": "Payments, invoices, refunds, or charges.",
+            "technical": "Bugs, outages, or integration problems."
+          },
+          "instructions": "Which team should handle this request?",
+          "type": "choice"
+        }
+      },
+      "serialized_questions": {
+        "customer_sentiment": {
+          "criteria": [
+            "Calm or neutral",
+            "Frustrated",
+            "Very angry or threatening to leave"
+          ],
+          "instructions": "How frustrated is the customer?",
+          "type": "score"
+        },
+        "is_urgent": {
+          "criteria": {
+            "false": "The request is informational or has no stated deadline.",
+            "true": "The customer reports a blocked payment or a time-sensitive deadline."
+          },
+          "instructions": "Does this support request require a fast response?",
+          "type": "noul"
+        },
+        "team": {
+          "criteria": {
+            "account": "Login, profile, or account-access problems.",
+            "billing": "Payments, invoices, refunds, or charges.",
+            "technical": "Bugs, outages, or integration problems."
+          },
+          "instructions": "Which team should handle this request?",
+          "type": "choice"
+        }
+      },
+      "state": "Help! My payment has failed three times today and I need it fixed before payroll."
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "structured",
+      "questions": {
+        "dynamic_question": {
+          "type": "noul"
+        }
+      },
+      "serialized_questions": {
+        "dynamic_question": {
+          "type": "noul"
+        }
+      },
+      "state": {
+        "account": null,
+        "attempts": 3,
+        "message": "Help! My payment has failed three times today and I need it fixed before payroll."
+      }
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "omitted",
+      "questions": {
+        "q": {
+          "type": "noul"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "type": "noul"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "null",
+      "questions": {
+        "q": {
+          "criteria": null,
+          "instructions": null,
+          "type": "noul"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "criteria": null,
+          "instructions": null,
+          "type": "noul"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "choice_null",
+      "questions": {
+        "q": {
+          "criteria": {
+            "billing": null
+          },
+          "type": "choice"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "criteria": {
+            "billing": null
+          },
+          "type": "choice"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "At least one question is required.",
+      "name": "empty_questions",
+      "questions": {},
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "Score question \"q\" has no criteria; at least one score is required.",
+      "name": "empty_score",
+      "questions": {
+        "q": {
+          "criteria": [],
+          "type": "score"
+        }
+      },
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "one_score",
+      "questions": {
+        "q": {
+          "criteria": [
+            "Only level"
+          ],
+          "type": "score"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "criteria": [
+            "Only level"
+          ],
+          "type": "score"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "empty_choice",
+      "questions": {
+        "q": {
+          "criteria": {},
+          "type": "choice"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "criteria": {},
+          "type": "choice"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "data did not match any variant of untagged enum Content",
+      "name": "scalar_state",
+      "questions": {
+        "q": {
+          "type": "noul"
+        }
+      },
+      "serialized_questions": null,
+      "state": 42
+    },
+    {
+      "accepted": false,
+      "diagnostic": "q: unknown field `instruction`, expected `instructions` or `criteria`",
+      "name": "typo",
+      "questions": {
+        "q": {
+          "instruction": "Typo",
+          "type": "noul"
+        }
+      },
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "q: data did not match any variant of untagged enum Content",
+      "name": "bad_content",
+      "questions": {
+        "q": {
+          "criteria": {
+            "billing": 42
+          },
+          "type": "choice"
+        }
+      },
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "q.type: unknown variant `future`, expected one of `noul`, `choice`, `score`",
+      "name": "future",
+      "questions": {
+        "q": {
+          "type": "future"
+        }
+      },
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "duplicate_json",
+      "questions": {
+        "q": {
+          "instructions": "Second",
+          "type": "noul"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "instructions": "Second",
+          "type": "noul"
+        }
+      },
+      "state": "x"
+    }
+  ],
+  "scope": "Offline fixture experiment, not a shipped API or wire replay",
+  "smoke_questions_equal": true,
+  "typed_and_json_request_debug_equal": true,
+  "typed_and_pairs_request_debug_equal": true
+}

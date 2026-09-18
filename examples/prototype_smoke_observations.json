@@ -1,0 +1,1 @@
+{"smoke_http_bodies_equal": true, "path": "/v1/systemone", "question_names": ["customer_sentiment", "is_urgent", "team"]}

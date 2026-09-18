@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request construction · throwaway prototype</title>
+<style>
+:root { color-scheme: light; font: 16px/1.5 system-ui, sans-serif; color: #253331; background: #f5f6f2; }
+body { max-width: 1100px; margin: 40px auto; padding: 0 24px 50px; }
+h1 { font-size: 32px; margin-bottom: 8px; } h2 { font-size: 19px; margin: 0 0 12px; }
+p { max-width: 850px; } .eyebrow { color: #537065; font-size: 12px; letter-spacing: .12em; font-weight: 700; }
+.panel { background: white; border: 1px solid #d4dfd6; border-radius: 10px; padding: 22px; margin: 18px 0; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+button, select { font: inherit; border: 1px solid #97b2a5; background: white; color: #204d3e; border-radius: 6px; padding: 8px 12px; margin: 3px; cursor: pointer; }
+button.active { background: #204d3e; color: white; } button:disabled { opacity: .5; cursor: default; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.55 ui-monospace, monospace; background: #f5f6f2; border-radius: 6px; padding: 14px; }
+dt { font-weight: 650; } dd { margin: 0 0 12px; } #status { font-weight: 650; } .muted { color: #5f6e65; }
+@media(max-width: 750px) { .grid { grid-template-columns: 1fr; } body { margin-top: 20px; } }
+</style>
+<body>
+<div class="eyebrow">THROWAWAY · OFFLINE · NO API CALLS</div>
+<h1>Can familiar JSON stay precise?</h1>
+<p>Explore whether JSON literals can replace the map and wrapper ceremony in a TypeSafe request while preserving its meaning. This is a <strong>data-shape prototype</strong>, not a UI proposal. It displays observations from the Rust experiment at <code>fd8d1a0</code>; it does not compile Rust or validate arbitrary edits in your browser.</p>
+<div class="panel"><h2>Current request</h2><dl id="summary"></dl><div id="status" role="status" aria-live="polite"></div><p id="lesson"></p></div>
+<div class="panel"><h2>Free play</h2><label for="scenario">Situation </label><select id="scenario"></select><button id="validate">Validate locally</button><button id="inspect">Inspect typed questions</button><button id="reset">Reset</button><p class="muted">Choosing a situation clears the previous result. All results are captured Rust observations, not simulated service responses. Inspection shows typed questions only, not an effective HTTP body.</p></div>
+<div class="grid"><div class="panel"><h2>Evidence</h2><pre id="evidence"></pre><h2>Authored questions</h2><pre id="draft"></pre></div><div class="panel"><h2>Observed result</h2><pre id="result"></pre><p class="muted">Model configuration, headers, retries, and answers are outside this offline experiment. No judgment has been executed.</p></div></div>
+<div class="panel"><h2>Guided walkthroughs</h2><div id="tabs" role="tablist" aria-label="Walkthroughs"></div><p id="guide"></p><div id="steps"></div></div>
+<div class="panel"><h2>What the experiment settled</h2><p id="verdict"></p><p>Recommendation: use <code>json!</code> plus typed conversion now; add a fallible SDK constructor with precise input diagnostics next. Keep typed Rust for programmatic composition. A custom nested macro grammar does not solve the error-repair problem.</p><p class="muted">The pair constructor rejects duplicate names, but the tiny prototype macro covers literal keys only. Macro hygiene, arbitrary expressions, and production-quality diagnostics were not established.</p></div>
+<script id="observations" type="application/json">{
+  "baseline": "fd8d1a0",
+  "duplicate_pairs_diagnostic": "Duplicate question name",
+  "limitations": [
+    "Macro only explores literal keys; hygiene and dynamic expressions unverified",
+    "Typed choice helper does not reject duplicate labels",
+    "Debug equality is exploratory evidence, not a production test",
+    "Serde enum buffering loses nested error location"
+  ],
+  "macro_request_constructed": "SystemOneRequest { state: Text(\"Help! My payment has failed three times today and I need it fixed before payroll.\"), questions: {\"urgent\": Noul { instructions: Value(Text(\"Is this urgent?\")), criteria: Omitted }}, model: None, extra_body: {} }",
+  "observations": [
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "smoke",
+      "questions": {
+        "customer_sentiment": {
+          "criteria": [
+            "Calm or neutral",
+            "Frustrated",
+            "Very angry or threatening to leave"
+          ],
+          "instructions": "How frustrated is the customer?",
+          "type": "score"
+        },
+        "is_urgent": {
+          "criteria": {
+            "false": "The request is informational or has no stated deadline.",
+            "true": "The customer reports a blocked payment or a time-sensitive deadline."
+          },
+          "instructions": "Does this support request require a fast response?",
+          "type": "noul"
+        },
+        "team": {
+          "criteria": {
+            "account": "Login, profile, or account-access problems.",
+            "billing": "Payments, invoices, refunds, or charges.",
+            "technical": "Bugs, outages, or integration problems."
+          },
+          "instructions": "Which team should handle this request?",
+          "type": "choice"
+        }
+      },
+      "serialized_questions": {
+        "customer_sentiment": {
+          "criteria": [
+            "Calm or neutral",
+            "Frustrated",
+            "Very angry or threatening to leave"
+          ],
+          "instructions": "How frustrated is the customer?",
+          "type": "score"
+        },
+        "is_urgent": {
+          "criteria": {
+            "false": "The request is informational or has no stated deadline.",
+            "true": "The customer reports a blocked payment or a time-sensitive deadline."
+          },
+          "instructions": "Does this support request require a fast response?",
+          "type": "noul"
+        },
+        "team": {
+          "criteria": {
+            "account": "Login, profile, or account-access problems.",
+            "billing": "Payments, invoices, refunds, or charges.",
+            "technical": "Bugs, outages, or integration problems."
+          },
+          "instructions": "Which team should handle this request?",
+          "type": "choice"
+        }
+      },
+      "state": "Help! My payment has failed three times today and I need it fixed before payroll."
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "structured",
+      "questions": {
+        "dynamic_question": {
+          "type": "noul"
+        }
+      },
+      "serialized_questions": {
+        "dynamic_question": {
+          "type": "noul"
+        }
+      },
+      "state": {
+        "account": null,
+        "attempts": 3,
+        "message": "Help! My payment has failed three times today and I need it fixed before payroll."
+      }
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "omitted",
+      "questions": {
+        "q": {
+          "type": "noul"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "type": "noul"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "null",
+      "questions": {
+        "q": {
+          "criteria": null,
+          "instructions": null,
+          "type": "noul"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "criteria": null,
+          "instructions": null,
+          "type": "noul"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "choice_null",
+      "questions": {
+        "q": {
+          "criteria": {
+            "billing": null
+          },
+          "type": "choice"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "criteria": {
+            "billing": null
+          },
+          "type": "choice"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "At least one question is required.",
+      "name": "empty_questions",
+      "questions": {},
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "Score question \"q\" has no criteria; at least one score is required.",
+      "name": "empty_score",
+      "questions": {
+        "q": {
+          "criteria": [],
+          "type": "score"
+        }
+      },
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "one_score",
+      "questions": {
+        "q": {
+          "criteria": [
+            "Only level"
+          ],
+          "type": "score"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "criteria": [
+            "Only level"
+          ],
+          "type": "score"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "empty_choice",
+      "questions": {
+        "q": {
+          "criteria": {},
+          "type": "choice"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "criteria": {},
+          "type": "choice"
+        }
+      },
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "data did not match any variant of untagged enum Content",
+      "name": "scalar_state",
+      "questions": {
+        "q": {
+          "type": "noul"
+        }
+      },
+      "serialized_questions": null,
+      "state": 42
+    },
+    {
+      "accepted": false,
+      "diagnostic": "q: unknown field `instruction`, expected `instructions` or `criteria`",
+      "name": "typo",
+      "questions": {
+        "q": {
+          "instruction": "Typo",
+          "type": "noul"
+        }
+      },
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "q: data did not match any variant of untagged enum Content",
+      "name": "bad_content",
+      "questions": {
+        "q": {
+          "criteria": {
+            "billing": 42
+          },
+          "type": "choice"
+        }
+      },
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": false,
+      "diagnostic": "q.type: unknown variant `future`, expected one of `noul`, `choice`, `score`",
+      "name": "future",
+      "questions": {
+        "q": {
+          "type": "future"
+        }
+      },
+      "serialized_questions": null,
+      "state": "x"
+    },
+    {
+      "accepted": true,
+      "diagnostic": null,
+      "name": "duplicate_json",
+      "questions": {
+        "q": {
+          "instructions": "Second",
+          "type": "noul"
+        }
+      },
+      "serialized_questions": {
+        "q": {
+          "instructions": "Second",
+          "type": "noul"
+        }
+      },
+      "state": "x"
+    }
+  ],
+  "scope": "Offline fixture experiment, not a shipped API or wire replay",
+  "smoke_questions_equal": true,
+  "typed_and_json_request_debug_equal": true,
+  "typed_and_pairs_request_debug_equal": true
+}
+</script>
+<script>
+const evidence = JSON.parse(document.getElementById('observations').textContent);
+const names = {
+ smoke: ['Support request', 'The complete smoke example has the same typed question serialization as the original.'],
+ structured: ['Structured evidence and a dynamic name', 'Nested null is valid evidence. The question name came from a Rust expression.'],
+ omitted: ['Leave instructions unspecified', 'Omission remains omission after typed conversion.'],
+ null: ['Send explicit null', 'Null remains a supplied null; it does not become an omitted field.'],
+ choice_null: ['Choice with a null description', 'The choice label remains present even when its description is null.'],
+ empty_questions: ['Remove every question', 'The existing request constructor rejects this before HTTP.'],
+ empty_score: ['Remove every score level', 'A score needs at least one criterion.'],
+ one_score: ['Keep one score level', 'One level is accepted today; do not invent a stricter rule in a convenience interface.'],
+ empty_choice: ['Remove every choice label', 'This is locally accepted today. Acceptance does not establish that a remote model can answer it.'],
+ scalar_state: ['Use a number as all evidence', 'State must be text, an object, or an array. Nested numbers are allowed.'],
+ typo: ['Misspell instructions', 'Strict typed conversion rejects the unknown field.'],
+ bad_content: ['Use a number as a choice description', 'Rejection is correct, but the captured error identifies only q. The proposed diagnostic should identify /questions/q/criteria/billing.'],
+ future: ['Ask an unsupported question kind', 'Future question types require a separate explicit extension design.'],
+ duplicate_json: ['Repeat a question name', 'Rust authored q twice: First, then Second. json! kept only Second before validation. The typed pair prototype rejects the same collision.']
+};
+const walks = [
+ { title:'Ordinary request', text:'Author the support questions, validate locally, then inspect the preserved score order.', steps:[['Load support request','load','smoke'],['Validate request','validate'],['Inspect questions','inspect']] },
+ { title:'Omission and null', text:'Compare leaving a field out with deliberately sending null. They carry different wire meanings.', steps:[['Load omitted fields','load','omitted'],['Inspect omitted fields','validateInspect'],['Load explicit null','load','null'],['Inspect explicit null','validateInspect']] },
+ { title:'Repair a bad criterion', text:'A malformed nested value is rejected, but today’s path is too coarse. This is the missing ergonomic capability.', steps:[['Load bad description','load','bad_content'],['Read local error','validate'],['Replace with valid questions','load','smoke'],['Validate repair','validate']] },
+ { title:'Lost duplicate', text:'Compare what the author intended with what a JSON value can still tell the SDK.', steps:[['Repeat question name','load','duplicate_json'],['Validate surviving question','validate'],['Inspect surviving value','inspect']] }
+];
+// Pure state module: the page only dispatches actions and renders its result.
+const model = (() => {
+ const initial = () => ({caseName:'smoke', phase:'draft', walk:0, step:0});
+ const action = (s, type, value) => {
+   if(type==='reset') return initial();
+   if(type==='load') return {...s, caseName:value, phase:'draft'};
+   if(type==='walk') return {...initial(), walk:value};
+   if(type==='validate' || type==='validateInspect') {
+     const o = evidence.observations.find(o=>o.name===s.caseName);
+     return {...s, phase:o.accepted ? (type==='validateInspect'?'inspected':'accepted') : 'rejected'};
+   }
+   if(type==='inspect' && (s.phase==='accepted'||s.phase==='inspected')) return {...s,phase:'inspected'};
+   if(type==='next') { const step=walks[s.walk].steps[s.step]; return step ? {...action(s,step[1],step[2]),step:s.step+1} : s; }
+   return s;
+ };
+ return {initial,action};
+})();
+let state = model.initial();
+const byId = id=>document.getElementById(id);
+const pretty = v=>JSON.stringify(v,null,2);
+const button = (label, fn) => { const b=document.createElement('button'); b.textContent=label; b.onclick=fn; return b; };
+function dispatch(type,value) { state=model.action(state,type,value); render(); }
+function render() {
+ const o=evidence.observations.find(o=>o.name===state.caseName);
+ byId('scenario').value=state.caseName;
+ byId('summary').replaceChildren();
+ for(const [key,value] of [['Situation',names[state.caseName][0]],['Question names',Object.keys(o.questions).join(', ')||'None'],['Workflow stage',state.phase],['Execution','Not executed; zero API calls']]) {
+   const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=key;dd.textContent=value;byId('summary').append(dt,dd);
+ }
+ byId('status').textContent=({draft:'Ready for local validation',accepted:'Accepted by current SDK',rejected:'Rejected before execution',inspected:'Typed questions inspected'})[state.phase];
+ byId('lesson').textContent=names[state.caseName][1];
+ byId('evidence').textContent=pretty(o.state);byId('draft').textContent=pretty(o.questions);
+ byId('result').textContent=state.phase==='draft'?'No result yet.':state.phase==='rejected'?o.diagnostic:state.phase==='inspected'?pretty(o.serialized_questions):'Accepted. Inspect to see serialized typed questions.';
+ byId('inspect').disabled=!['accepted','inspected'].includes(state.phase);
+ byId('tabs').replaceChildren(...walks.map((w,i)=>{const b=button(w.title,()=>dispatch('walk',i));b.role='tab';b.setAttribute('aria-selected',i===state.walk);b.className=i===state.walk?'active':'';return b;}));
+ const w=walks[state.walk];byId('guide').textContent=w.text;
+ byId('steps').replaceChildren(...w.steps.map((s,i)=>{const b=button(`${i+1}. ${s[0]}`,()=>dispatch('next'));b.disabled=i!==state.step;return b;}));
+}
+for(const [key,[label]] of Object.entries(names)) { const option=document.createElement('option');option.value=key;option.textContent=label;byId('scenario').append(option); }
+byId('scenario').onchange=e=>dispatch('load',e.target.value);
+byId('validate').onclick=()=>dispatch('validate');byId('inspect').onclick=()=>dispatch('inspect');byId('reset').onclick=()=>dispatch('reset');
+byId('verdict').textContent=`Smoke question serialization equal: ${evidence.smoke_questions_equal}. Typed/JSON request debug representations equal: ${evidence.typed_and_json_request_debug_equal}. Scenarios captured: ${evidence.observations.length}. Pair collision result: ${evidence.duplicate_pairs_diagnostic}. Debug equality is exploratory evidence, not a production contract.`;
+render();
+</script></body></html>
