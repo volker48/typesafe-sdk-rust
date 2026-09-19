@@ -1,57 +1,9 @@
-# Request construction and the agent workflow
+# Request construction and execution
 
-Status: implemented. `SystemOneRequest::from_json`, structured local input
-diagnostics, and `Client::system_one_body` are public SDK interfaces.
-[Implementation record and acceptance gates](plans/request-ergonomics.md).
-
-## Decision
-
-Use familiar JSON literals to author nested data, precise Rust types to establish
-request invariants, and the existing client to execute. One fallible JSON
-construction method complements the existing typed constructor. Do not introduce a
-custom macro language for question definitions.
-
-The useful abstraction is a locally validated, inspectable request. Removing
-punctuation is valuable only if the caller can still understand what will be sent,
-repair an error, and interpret the result. An agent should learn one progression:
-
-```text
-evidence + named questions
-       │ author with JSON or typed Rust
-       ▼
-typed request ── local input error ──► repair the identified field
-       │ resolve model and explicit overrides
-       ▼
-effective body ── inspect locally
-       │ execute with explicit time/retry policy
-       ▼
-typed answers + usage + transport metadata
-       │ apply application policy, preserve uncertainty
-       ▼
-decision + a small, reusable example or evaluation case
-```
-
-[CONTEXT.md](../CONTEXT.md) defines state, question, criteria, answer, and decision.
-These names should agree across Rust examples, JSON, documentation, and fixtures.
-
-## Three interfaces considered
-
-| Interface | What the caller writes | What the caller must learn | Tradeoff |
-|---|---|---|---|
-| JSON + typed conversion | `json!({"urgent": {"type": "noul"}})` | Existing wire vocabulary and one validation seam | Nested data is concise; schema errors occur at runtime |
-| Typed constructors + pairs | `[("urgent", Question::noul("Urgent?"))]` | A constructor for each common shape plus iterable conversion | Compiler assistance and composition; heterogeneous content needs conversions |
-| Small macro + typed expressions | `questions! { "urgent": Question::noul("Urgent?") }` | Macro grammar plus the typed constructors | Saves punctuation but leaves most smoke-example ceremony |
-
-A full nested SDK DSL would also own parsing, optional-field syntax, dynamic-key
-syntax, macro hygiene, diagnostics, and an escape route back to ordinary Rust.
-That cost grows with every question kind. `json!` already solves the literal
-problem. A generic map macro leaves `Field::Value`, `Content`, and `Some` at every
-call site and offers little depth.
-
-The selected construction module hides decoding, presence handling, and semantic
-validation. Its dependencies are in-process: the standard library and existing
-Serde dependencies. Transport keeps its existing interface and loopback test
-adapter; construction needs neither a new dependency nor a transport trait.
+Use `SystemOneRequest::from_json` to turn JSON literals into validated typed
+questions, or `SystemOneRequest::new` for typed Rust construction. The
+[design decision](adr/0001-json-construction.md) records why these interfaces reuse
+JSON syntax. [CONTEXT.md](../CONTEXT.md) defines the domain terms.
 
 ## Working today
 
@@ -91,18 +43,7 @@ impl SystemOneRequest {
 
 Usage is `SystemOneRequest::from_json(json!(state), json!({...}))?`.
 Both `from_json` and existing `new(Content, BTreeMap<String, Question>)` converge
-on the same semantic validation. The client continues to accept a typed request.
-Do not accept arbitrary JSON directly in `Client::system_one`.
-
-Two explicit arguments mirror `new` and separate evidence from questions.
-`model` and `extra_body` retain their existing configuration semantics. A second
-whole-envelope `TryFrom<Value>` would add ambiguity about configuration and final
-wire overrides without addressing a demonstrated need.
-
-Keep the exact signature of `new`. Generalizing it to `Into<Content>` and an
-iterator would break inference in existing `.into()` and empty-map calls. If
-real callers need typed iteration, add `from_pairs` separately; do not launch
-both a builder family and a macro family with the JSON facade.
+on the same semantic validation. `Client::system_one` accepts a typed request.
 
 ## Semantic contract
 
@@ -123,12 +64,9 @@ both a builder family and a macro family with the JSON facade.
 `json!({"instructions": optional_text})` with `None` emits null. Omit the key when
 omission is intended. There is no global “strip null” pass.
 
-Duplicate detection belongs before map construction. A future `from_pairs`
-interface should reject repeated question names and typed choice constructors
-should reject repeated labels. `from_json(Value, Value)` cannot recover that
-information. For generated question sets requiring uniqueness, use a checked
-entry loop today. Parsing raw text with strict duplicate rejection would be a
-separate requirement, not an implied feature of this facade.
+For generated question sets requiring unique names, check for duplicates before
+collecting them into a map. `from_json(Value, Value)` cannot recover duplicates
+that JSON parsing or map construction has already discarded.
 
 [`json!` documentation](https://docs.rs/serde_json/1.0.151/serde_json/macro.json.html)
 specifies that interpolated values implement `Serialize`, keys implement
@@ -140,14 +78,10 @@ validate their numeric data before serialization.
 
 ## Error repair is part of the interface
 
-The prototype found `q: data did not match any variant of untagged enum Content`
-for a number at `questions.q.criteria.billing`. Adding `serde_path_to_error`
-around the existing enum decode did not recover the nested location. Do not ship
-the facade with an unsupported claim that Serde already provides useful paths.
-
 `Error::input_details()` exposes an `InputError`, separate from `ApiError`, with
-an `InputErrorKind` reason and an RFC 6901 JSON Pointer in `path`. For this example
-it identifies `/questions/q/criteria/billing` with reason `invalid_content`.
+an `InputErrorKind` reason and an RFC 6901 JSON Pointer in `path`. For example,
+invalid content in a choice criterion is identified by
+`/questions/q/criteria/billing` with reason `invalid_content`.
 Pointers escape `~` and `/` in user-defined names. Missing fields identify the
 missing member; array failures identify the index. First-error selection is state,
 then questions sorted by name. Each question checks object shape, type, sorted
@@ -207,37 +141,15 @@ an in-flight attempt. Callers needing a total deadline can wrap the future in
 the server did not process or charge for an earlier attempt. Never promise
 exactly-once inference or a token/cost ceiling from retry settings alone.
 
-## Interpretation and accumulating useful knowledge
+## Interpreting answers
 
 The [support triage example](../examples/support_triage.rs) uses `answers.get(name)`
 and matches expected kinds before escalating. Absence or an unexpected kind must
-not silently become
-false, zero, or a default route. Current group iterators are useful for inspection
-but do not establish that every requested answer arrived. Future answer kinds are
+not silently become false, zero, or a default route. Current group iterators are
+useful for inspection but do not establish that every requested answer arrived. Future answer kinds are
 currently omitted from typed HTTP results and retained in raw metadata.
 
 Probabilities describe judgments; they do not authorize actions or prove
 calibration. Application code owns thresholds, abstention, and human review.
 Changing score order, question meaning, or criteria is an application behavior
 change and should be evaluated with representative labeled cases.
-
-Accretion means each correction leaves reusable evidence: a focused fixture for
-a construction failure, a tested example for a common pattern, or a dated decision
-for a real tradeoff. Keep domain definitions in `CONTEXT.md`, interface rules in
-this document, ordered work in the plan, and observed results in fixtures. Do not
-create an automatic memory service, prompt registry, generated-schema framework,
-or output-policy DSL for this small SDK. Add a reusable question bundle only when
-a caller actually repeats one; ordinary Rust functions and versioned data suffice.
-
-## Prototype evidence and limits
-
-The [implementation issue](../.scratch/request-ergonomics/issues/01-construction.md)
-locates the throwaway branch, Rust experiment, captured observations, and HTML
-walkthrough. Fourteen fixture scenarios exercised all question kinds, structured
-state, dynamic names, omitted/null fields, invalid content, and invalid shapes.
-The smoke question serialization matched the typed form; duplicate JSON names
-collapsed, while the prototype pair constructor rejected duplicates.
-
-This establishes syntax and current local semantics, not model quality, public
-macro hygiene, performance, or complete wire parity. The prototype is a primary
-source for the decision, not a replacement for production acceptance tests.
