@@ -152,3 +152,9 @@ cargo clippy --locked --all-targets --all-features -- -D warnings
 
 The [compatibility guide](compat/README.md#running-and-updating) documents the
 separate Python reference checkout needed for cross-language checks.
+
+The [platform and TLS verification guide](compat/PLATFORM.md) describes the
+Linux/macOS/Windows CI matrix and credential-free loopback HTTPS tests. Run the
+TLS tests alone with `cargo test --locked --test tls`; trusted-CA and hostname
+checks run on Linux, while untrusted-certificate rejection runs on all three
+platforms. These tests never modify the system trust store.

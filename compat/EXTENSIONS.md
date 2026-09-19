@@ -123,3 +123,7 @@ transport, broader date/header/error extraction parity, compression/cookies,
 platform CI and local TLS verification remain outside this milestone. No live
 service calls, production credentials, publication or push are needed for these
 checks. Existing numeric limits and async Tokio runtime requirements remain.
+
+The subsequent [platform and TLS milestone](PLATFORM.md) adds CI configuration
+and local TLS tests; see that record for coverage and outstanding execution
+evidence. The verification results above remain historical extension evidence.

@@ -167,6 +167,8 @@ the implemented migration scope. Neither operation provides pagination or stream
 
 The recorded migration checks were run on macOS arm64 with Rust 1.96 and
 Tokio/Rustls. Linux/Windows and local TLS verification were not established by
-those checks. The future-date retry fixture uses 2099 and must be updated before
+those checks. The subsequent [platform and TLS milestone](PLATFORM.md) adds a CI
+matrix and local HTTPS tests, with actual execution limits recorded separately.
+The future-date retry fixture uses 2099 and must be updated before
 that date. Historical milestone reports and prototype records are available in
 Git history; current contracts live here, in the request guide and in the tests.

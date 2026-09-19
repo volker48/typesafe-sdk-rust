@@ -16,6 +16,7 @@ httpdate = "=1.0.3"
 serde_path_to_error = "=0.1.20"
 
 [dev-dependencies]
+tokio-rustls = { version = "=0.26.5", default-features = false, features = ["aws_lc_rs", "tls12"] }
 tokio = { version = "=1.53.1", features = ["macros", "rt-multi-thread", "net", "io-util", "test-util"] }
 
 [lints.rust]
