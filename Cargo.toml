@@ -3,7 +3,7 @@ name = "typesafe-sdk"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.96"
-description = "Native async Rust SDK for TypeSafe AI (migration milestone one)"
+description = "Native async Rust SDK for TypeSafe AI"
 license = "MIT"
 
 [dependencies]

@@ -70,6 +70,12 @@ def execute(scenario, command, env, language):
             pass
 
         def do_POST(self):
+            self.handle_request()
+
+        def do_GET(self):
+            self.handle_request()
+
+        def handle_request(self):
             raw = self.rfile.read(int(self.headers.get("content-length", "0")))
             relevant = {
                 k.lower(): v
@@ -106,8 +112,10 @@ def execute(scenario, command, env, language):
                     "query": parse_qsl(path.query, keep_blank_values=True),
                     "headers": relevant,
                     "header_values": header_values,
-                    "body": json.loads(raw),
-                    "numbers": numbers(raw),
+                    "body": json.loads(raw) if raw else None,
+                    "numbers": numbers(raw) if raw else [],
+                    # Retain exact GET bytes so absent content cannot equal JSON null.
+                    **({"raw_hex": raw.hex()} if self.command == "GET" else {}),
                 }
             )
             if not pending:

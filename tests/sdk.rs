@@ -105,7 +105,7 @@ async fn server(response: &'static str) -> (String, tokio::task::JoinHandle<Stri
                 let length: usize = head
                     .lines()
                     .find_map(|l| l.strip_prefix("content-length: "))
-                    .unwrap()
+                    .unwrap_or("0")
                     .parse()
                     .unwrap();
                 if bytes.len() >= end + 4 + length {
@@ -581,5 +581,97 @@ async fn json_literals_keep_serde_duplicate_and_optional_value_semantics() {
     assert_eq!(
         client.system_one_body(&request).unwrap()["questions"],
         json!({"dynamic": {"type": "noul", "instructions": null}})
+    );
+}
+
+#[tokio::test]
+async fn list_models_is_bodyless_and_preserves_metadata() {
+    let body = r#"{"models":[{"name":"jev","description":"Model","release_date":"not a date","extra":1}]}"#;
+    let (url, task) = server("HTTP/1.1 200 OK\r\nx-typesafe-request-id: models-id\r\nconnection: close\r\n\r\n{\"models\":[{\"name\":\"jev\",\"description\":\"Model\",\"release_date\":\"not a date\",\"extra\":1}]}").await;
+    let client = Client::builder()
+        .api_key("test-key")
+        .base_url(format!("{url}/gateway/"))
+        .build()
+        .unwrap();
+    let result: Response<ListModelsResponse> = client.list_models().await.unwrap();
+    assert_eq!(
+        result.data.models,
+        vec![ModelMetadata {
+            name: "jev".into(),
+            description: "Model".into(),
+            release_date: "not a date".into(),
+        }]
+    );
+    assert_eq!(result.metadata.body, body.as_bytes());
+    assert_eq!(result.metadata.request_id(), Some("models-id"));
+    let data = serde_json::to_value(&result.data).unwrap();
+    assert_eq!(
+        data,
+        serde_json::json!({"models":[{"name":"jev","description":"Model","release_date":"not a date"}]})
+    );
+    assert_eq!(
+        serde_json::from_value::<ListModelsResponse>(data).unwrap(),
+        result.data
+    );
+    let wire = task.await.unwrap();
+    assert!(wire.starts_with("GET /gateway/v1/models HTTP/1.1\r\n"));
+    assert!(wire.contains("authorization: Bearer test-key\r\n"));
+    assert!(!wire.contains("content-type:"));
+    assert!(wire.ends_with("\r\n\r\n"));
+}
+
+#[tokio::test]
+async fn list_models_validation_keeps_index_context_and_redacts_values() {
+    let (url, task) = server("HTTP/1.1 200 OK\r\nx-typesafe-request-id: invalid-id\r\nconnection: close\r\n\r\n{\"models\":[{\"release_date\":null,\"description\":{\"secret\":\"server-secret\"}}]}").await;
+    let client = Client::builder()
+        .api_key("key")
+        .base_url(&url)
+        .build()
+        .unwrap();
+    let error = client.list_models().await.unwrap_err();
+    assert_eq!(error.kind, ErrorKind::Validation);
+    assert!(std::error::Error::source(&error).is_some());
+    let api = error.api.as_ref().unwrap();
+    assert_eq!(api.field_path.as_deref(), Some("models[0].name"));
+    assert_eq!(api.endpoint, format!("GET {url}/v1/models"));
+    assert_eq!(api.metadata.request_id(), Some("invalid-id"));
+    assert!(!format!("{error:?} {error}").contains("server-secret"));
+    assert_eq!(
+        api.body["models"][0]["description"]["secret"],
+        "server-secret"
+    );
+    task.await.unwrap();
+}
+
+#[tokio::test]
+async fn list_models_rejects_invalid_options_before_network_io() {
+    let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+    let client = Client::builder()
+        .api_key("key")
+        .base_url(format!("http://{}", listener.local_addr().unwrap()))
+        .build()
+        .unwrap();
+    for options in [
+        RequestOptions {
+            timeout: Some(Duration::ZERO),
+            ..Default::default()
+        },
+        RequestOptions {
+            retry: Some(RetryPolicy {
+                backoff_jitter: f64::NAN,
+                ..Default::default()
+            }),
+            ..Default::default()
+        },
+    ] {
+        assert_eq!(
+            client.list_models_with(&options).await.unwrap_err().kind,
+            ErrorKind::Input
+        );
+    }
+    assert!(
+        tokio::time::timeout(Duration::from_millis(50), listener.accept())
+            .await
+            .is_err()
     );
 }

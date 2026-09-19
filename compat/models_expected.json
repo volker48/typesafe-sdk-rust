@@ -1,0 +1,4884 @@
+{
+  "provenance": {
+    "revision": "2ce5c65f13646cab6e6f782328194c9d85f3300a",
+    "cases_sha256": "8c1d2d22404e6b7fe29eecea5f6a1f3f2ab19495d71fc0e841309e2e7580a4ab",
+    "command": "uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --cases compat/models_cases.json --expected compat/models_expected.json --record",
+    "format": 3,
+    "source": "actual Python public API calls to scripted local HTTP server; decimal tokens preserve precision; header value lists preserve duplicate request headers"
+  },
+  "observations": {
+    "models_round_trip": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "second",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "242",
+              "x-typesafe-request-id": "models-id"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d2c7b226e616d65223a227365636f6e64222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d2c7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_empty": {
+      "calls": [
+        {
+          "ok": {
+            "models": []
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "13",
+              "x-typesafe-request-id": "models-id"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_extra_fields": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "121",
+              "x-typesafe-request-id": "models-id"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134222c22667574757265223a7b2278223a317d7d5d2c22667574757265223a747275657d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_date_is_string": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "not a date"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90",
+              "x-typesafe-request-id": "models-id"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a226e6f7420612064617465227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_empty_strings": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "",
+                "description": "",
+                "release_date": ""
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "59",
+              "x-typesafe-request-id": "models-id"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a22222c226465736372697074696f6e223a22222c2272656c656173655f64617465223a22227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_base_prefix": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90",
+              "x-typesafe-request-id": "models-id"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/gateway/prefix/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_missing": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {},
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "2",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_null": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": null
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "15",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_object": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": {}
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "13",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_string": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": "bad"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "16",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_root_array": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": [],
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "2",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_root_null": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": null,
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "4",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_root_string": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": "bad",
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "5",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_root_number": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": 7,
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "1",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "body"
+          ],
+          "value": "0:7e0"
+        },
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_root_bool": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": true,
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "4",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_missing_name": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "148",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].name",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_name_null": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": null,
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "160",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].name",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_name_number": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": 1,
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "157",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].name",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "body",
+            "models",
+            1,
+            "name"
+          ],
+          "value": "0:1e0"
+        },
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_name_bool": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": true,
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "160",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].name",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_name_array": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": [],
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "158",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].name",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_name_object": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": {},
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "158",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].name",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_missing_description": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "140",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].description",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_description_null": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": null,
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "159",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].description",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_description_number": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": 1,
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "156",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].description",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "body",
+            "models",
+            1,
+            "description"
+          ],
+          "value": "0:1e0"
+        },
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_description_bool": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": true,
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "159",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].description",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_description_array": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": [],
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "157",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].description",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_description_object": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": {},
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "157",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].description",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_missing_release_date": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": "A model 雪"
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "140",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].release_date",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_release_date_null": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": null
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "160",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].release_date",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_release_date_number": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": 1
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "157",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].release_date",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "body",
+            "models",
+            1,
+            "release_date"
+          ],
+          "value": "0:1e0"
+        },
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_release_date_bool": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": true
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "160",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].release_date",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_release_date_array": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": []
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "158",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].release_date",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_release_date_object": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": {}
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "158",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1].release_date",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_entry_null": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              null
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "95",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1]",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_entry_number": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              1
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "92",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1]",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "body",
+            "models",
+            1
+          ],
+          "value": "0:1e0"
+        },
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_entry_bool": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              true
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "95",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1]",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_entry_string": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              "bad"
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "96",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1]",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_entry_array": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              },
+              []
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "93",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[1]",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_field_order": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "release_date": false,
+                "description": 42,
+                "name": null
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "64",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[0].name",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "body",
+            "models",
+            0,
+            "description"
+          ],
+          "value": "0:42e0"
+        },
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_missing_before_invalid": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "release_date": false,
+                "description": 42
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "52",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[0].name",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "body",
+            "models",
+            0,
+            "description"
+          ],
+          "value": "0:42e0"
+        },
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_array_order": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": null
+              },
+              {
+                "name": null
+              }
+            ]
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "96",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "models[0].release_date",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_invalid_json": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": "{",
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "1",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_trailing_json": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": "{\"models\":[]} {}",
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "16",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_empty_body": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 200,
+          "body": null,
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "0",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_201": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 201,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90",
+              "x-typesafe-request-id": "models-id"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:201e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_202": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 202,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90",
+              "x-typesafe-request-id": "models-id"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:202e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_204": {
+      "calls": [
+        {
+          "error": "validation",
+          "status": 204,
+          "body": null,
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "90",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": "",
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:204e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_299": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 299,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90",
+              "x-typesafe-request-id": "models-id"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:299e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_301": {
+      "calls": [
+        {
+          "error": "api",
+          "status": 301,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:301e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_400": {
+      "calls": [
+        {
+          "error": "bad_request",
+          "status": 400,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:4e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_401": {
+      "calls": [
+        {
+          "error": "authentication",
+          "status": 401,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:401e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_403": {
+      "calls": [
+        {
+          "error": "permission_denied",
+          "status": 403,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:403e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_404": {
+      "calls": [
+        {
+          "error": "not_found",
+          "status": 404,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:404e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_408": {
+      "calls": [
+        {
+          "error": "api",
+          "status": 408,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:408e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_418": {
+      "calls": [
+        {
+          "error": "api",
+          "status": 418,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:418e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_422": {
+      "calls": [
+        {
+          "error": "unprocessable_entity",
+          "status": 422,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:422e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_429": {
+      "calls": [
+        {
+          "error": "rate_limit",
+          "status": 429,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:429e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_500": {
+      "calls": [
+        {
+          "error": "internal_server",
+          "status": 500,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:5e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_status_529": {
+      "calls": [
+        {
+          "error": "internal_server",
+          "status": 529,
+          "body": {
+            "detail": "test error"
+          },
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "23",
+            "x-typesafe-request-id": "models-id"
+          },
+          "request_id": "models-id",
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:529e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_headers": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "content-type": "application/custom",
+            "x-custom": "call",
+            "authorization": "Bearer fixture-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "content-type": [
+              "application/custom"
+            ],
+            "x-custom": [
+              "call"
+            ],
+            "authorization": [
+              "Bearer fixture-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_retry_recover": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        },
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_retry_exhausted": {
+      "calls": [
+        {
+          "error": "internal_server",
+          "status": 503,
+          "body": {},
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "2"
+          },
+          "request_id": null,
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:503e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        },
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        },
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "x-typesafe-retry-count": "2"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-retry-count": [
+              "2"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_disconnect_recover": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        },
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_disconnect_disabled": {
+      "calls": [
+        {
+          "error": "connection"
+        }
+      ],
+      "numbers": [],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_custom_retry": {
+      "calls": [
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        },
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_budget": {
+      "calls": [
+        {
+          "error": "rate_limit",
+          "status": 429,
+          "body": {},
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "2",
+            "retry-after": "3"
+          },
+          "request_id": null,
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:429e0"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    },
+    "models_mixed_calls": {
+      "calls": [
+        {
+          "error": "rate_limit",
+          "status": 429,
+          "body": {},
+          "headers": {
+            "content-type": "application/json",
+            "content-length": "2"
+          },
+          "request_id": null,
+          "field_path": null,
+          "endpoint": "GET <origin>/v1/models"
+        },
+        {
+          "ok": {
+            "model": "m",
+            "usage": {
+              "input_tokens": null,
+              "output_tokens": null
+            },
+            "answers": {}
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "37"
+            },
+            "raw_hex": "7b226d6f64656c223a226d222c227573616765223a7b7d2c22616e7377657273223a7b7d7d"
+          }
+        },
+        {
+          "ok": {
+            "models": [
+              {
+                "name": "jev-latest",
+                "description": "A model 雪",
+                "release_date": "2026-09-14"
+              }
+            ]
+          },
+          "metadata": {
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "content-length": "90"
+            },
+            "raw_hex": "7b226d6f64656c73223a5b7b226e616d65223a226a65762d6c6174657374222c226465736372697074696f6e223a2241206d6f64656c20e99baa222c2272656c656173655f64617465223a22323032362d30392d3134227d5d7d"
+          }
+        }
+      ],
+      "numbers": [
+        {
+          "path": [
+            0,
+            "status"
+          ],
+          "value": "0:429e0"
+        },
+        {
+          "path": [
+            1,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        },
+        {
+          "path": [
+            2,
+            "metadata",
+            "status"
+          ],
+          "value": "0:2e2"
+        }
+      ],
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "x-client": "shared",
+            "x-call": "first",
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "x-client": [
+              "shared"
+            ],
+            "x-call": [
+              "first"
+            ],
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        },
+        {
+          "method": "POST",
+          "path": "/v1/systemone",
+          "query": [],
+          "headers": {
+            "x-client": "shared",
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "content-type": "application/json"
+          },
+          "header_values": {
+            "x-client": [
+              "shared"
+            ],
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "content-type": [
+              "application/json"
+            ]
+          },
+          "body": {
+            "state": "text",
+            "model": "environment-model",
+            "questions": {
+              "q": {
+                "type": "noul",
+                "instructions": "?"
+              }
+            }
+          },
+          "numbers": []
+        },
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "x-client": "shared",
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>"
+          },
+          "header_values": {
+            "x-client": [
+              "shared"
+            ],
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        },
+        {
+          "method": "GET",
+          "path": "/v1/models",
+          "query": [],
+          "headers": {
+            "x-client": "shared",
+            "authorization": "Bearer environment-test-key",
+            "accept": "application/json",
+            "user-agent": "<sdk-identity>",
+            "x-typesafe-sdk": "<sdk-identity>",
+            "x-typesafe-runtime": "<sdk-identity>",
+            "x-typesafe-retry-count": "1"
+          },
+          "header_values": {
+            "x-client": [
+              "shared"
+            ],
+            "authorization": [
+              "Bearer environment-test-key"
+            ],
+            "accept": [
+              "application/json"
+            ],
+            "user-agent": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-sdk": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-runtime": [
+              "<sdk-identity>"
+            ],
+            "x-typesafe-retry-count": [
+              "1"
+            ]
+          },
+          "body": null,
+          "numbers": [],
+          "raw_hex": ""
+        }
+      ]
+    }
+  }
+}

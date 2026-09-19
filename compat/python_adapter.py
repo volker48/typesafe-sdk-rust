@@ -39,6 +39,9 @@ def main():
     with TypeSafeClient(**config) as client:
         for call in scenario["calls"]:
             args = call.copy()
+            operation = args.pop("operation", "system_one")
+            if operation not in {"system_one", "list_models"}:
+                raise ValueError(f"Unsupported operation: {operation}")
             observe_retry_after = args.pop("observe_retry_after", False)
             if args.pop("typed", False):
                 args["questions"] = {
@@ -50,7 +53,11 @@ def main():
             if "retry" in args:
                 args["retry"] = policy(args["retry"])
             try:
-                result = client.system_one(**args)
+                result = (
+                    client.models.list(**args)
+                    if operation == "list_models"
+                    else client.system_one(**args)
+                )
                 observations.append(
                     {
                         "ok": result.model_dump(mode="json"),

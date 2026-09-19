@@ -273,3 +273,18 @@ impl SystemOneResponse {
         })
     }
 }
+
+/// Metadata for an available model. Unknown response fields are ignored.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub struct ModelMetadata {
+    pub name: String,
+    pub description: String,
+    /// Server-provided string, conventionally YYYY-MM-DD; no date parsing is applied.
+    pub release_date: String,
+}
+
+/// Available models in server order, including any duplicate entries.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub struct ListModelsResponse {
+    pub models: Vec<ModelMetadata>,
+}

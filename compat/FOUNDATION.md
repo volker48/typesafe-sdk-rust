@@ -137,8 +137,11 @@ duplicate/non-ASCII response-header convenience access, full error-message
 extraction, custom transport, cookies/compression and broader lifecycle coverage
 remain open. There is no claim of exhaustive malformed-input compatibility.
 
+The later [model-listing milestone](MODELS.md) implements `list_models` on shared
+transport and adds a separate oracle; the results above describe this foundation
+milestone at the time it was completed.
+
 Only macOS arm64 with Rust 1.96 and Tokio/Rustls is verified. Linux/Windows, local
 TLS verification, optional blocking use, custom response types, raw questions and
-logging remain later milestones. Model listing is the next operation after the
-remaining shared-transport API decisions. No pagination/streaming exists in the
+logging remain later milestones. No pagination/streaming exists in the
 pinned Python operations.

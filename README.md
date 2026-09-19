@@ -1,7 +1,8 @@
 # TypeSafe Rust SDK
 
-A standalone, safe Rust implementation of `POST /v1/systemone`. Production code has
-no Python dependency. This is **not yet a complete port** of the Python SDK.
+A standalone, safe Rust implementation of `POST /v1/systemone` and `GET /v1/models`.
+Production code has no Python dependency. This is **not yet a complete port** of
+the Python SDK.
 
 ```rust,no_run
 use serde_json::json;
@@ -23,6 +24,23 @@ async fn example() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 ```
+
+List the available models with the same client:
+
+```rust,no_run
+async fn list_models(client: &Client) -> Result<(), typesafe_sdk::Error> {
+    let response = client.list_models().await?;
+    for model in response.data.models {
+        println!("{}: {} ({})", model.name, model.description, model.release_date);
+    }
+    Ok(())
+}
+```
+
+`list_models_with(&RequestOptions)` accepts per-call headers, timeout and retry
+overrides. Listing sends no request body and preserves the server's model order
+and duplicates. All three metadata fields are required strings; `release_date`
+is not parsed or validated as a date. Unknown response fields are ignored.
 
 Requires Rust 1.96+ and a Tokio runtime with I/O and time enabled. The client owns
 and shares its connection pool across cheap clones. Dropping a call's future
@@ -69,6 +87,7 @@ nonstandard NaN/Infinity JSON literals are rejected. HTTP validation reports nes
 paths and chooses errors in Python schema/wire order. `ApiError::retry_after`
 exposes the server's requested wait as an optional `Duration`.
 
-See the [compatibility checks](compat/README.md) and
-[foundation follow-up record](compat/FOUNDATION.md) for verified behavior and
+See the [compatibility checks](compat/README.md),
+[foundation follow-up record](compat/FOUNDATION.md), and
+[model-listing record](compat/MODELS.md) for verified behavior and
 remaining work.

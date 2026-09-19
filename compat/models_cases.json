@@ -1,0 +1,1990 @@
+[
+  {
+    "id": "models_round_trip",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "second",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_empty",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": []
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_extra_fields",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14",
+              "future": {
+                "x": 1
+              }
+            }
+          ],
+          "future": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_date_is_string",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "not a date"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_empty_strings",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "",
+              "description": "",
+              "release_date": ""
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_base_prefix",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ],
+    "base_path": "/gateway/prefix///"
+  },
+  {
+    "id": "models_missing",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {}
+      }
+    ]
+  },
+  {
+    "id": "models_null",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": null
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_object",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_string",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": "bad"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_root_array",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": []
+      }
+    ]
+  },
+  {
+    "id": "models_root_null",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": null
+      }
+    ]
+  },
+  {
+    "id": "models_root_string",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": "bad"
+      }
+    ]
+  },
+  {
+    "id": "models_root_number",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": 7
+      }
+    ]
+  },
+  {
+    "id": "models_root_bool",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": true
+      }
+    ]
+  },
+  {
+    "id": "models_missing_name",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_name_null",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": null,
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_name_number",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": 1,
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_name_bool",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": true,
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_name_array",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": [],
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_name_object",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": {},
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_missing_description",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_description_null",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": null,
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_description_number",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": 1,
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_description_bool",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": true,
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_description_array",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": [],
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_description_object",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": {},
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_missing_release_date",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": "A model 雪"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_release_date_null",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": null
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_release_date_number",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": 1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_release_date_bool",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_release_date_array",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": []
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_release_date_object",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_entry_null",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            null
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_entry_number",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            1
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_entry_bool",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            true
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_entry_string",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            "bad"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_entry_array",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            },
+            []
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_field_order",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "release_date": false,
+              "description": 42,
+              "name": null
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_missing_before_invalid",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "release_date": false,
+              "description": 42
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_array_order",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": null
+            },
+            {
+              "name": null
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_invalid_json",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "raw": "{"
+      }
+    ]
+  },
+  {
+    "id": "models_trailing_json",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "raw": "{\"models\":[]} {}"
+      }
+    ]
+  },
+  {
+    "id": "models_empty_body",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "raw": ""
+      }
+    ]
+  },
+  {
+    "id": "models_status_201",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 201,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_202",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 202,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_204",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 204,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_299",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 299,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_301",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 301,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_400",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 400,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_401",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 401,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_403",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 403,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_404",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 404,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_408",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 408,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_418",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 418,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_422",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 422,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_429",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_500",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 500,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_status_529",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 529,
+        "headers": {
+          "x-typesafe-request-id": "models-id"
+        },
+        "body": {
+          "detail": "test error"
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_headers",
+    "config": {
+      "api_key": "fixture-key",
+      "headers": {
+        "Authorization": "bad",
+        "Accept": "bad",
+        "Content-Type": "application/custom",
+        "User-Agent": "bad",
+        "X-TypeSafe-SDK": "bad",
+        "X-TypeSafe-Runtime": "bad",
+        "X-TypeSafe-Retry-Count": "99",
+        "x-custom": "client"
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models",
+        "extra_headers": {
+          "Authorization": "bad",
+          "Accept": "bad",
+          "Content-Type": "application/custom",
+          "User-Agent": "bad",
+          "X-TypeSafe-SDK": "bad",
+          "X-TypeSafe-Runtime": "bad",
+          "X-TypeSafe-Retry-Count": "99",
+          "x-custom": "call"
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_retry_recover",
+    "calls": [
+      {
+        "operation": "list_models",
+        "retry": {
+          "backoff_initial": 0,
+          "backoff_jitter": 0
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "headers": {
+          "retry-after-ms": "0"
+        },
+        "body": {}
+      },
+      {
+        "status": 200,
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_retry_exhausted",
+    "calls": [
+      {
+        "operation": "list_models",
+        "retry": {
+          "backoff_initial": 0,
+          "backoff_jitter": 0
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 503,
+        "body": {}
+      },
+      {
+        "status": 503,
+        "body": {}
+      },
+      {
+        "status": 503,
+        "body": {}
+      }
+    ]
+  },
+  {
+    "id": "models_disconnect_recover",
+    "calls": [
+      {
+        "operation": "list_models",
+        "retry": {
+          "backoff_initial": 0,
+          "backoff_jitter": 0
+        }
+      }
+    ],
+    "responses": [
+      {
+        "disconnect": true
+      },
+      {
+        "status": 200,
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_disconnect_disabled",
+    "calls": [
+      {
+        "operation": "list_models",
+        "retry": {
+          "backoff_initial": 0,
+          "backoff_jitter": 0,
+          "api_connection_error": false
+        }
+      }
+    ],
+    "responses": [
+      {
+        "disconnect": true
+      }
+    ]
+  },
+  {
+    "id": "models_custom_retry",
+    "calls": [
+      {
+        "operation": "list_models",
+        "retry": {
+          "backoff_initial": 0,
+          "backoff_jitter": 0,
+          "http_statuses": [
+            418
+          ]
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 418,
+        "body": {}
+      },
+      {
+        "status": 200,
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "models_budget",
+    "calls": [
+      {
+        "operation": "list_models",
+        "retry": {
+          "backoff_initial": 0,
+          "backoff_jitter": 0,
+          "timeout": 0.1
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "headers": {
+          "retry-after": "3"
+        },
+        "body": {}
+      }
+    ]
+  },
+  {
+    "id": "models_mixed_calls",
+    "config": {
+      "retry": {
+        "backoff_initial": 0,
+        "backoff_jitter": 0
+      },
+      "headers": {
+        "x-client": "shared"
+      }
+    },
+    "calls": [
+      {
+        "operation": "list_models",
+        "retry": {
+          "max_retries": 0
+        },
+        "extra_headers": {
+          "x-call": "first"
+        }
+      },
+      {
+        "state": "text",
+        "questions": {
+          "q": {
+            "type": "noul",
+            "instructions": "?"
+          }
+        }
+      },
+      {
+        "operation": "list_models"
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "body": {}
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {}
+        }
+      },
+      {
+        "status": 500,
+        "body": {}
+      },
+      {
+        "status": 200,
+        "body": {
+          "models": [
+            {
+              "name": "jev-latest",
+              "description": "A model 雪",
+              "release_date": "2026-09-14"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

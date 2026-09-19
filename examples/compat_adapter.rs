@@ -69,7 +69,7 @@ struct Config {
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-struct Call {
+struct SystemOneCall {
     #[serde(default)]
     observe_retry_after: bool,
     // Rust always uses typed questions; this selects Python's constructor path.
@@ -84,6 +84,51 @@ struct Call {
     extra_headers: BTreeMap<String, String>,
     #[serde(default)]
     extra_body: serde_json::Map<String, Value>,
+}
+#[derive(Deserialize)]
+#[serde(untagged)]
+enum Call {
+    Models(ModelsCall),
+    SystemOne(SystemOneCall),
+}
+#[derive(Deserialize)]
+enum ModelsOperation {
+    #[serde(rename = "list_models")]
+    ListModels,
+}
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct ModelsCall {
+    #[serde(rename = "operation")]
+    _operation: ModelsOperation,
+    #[serde(default)]
+    observe_retry_after: bool,
+    timeout: Option<f64>,
+    retry: Option<Policy>,
+    #[serde(default)]
+    extra_headers: BTreeMap<String, String>,
+}
+fn options(
+    extra_headers: BTreeMap<String, String>,
+    timeout: Option<f64>,
+    retry: Option<Policy>,
+) -> Result<RequestOptions, Box<dyn std::error::Error>> {
+    Ok(RequestOptions {
+        headers: headers(extra_headers)?,
+        timeout: timeout.map(Duration::try_from_secs_f64).transpose()?,
+        retry: retry.map(Policy::convert).transpose()?,
+    })
+}
+fn observation<T: serde::Serialize>(
+    result: Result<Response<T>, Error>,
+) -> Result<Result<Response<Value>, Error>, serde_json::Error> {
+    match result {
+        Ok(response) => Ok(Ok(Response {
+            data: serde_json::to_value(response.data)?,
+            metadata: response.metadata,
+        })),
+        Err(error) => Ok(Err(error)),
+    }
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -135,19 +180,30 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = builder.build()?;
     let mut observations = Vec::new();
     for call in scenario.calls {
-        let mut request = SystemOneRequest::new(call.state, call.questions)?;
-        request.model = call.model;
-        request.extra_body = call.extra_body;
-        let options = RequestOptions {
-            headers: headers(call.extra_headers)?,
-            timeout: call.timeout.map(Duration::try_from_secs_f64).transpose()?,
-            retry: call.retry.map(Policy::convert).transpose()?,
+        let (observe_retry_after, result) = match call {
+            Call::SystemOne(call) => {
+                let mut request = SystemOneRequest::new(call.state, call.questions)?;
+                request.model = call.model;
+                request.extra_body = call.extra_body;
+                let options = options(call.extra_headers, call.timeout, call.retry)?;
+                (
+                    call.observe_retry_after,
+                    observation(client.system_one_with(&request, &options).await)?,
+                )
+            }
+            Call::Models(call) => {
+                let options = options(call.extra_headers, call.timeout, call.retry)?;
+                (
+                    call.observe_retry_after,
+                    observation(client.list_models_with(&options).await)?,
+                )
+            }
         };
-        match client.system_one_with(&request, &options).await {
+        match result {
             Ok(r) => observations.push(json!({"ok": r.data, "metadata": {"status": r.metadata.status, "headers": header_json(&r.metadata.headers)?, "raw_hex": r.metadata.body.iter().map(|b| format!("{b:02x}")).collect::<String>()}})),
             Err(e) => if let Some(api) = e.api {
                 let mut observation = json!({"error": e.kind, "status": api.metadata.status, "body": api.body, "headers": header_json(&api.metadata.headers)?, "request_id": api.metadata.request_id(), "field_path": api.field_path, "endpoint": api.endpoint.replace(&scenario.origin, "<origin>")});
-                if call.observe_retry_after {
+                if observe_retry_after {
                     observation["retry_after_ms"] = json!(if e.kind == ErrorKind::RateLimit {
                         api.retry_after.map(|delay| delay.as_secs_f64() * 1000.0)
                     } else { None });
@@ -168,6 +224,14 @@ fn unsupported_adapter_options_fail_instead_of_being_ignored() {
         serde_json::from_str::<Call>(r#"{"state":"x","questions":{},"response_model":"ignored"}"#)
             .is_err()
     );
+    for invalid in [
+        r#"{"operation":"unknown"}"#,
+        r#"{"operation":"list_models","state":"x"}"#,
+        r#"{"operation":"list_models","extra_body":{}}"#,
+        r#"{"operation":"list_models","model":"m"}"#,
+    ] {
+        assert!(serde_json::from_str::<Call>(invalid).is_err());
+    }
     let policy: Policy =
         serde_json::from_str(r#"{"api_connection_error":false,"api_timeout_error":false}"#)
             .unwrap();

@@ -4,6 +4,8 @@
 outputs**. `expected.json` is recorded by executing the pinned Python public API.
 The foundation follow-up adds `foundation_cases.json` and
 `foundation_expected.json` without modifying that original 40-case oracle.
+Model listing adds 67 scenarios in `models_cases.json` and `models_expected.json`;
+both earlier suites remain unchanged.
 `run.py` re-executes Python, detects oracle drift, then compares Rust. Each SDK gets
 a fresh loopback server, process and client per scenario; calls within a scenario
 reuse one client and consume a single ordered response script. Unexpected requests
@@ -11,8 +13,10 @@ and unconsumed responses fail. Each adapter has a 30-second process deadline.
 
 `python_adapter.py` calls public `TypeSafeClient.system_one`, including typed
 question constructors in the typed scenario. The Rust example calls public
-`Client::system_one_with`. Adapters map inputs and observations only; all request
-preparation, transport, decoding and retries happen in the SDKs.
+`Client::system_one_with`. Calls with `operation: "list_models"` use Python's public
+`client.models.list` and Rust's `Client::list_models_with`.
+Adapters map inputs and observations only; all request preparation, transport,
+decoding and retries happen in the SDKs.
 
 ## Provenance
 
@@ -47,8 +51,10 @@ preparation, transport, decoding and retries happen in the SDKs.
 
 Compare the ordered request sequence and ordered call outcomes. For each request,
 compare method, path, ordered query pairs, relevant headers and semantic JSON body.
-Object member order and insignificant JSON whitespace are not contractual here:
-there is no signing protocol. Response object order is nevertheless retained in
+GET requests additionally record exact body bytes as `raw_hex`, distinguishing an
+absent body from JSON null. This adds observations only to the new suite.
+For JSON request bodies, object member order and insignificant whitespace are not
+contractual: there is no signing protocol. Response object order is retained in
 fixtures: it determines which invalid map entry is reported first and which
 colliding score key wins. Arrays, request order, strings, missing members and
 explicit null are preserved. No tolerance is applied to numbers. Decimal-token
@@ -95,6 +101,7 @@ cargo build --locked --example compat_adapter
 uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python
 uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --case round_trip_raw
 uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --cases compat/foundation_cases.json --expected compat/foundation_expected.json
+uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --cases compat/models_cases.json --expected compat/models_expected.json
 uv run --locked --project ../typesafe-sdk-python pytest compat/test_characterization.py -v
 ```
 
@@ -113,3 +120,5 @@ Rust sources and the lockfile to a temporary crate, changes the endpoint to
 comparison to reject it. The temporary source is deleted, and SHA-256 assertions
 verify the production source and oracle were unchanged. A final clean comparison
 verifies the real crate.
+Use `--operation models` to demonstrate rejection of a wrong model-listing endpoint
+against the separate model oracle. See [model-listing evidence](MODELS.md).

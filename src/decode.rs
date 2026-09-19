@@ -126,3 +126,32 @@ pub(crate) fn system_one(body: &[u8]) -> Result<SystemOneResponse, Failure> {
         answers,
     })
 }
+
+/// Validate in schema order, retaining array indices even for missing fields.
+pub(crate) fn list_models(body: &[u8]) -> Result<crate::ListModelsResponse, Failure> {
+    let value: Value = serde_json::from_slice(body)
+        .map_err(|error| (String::new(), Some(Box::new(error) as _)))?;
+    if !value.is_object() {
+        return Err(invalid("", "Expected a response object"));
+    }
+    let entries = field(&value, "models", "models")?
+        .as_array()
+        .ok_or_else(|| invalid("models", "Expected a models array"))?;
+    let mut models = Vec::with_capacity(entries.len());
+    for (index, value) in entries.iter().enumerate() {
+        let path = format!("models[{index}]");
+        if !value.is_object() {
+            return Err(invalid(&path, "Expected a model object"));
+        }
+        let get = |name: &str| {
+            let path = format!("{path}.{name}");
+            parse(field(value, name, &path)?, &path)
+        };
+        models.push(crate::ModelMetadata {
+            name: get("name")?,
+            description: get("description")?,
+            release_date: get("release_date")?,
+        });
+    }
+    Ok(crate::ListModelsResponse { models })
+}

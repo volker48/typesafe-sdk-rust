@@ -1,6 +1,6 @@
 use crate::{
-    Error, ErrorKind, HeaderMap, HeaderValue, Metadata, Response, RetryPolicy, SystemOneRequest,
-    SystemOneResponse,
+    Error, ErrorKind, HeaderMap, HeaderValue, ListModelsResponse, Metadata, Response, RetryPolicy,
+    SystemOneRequest, SystemOneResponse,
 };
 use serde_json::Value;
 use std::time::Duration;
@@ -9,7 +9,7 @@ use std::time::Duration;
 #[derive(Clone)]
 pub struct Client {
     http: reqwest::Client,
-    url: reqwest::Url,
+    base_url: reqwest::Url,
     headers: HeaderMap,
     authorization: HeaderValue,
     model: String,
@@ -76,7 +76,7 @@ impl ClientBuilder {
             .ok_or_else(|| Error::input("No API key was provided."))?;
         let base = resolve(self.base_url, "TYPESAFE_BASE_URL")
             .unwrap_or_else(|| "https://api.typesafe.ai".into());
-        let mut url = reqwest::Url::parse(&base).map_err(|_| Error::input("Invalid base URL"))?;
+        let url = reqwest::Url::parse(&base).map_err(|_| Error::input("Invalid base URL"))?;
         if !matches!(url.scheme(), "http" | "https")
             || url.host_str().is_none()
             || !url.username().is_empty()
@@ -88,10 +88,6 @@ impl ClientBuilder {
                 "Base URL must be HTTP(S) without credentials, query or fragment",
             ));
         }
-        url.set_path(&format!(
-            "{}/v1/systemone",
-            url.path().trim_end_matches('/')
-        ));
         let model =
             resolve(self.model, "TYPESAFE_DEFAULT_MODEL").unwrap_or_else(|| "jev-latest".into());
         let timeout = self.timeout.unwrap_or(Duration::from_secs(10));
@@ -109,7 +105,7 @@ impl ClientBuilder {
             .map_err(Error::transport)?;
         Ok(Client {
             http,
-            url,
+            base_url: url,
             headers: self.headers,
             authorization: auth,
             model,
@@ -163,16 +159,67 @@ impl Client {
         request: &SystemOneRequest,
         options: &RequestOptions,
     ) -> Result<Response<SystemOneResponse>, Error> {
+        let body = self.system_one_body(request)?;
+        let bytes = serde_json::to_vec(&body).map_err(|source| {
+            Error::input("Request could not be encoded as JSON").with_source(source)
+        })?;
+        self.send(
+            reqwest::Method::POST,
+            "/v1/systemone",
+            Some(bytes),
+            options,
+            crate::decode::system_one,
+        )
+        .await
+    }
+
+    /// List the available models in server order. No pagination is performed.
+    ///
+    /// ```no_run
+    /// # async fn example(client: &typesafe_sdk::Client) -> Result<(), typesafe_sdk::Error> {
+    /// let response = client.list_models().await?;
+    /// for model in response.data.models {
+    ///     println!("{}: {}", model.name, model.description);
+    /// }
+    /// # Ok(()) }
+    /// ```
+    pub async fn list_models(&self) -> Result<Response<ListModelsResponse>, Error> {
+        self.list_models_with(&RequestOptions::default()).await
+    }
+
+    /// List models with per-call headers, timeout and retry overrides.
+    /// Sends a bodyless GET; dropping the future cancels the call or retry delay.
+    /// No Content-Type is added; a caller-supplied Content-Type is preserved.
+    pub async fn list_models_with(
+        &self,
+        options: &RequestOptions,
+    ) -> Result<Response<ListModelsResponse>, Error> {
+        self.send(
+            reqwest::Method::GET,
+            "/v1/models",
+            None,
+            options,
+            crate::decode::list_models,
+        )
+        .await
+    }
+
+    async fn send<T>(
+        &self,
+        method: reqwest::Method,
+        path: &str,
+        body: Option<Vec<u8>>,
+        options: &RequestOptions,
+        decode: fn(&[u8]) -> Result<T, crate::decode::Failure>,
+    ) -> Result<Response<T>, Error> {
         let retry = options.retry.as_ref().unwrap_or(&self.retry);
         retry.validate()?;
         let timeout = options.timeout.unwrap_or(self.timeout);
         if timeout.is_zero() {
             return Err(Error::input("Timeout must be positive"));
         }
-        let body = self.system_one_body(request)?;
-        let bytes = serde_json::to_vec(&body).map_err(|source| {
-            Error::input("Request could not be encoded as JSON").with_source(source)
-        })?;
+        let mut url = self.base_url.clone();
+        url.set_path(&format!("{}{path}", url.path().trim_end_matches('/')));
         let mut headers = self.headers.clone();
         headers.extend(options.headers.clone());
         headers.remove("x-typesafe-retry-count");
@@ -180,7 +227,6 @@ impl Client {
         headers.insert("authorization", self.authorization.clone());
         for (name, value) in [
             ("accept", "application/json"),
-            ("content-type", "application/json"),
             (
                 "user-agent",
                 concat!("typesafe-sdk-rust/", env!("CARGO_PKG_VERSION")),
@@ -193,17 +239,23 @@ impl Client {
         ] {
             headers.insert(name, HeaderValue::from_static(value));
         }
+        let mut request = self.http.request(method, url).timeout(timeout);
+        if let Some(body) = body {
+            headers.insert("content-type", HeaderValue::from_static("application/json"));
+            request = request.body(body);
+        }
+        let mut request = request.headers(headers).build().map_err(Error::transport)?;
         let started = tokio::time::Instant::now();
         let mut attempt = 0;
         loop {
             if attempt > 0 {
-                headers.insert(
+                request.headers_mut().insert(
                     "x-typesafe-retry-count",
                     HeaderValue::from_str(&attempt.to_string())
                         .map_err(|_| Error::input("Invalid retry count"))?,
                 );
             }
-            let result = self.attempt(bytes.clone(), headers.clone(), timeout).await;
+            let result = self.attempt(&request, decode).await;
             let error = match result {
                 Ok(response) => return Ok(response),
                 Err(error) => error,
@@ -222,19 +274,19 @@ impl Client {
             attempt += 1;
         }
     }
-    async fn attempt(
+    async fn attempt<T>(
         &self,
-        body: Vec<u8>,
-        headers: HeaderMap,
-        timeout: Duration,
-    ) -> Result<Response<SystemOneResponse>, Error> {
+        request: &reqwest::Request,
+        decode: fn(&[u8]) -> Result<T, crate::decode::Failure>,
+    ) -> Result<Response<T>, Error> {
         let response = self
             .http
-            .post(self.url.clone())
-            .headers(headers)
-            .body(body)
-            .timeout(timeout)
-            .send()
+            // Requests contain only owned bytes or no body, so cloning cannot fail.
+            .execute(
+                request
+                    .try_clone()
+                    .expect("SDK request bodies are cloneable"),
+            )
             .await
             .map_err(Error::transport)?;
         let status = response.status().as_u16();
@@ -245,7 +297,7 @@ impl Client {
             headers,
             body,
         };
-        let endpoint = format!("POST {}", self.url);
+        let endpoint = format!("{} {}", request.method(), request.url());
         if !(200..300).contains(&status) {
             return Err(Error::response(
                 ErrorKind::status(status),
@@ -255,7 +307,7 @@ impl Client {
                 None,
             ));
         }
-        match crate::decode::system_one(&metadata.body) {
+        match decode(&metadata.body) {
             Ok(data) => Ok(Response { data, metadata }),
             Err((path, source)) => Err(Error::response(
                 ErrorKind::Validation,

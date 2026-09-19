@@ -44,3 +44,39 @@ print("[]")
         "python",
     )
     assert result["requests"][0]["header_values"]["x-custom"] == ["first", "second"]
+
+
+def test_get_recorder_distinguishes_absent_body_from_json_null():
+    import sys
+
+    from run import execute
+
+    script = """
+import http.client, json, sys
+from urllib.parse import urlsplit
+p = json.load(sys.stdin)
+u = urlsplit(p["origin"])
+c = http.client.HTTPConnection(u.hostname, u.port)
+c.request("GET", "/v1/models", body=sys.argv[1], headers={
+    "User-Agent": "typesafe-sdk/0.7.0",
+    "X-TypeSafe-SDK": "typesafe-sdk/0.7.0",
+    "X-TypeSafe-Runtime": "python/test",
+})
+c.getresponse().read()
+c.close()
+print("[]")
+"""
+    requests = []
+    for body in ("", "null"):
+        result = execute(
+            {"id": "get", "calls": [], "responses": [{"status": 200, "body": {}}]},
+            [sys.executable, "-c", script, body],
+            {},
+            "python",
+        )
+        requests.append(result["requests"][0])
+    assert all(request["method"] == "GET" for request in requests)
+    assert all(request["body"] is None for request in requests)
+    assert requests[0]["raw_hex"] == ""
+    assert requests[1]["raw_hex"] == b"null".hex()
+    assert canonical(requests[0]) != canonical(requests[1])
