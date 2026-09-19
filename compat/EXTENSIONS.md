@@ -1,7 +1,7 @@
 # Custom responses and raw questions
 
-This milestone adds the two extension boundaries identified after
-[model listing](MODELS.md), using the pinned Python SDK 0.7.0 at
+This milestone adds the two extension boundaries identified after model listing,
+using the pinned Python SDK 0.7.0 at
 `2ce5c65f13646cab6e6f782328194c9d85f3300a` as the behavioral reference.
 No dependency or transport policy changed.
 
