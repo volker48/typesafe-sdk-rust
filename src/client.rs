@@ -2,6 +2,7 @@ use crate::{
     Error, ErrorKind, HeaderMap, HeaderValue, ListModelsResponse, Metadata, Response, RetryPolicy,
     SystemOneRequest, SystemOneResponse,
 };
+use serde::de::DeserializeOwned;
 use serde_json::Value;
 use std::time::Duration;
 
@@ -159,6 +160,58 @@ impl Client {
         request: &SystemOneRequest,
         options: &RequestOptions,
     ) -> Result<Response<SystemOneResponse>, Error> {
+        self.system_one_decoded(request, options, crate::decode::system_one)
+            .await
+    }
+
+    /// Decode the complete response JSON directly into a caller-defined Serde type.
+    ///
+    /// `T` controls required fields, unknown fields, and answer representations.
+    /// No standard-envelope validation, answer filtering, or Python-style answer
+    /// lifting is applied. Even `T = SystemOneResponse` uses its Serde contract;
+    /// use [`Self::system_one`] for the standard Python-compatible decoder.
+    /// HTTP metadata, errors, retries and cancellation retain their usual behavior.
+    ///
+    /// ```no_run
+    /// # async fn example(client: &typesafe_sdk::Client, request: &typesafe_sdk::SystemOneRequest)
+    /// # -> Result<(), typesafe_sdk::Error> {
+    /// #[derive(serde::Deserialize)]
+    /// struct Answers { urgent: typesafe_sdk::NoulAnswer }
+    /// #[derive(serde::Deserialize)]
+    /// struct ResultData { answers: Answers }
+    /// let response = client.system_one_as::<ResultData>(request).await?;
+    /// println!("{}", response.data.answers.urgent.noul);
+    /// # Ok(()) }
+    /// ```
+    pub async fn system_one_as<T: DeserializeOwned>(
+        &self,
+        request: &SystemOneRequest,
+    ) -> Result<Response<T>, Error> {
+        self.system_one_as_with(request, &RequestOptions::default())
+            .await
+    }
+
+    /// Custom response decoding with per-call headers, timeout and retry options.
+    ///
+    /// Validation failures retain raw metadata and a Serde source. Field paths
+    /// follow Serde: missing fields identify the containing object, and untagged
+    /// enums/custom deserializers may report only their outer path. The empty path
+    /// denotes the root. Validation errors are not retried by the default policy.
+    pub async fn system_one_as_with<T: DeserializeOwned>(
+        &self,
+        request: &SystemOneRequest,
+        options: &RequestOptions,
+    ) -> Result<Response<T>, Error> {
+        self.system_one_decoded(request, options, crate::decode::custom::<T>)
+            .await
+    }
+
+    async fn system_one_decoded<T>(
+        &self,
+        request: &SystemOneRequest,
+        options: &RequestOptions,
+        decode: fn(&[u8]) -> Result<T, crate::decode::Failure>,
+    ) -> Result<Response<T>, Error> {
         let body = self.system_one_body(request)?;
         let bytes = serde_json::to_vec(&body).map_err(|source| {
             Error::input("Request could not be encoded as JSON").with_source(source)
@@ -168,7 +221,7 @@ impl Client {
             "/v1/systemone",
             Some(bytes),
             options,
-            crate::decode::system_one,
+            decode,
         )
         .await
     }

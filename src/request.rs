@@ -141,6 +141,63 @@ pub(crate) fn from_json(state: Value, questions: Value) -> Result<SystemOneReque
     SystemOneRequest::new(state, questions)
 }
 
+pub(crate) fn from_raw_json(state: Value, questions: Value) -> Result<SystemOneRequest, Error> {
+    let state = content(state, "/state")?;
+    let entries: BTreeMap<_, _> = object(questions, "/questions")?.into_iter().collect();
+    if entries.is_empty() {
+        return Err(Error::request_input(
+            InputErrorKind::EmptyQuestions,
+            "/questions",
+        ));
+    }
+    let questions = entries
+        .into_iter()
+        .map(|(name, value)| {
+            let path = pointer("/questions", &name);
+            let raw = object(value, &path)?;
+            let type_path = pointer(&path, "type");
+            let kind = raw
+                .get("type")
+                .ok_or_else(|| Error::request_input(InputErrorKind::MissingField, &type_path))?;
+            let kind: String = decode(kind.clone(), &type_path, InputErrorKind::InvalidType)?;
+            if kind.is_empty() {
+                return Err(Error::request_input(
+                    InputErrorKind::EmptyQuestionKind,
+                    type_path,
+                ));
+            }
+            if matches!(kind.as_str(), "choice" | "score") {
+                let criteria_path = pointer(&path, "criteria");
+                let criteria = raw.get("criteria").ok_or_else(|| {
+                    Error::request_input(InputErrorKind::MissingField, &criteria_path)
+                })?;
+                // Python raw score questions reject JSON values with false truth value.
+                let empty = match criteria {
+                    Value::Null => true,
+                    Value::Bool(value) => !value,
+                    Value::Number(value) => value.as_f64() == Some(0.0),
+                    Value::String(value) => value.is_empty(),
+                    Value::Array(value) => value.is_empty(),
+                    Value::Object(value) => value.is_empty(),
+                };
+                if kind == "score" && empty {
+                    return Err(Error::request_input(
+                        InputErrorKind::EmptyScoreCriteria,
+                        criteria_path,
+                    ));
+                }
+            }
+            Ok((name, raw))
+        })
+        .collect::<Result<_, Error>>()?;
+    Ok(SystemOneRequest {
+        state,
+        questions: crate::models::Questions::Raw(questions),
+        model: None,
+        extra_body: Map::new(),
+    })
+}
+
 pub(crate) fn validate_question(name: &str, question: &Question) -> Result<(), Error> {
     if matches!(question, Question::Score { criteria, .. } if criteria.is_empty()) {
         return Err(Error::request_input(

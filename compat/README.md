@@ -6,6 +6,8 @@ The foundation follow-up adds `foundation_cases.json` and
 `foundation_expected.json` without modifying that original 40-case oracle.
 Model listing adds 67 scenarios in `models_cases.json` and `models_expected.json`;
 both earlier suites remain unchanged.
+The extension milestone adds 40 scenarios in `extensions_cases.json` and
+`extensions_expected.json`; all three earlier suites remain unchanged.
 `run.py` re-executes Python, detects oracle drift, then compares Rust. Each SDK gets
 a fresh loopback server, process and client per scenario; calls within a scenario
 reuse one client and consume a single ordered response script. Unexpected requests
@@ -17,6 +19,14 @@ question constructors in the typed scenario. The Rust example calls public
 `client.models.list` and Rust's `Client::list_models_with`.
 Adapters map inputs and observations only; all request preparation, transport,
 decoding and retries happen in the SDKs.
+Extension calls select `raw_questions` for the Rust `from_raw_json` constructor
+(Python already accepts dictionaries) and `custom_response` for matching
+caller-defined Serde/Pydantic models. Local construction failures compare the
+input-error category; Rust's structured local details are tested natively.
+Standalone Pydantic models do not expose HTTP metadata, so custom-response
+successes compare data only. Their HTTP/validation errors still compare all
+metadata, and native tests verify metadata on successful Rust custom responses.
+See [extension contracts and limits](EXTENSIONS.md).
 
 ## Provenance
 
@@ -102,6 +112,7 @@ uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python
 uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --case round_trip_raw
 uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --cases compat/foundation_cases.json --expected compat/foundation_expected.json
 uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --cases compat/models_cases.json --expected compat/models_expected.json
+uv run --no-project python compat/run.py --python-repo ../typesafe-sdk-python --cases compat/extensions_cases.json --expected compat/extensions_expected.json
 uv run --locked --project ../typesafe-sdk-python pytest compat/test_characterization.py -v
 ```
 

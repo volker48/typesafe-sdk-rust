@@ -72,11 +72,15 @@ struct Config {
 struct SystemOneCall {
     #[serde(default)]
     observe_retry_after: bool,
-    // Rust always uses typed questions; this selects Python's constructor path.
+    // Selects Python's constructor path for the existing typed scenarios.
     #[serde(default, rename = "typed")]
     _typed: bool,
+    #[serde(default)]
+    raw_questions: bool,
+    #[serde(default)]
+    custom_response: bool,
     state: Content,
-    questions: BTreeMap<String, Question>,
+    questions: Value,
     model: Option<String>,
     timeout: Option<f64>,
     retry: Option<Policy>,
@@ -85,11 +89,20 @@ struct SystemOneCall {
     #[serde(default)]
     extra_body: serde_json::Map<String, Value>,
 }
+#[derive(Deserialize, serde::Serialize)]
+struct ExtensionAnswer {
+    value: Vec<String>,
+}
+#[derive(Deserialize, serde::Serialize)]
+struct ExtensionResponse {
+    model: String,
+    answers: BTreeMap<String, ExtensionAnswer>,
+}
 #[derive(Deserialize)]
 #[serde(untagged)]
 enum Call {
     Models(ModelsCall),
-    SystemOne(SystemOneCall),
+    SystemOne(Box<SystemOneCall>),
 }
 #[derive(Deserialize)]
 enum ModelsOperation {
@@ -180,26 +193,54 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = builder.build()?;
     let mut observations = Vec::new();
     for call in scenario.calls {
-        let (observe_retry_after, result) = match call {
+        let (observe_retry_after, custom_response, result) = match call {
             Call::SystemOne(call) => {
-                let mut request = SystemOneRequest::new(call.state, call.questions)?;
+                if call.raw_questions && call._typed {
+                    return Err("Raw and typed question modes are mutually exclusive".into());
+                }
+                let request = if call.raw_questions {
+                    SystemOneRequest::from_raw_json(
+                        serde_json::to_value(call.state)?,
+                        call.questions,
+                    )
+                } else {
+                    SystemOneRequest::new(call.state, serde_json::from_value(call.questions)?)
+                };
+                let mut request = match request {
+                    Ok(request) => request,
+                    Err(error) => {
+                        observations.push(json!({"error": error.kind}));
+                        continue;
+                    }
+                };
                 request.model = call.model;
                 request.extra_body = call.extra_body;
                 let options = options(call.extra_headers, call.timeout, call.retry)?;
                 (
                     call.observe_retry_after,
-                    observation(client.system_one_with(&request, &options).await)?,
+                    call.custom_response,
+                    if call.custom_response {
+                        observation(
+                            client
+                                .system_one_as_with::<ExtensionResponse>(&request, &options)
+                                .await,
+                        )?
+                    } else {
+                        observation(client.system_one_with(&request, &options).await)?
+                    },
                 )
             }
             Call::Models(call) => {
                 let options = options(call.extra_headers, call.timeout, call.retry)?;
                 (
                     call.observe_retry_after,
+                    false,
                     observation(client.list_models_with(&options).await)?,
                 )
             }
         };
         match result {
+            Ok(r) if custom_response => observations.push(json!({"ok": r.data})),
             Ok(r) => observations.push(json!({"ok": r.data, "metadata": {"status": r.metadata.status, "headers": header_json(&r.metadata.headers)?, "raw_hex": r.metadata.body.iter().map(|b| format!("{b:02x}")).collect::<String>()}})),
             Err(e) => if let Some(api) = e.api {
                 let mut observation = json!({"error": e.kind, "status": api.metadata.status, "body": api.body, "headers": header_json(&api.metadata.headers)?, "request_id": api.metadata.request_id(), "field_path": api.field_path, "endpoint": api.endpoint.replace(&scenario.origin, "<origin>")});

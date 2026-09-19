@@ -53,7 +53,7 @@ pub struct NoulCriteria {
     pub r#false: Field<Content>,
 }
 
-/// Known question types. Unknown/raw question extensions are a later milestone.
+/// Known question types. For extensions use [`SystemOneRequest::from_raw_json`].
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type", rename_all = "lowercase", deny_unknown_fields)]
 pub enum Question {
@@ -83,11 +83,19 @@ impl Question {
     }
 }
 
-/// A validated request. Use options for per-call transport overrides.
+#[derive(Clone, Debug, Serialize)]
+#[serde(untagged)]
+pub(crate) enum Questions {
+    Typed(BTreeMap<String, Question>),
+    Raw(BTreeMap<String, Map<String, Value>>),
+}
+
+/// A request with validated state and either typed or explicitly raw questions.
+/// Use options for per-call transport overrides.
 #[derive(Clone, Debug)]
 pub struct SystemOneRequest {
     pub(crate) state: Content,
-    pub(crate) questions: BTreeMap<String, Question>,
+    pub(crate) questions: Questions,
     pub model: Option<String>,
     /// Shallow last-write-wins overrides, including null and reserved body fields.
     pub extra_body: Map<String, Value>,
@@ -129,6 +137,33 @@ impl SystemOneRequest {
         crate::request::from_json(state, questions)
     }
 
+    /// Construct a request with question objects passed through to the API.
+    ///
+    /// State must be text, an object or an array. Questions must be a nonempty
+    /// object whose values are objects with nonempty string `type` fields.
+    /// Choice and score require `criteria`; score rejects null, false, zero and
+    /// empty strings/arrays/objects, matching Python's raw-question checks.
+    /// Other field contents are unchecked: future kinds, extra fields and nulls
+    /// are preserved. The API owns their remaining schema validation.
+    /// [`Self::from_json`] remains strict.
+    /// Local errors use the same input reasons and JSON Pointers as `from_json`,
+    /// checking state first and then question objects in sorted name order.
+    /// Model inheritance and final `extra_body` overrides work as usual.
+    ///
+    /// ```
+    /// use serde_json::json;
+    /// use typesafe_sdk::{Question, SystemOneRequest};
+    /// let request = SystemOneRequest::from_raw_json(json!("Evidence"), json!({
+    ///     "known": Question::noul("Is it urgent?"),
+    ///     "extended": {"type": "noul", "weight": 2, "instructions": null},
+    ///     "future": {"type": "future", "criteria": {"nested": [null, 1]}}
+    /// }))?;
+    /// # Ok::<(), typesafe_sdk::Error>(())
+    /// ```
+    pub fn from_raw_json(state: Value, questions: Value) -> Result<Self, Error> {
+        crate::request::from_raw_json(state, questions)
+    }
+
     /// Validate typed questions. Rejects an empty map or empty score criteria.
     /// Request input diagnostics use the same paths/reasons as [`Self::from_json`].
     pub fn new(state: Content, questions: BTreeMap<String, Question>) -> Result<Self, Error> {
@@ -143,7 +178,7 @@ impl SystemOneRequest {
         }
         Ok(Self {
             state,
-            questions,
+            questions: Questions::Typed(questions),
             model: None,
             extra_body: Map::new(),
         })

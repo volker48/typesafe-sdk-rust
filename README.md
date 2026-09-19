@@ -56,6 +56,22 @@ validates locally before HTTP. Structured state uses the same syntax:
 `json!({"message": "Help", "attempts": 3})`. Existing typed construction through
 `SystemOneRequest::new` remains available.
 
+For API extensions, use `SystemOneRequest::from_raw_json(state, questions)`.
+It preserves unknown question kinds, extra fields, and explicit nulls. State and
+question object shapes still validate locally; each question needs a nonempty
+string `type`, choice/score need `criteria`, and score criteria must be nonempty
+under Python's raw-question rules. Remaining field validation belongs to the API.
+Typed questions can be interpolated into the same `json!` object.
+
+Decode a response into your own Serde type with
+`client.system_one_as::<T>(&request).await?`, or use
+`system_one_as_with::<T>(&request, &options)` for per-call options. The result is
+`Response<T>` with the same metadata, errors, and retry behavior. `T` describes
+the complete wire JSON: its Serde implementation controls validation and unknown
+fields. No standard answer filtering or Python-style answer lifting is applied.
+Use `system_one` for the standard decoder, including when the desired type is
+`SystemOneResponse`. See the [extension contract and evidence](compat/EXTENSIONS.md).
+
 Input failures have `ErrorKind::Input`. Use `error.input_details()` for a stable
 reason and a JSON Pointer such as `/questions/team/criteria/billing`; default
 error formatting excludes submitted values and user-defined keys. Pointers and
@@ -84,7 +100,9 @@ and [CONTEXT.md](CONTEXT.md) for domain terms.
 Score keys accept integer decimal spellings, surrounding whitespace, and digit
 separators without rounding. Counts and score keys remain limited to `i64`;
 nonstandard NaN/Infinity JSON literals are rejected. HTTP validation reports nested
-paths and chooses errors in Python schema/wire order. `ApiError::retry_after`
+paths and chooses errors in Python schema/wire order for standard responses.
+Custom responses use Serde paths and error selection; missing fields identify
+their containing object. `ApiError::retry_after`
 exposes the server's requested wait as an optional `Duration`.
 
 See the [compatibility checks](compat/README.md),

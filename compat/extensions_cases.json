@@ -1,0 +1,1286 @@
+[
+  {
+    "id": "raw_future",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "future",
+            "criteria": {
+              "nested": [
+                null,
+                1
+              ]
+            }
+          }
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "raw_known_extra",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul",
+            "weight": 3,
+            "nested": {
+              "k": null
+            }
+          }
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "raw_explicit_null",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul",
+            "instructions": null,
+            "criteria": null
+          }
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "raw_missing_type",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {}
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_null_type",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": null
+          }
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_scalar_instructions",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul",
+            "instructions": 1
+          }
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "raw_choice_wrong_shape",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "choice",
+            "criteria": [
+              "a"
+            ]
+          }
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "raw_empty_score",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "score",
+            "criteria": []
+          }
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_mixed",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": {
+          "items": [
+            null,
+            3
+          ]
+        },
+        "questions": {
+          "known": {
+            "type": "noul"
+          },
+          "future": {
+            "type": "future",
+            "extension": true
+          },
+          "dynamic/~.雪": {
+            "type": "choice",
+            "criteria": {
+              "a": null
+            },
+            "weight": 2
+          }
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "raw_overrides",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "raw_questions": true,
+        "model": "call",
+        "extra_body": {
+          "questions": {
+            "replacement": {
+              "type": "future"
+            }
+          },
+          "model": null,
+          "extra": null
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {}
+        }
+      }
+    ],
+    "base_path": "/gateway/"
+  },
+  {
+    "id": "raw_server_validation",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "choice",
+            "criteria": [
+              "invalid shape"
+            ]
+          }
+        },
+        "raw_questions": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 422,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "detail": "Invalid question"
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_success",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "type": "future",
+              "value": [
+                "one",
+                "雪"
+              ],
+              "extra": null
+            }
+          },
+          "extra": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_with_raw",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "future"
+          }
+        },
+        "custom_response": true,
+        "raw_questions": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "type": "future",
+              "value": [
+                "one",
+                "雪"
+              ],
+              "extra": null
+            }
+          },
+          "extra": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_no_usage_or_discriminator",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "value": []
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_model_type",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": false,
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_answers_type",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": []
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_answer_type",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": false
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_value_type",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "value": false
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_item_type",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "value": [
+                "ok",
+                4
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_root_null",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": null
+      }
+    ]
+  },
+  {
+    "id": "custom_root_array",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": []
+      }
+    ]
+  },
+  {
+    "id": "custom_malformed",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "raw": "{"
+      }
+    ]
+  },
+  {
+    "id": "custom_trailing",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "raw": "{\"model\":\"m\",\"answers\":{}} false"
+      }
+    ]
+  },
+  {
+    "id": "custom_empty",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "raw": ""
+      }
+    ]
+  },
+  {
+    "id": "custom_status_201",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 201,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "type": "future",
+              "value": [
+                "one",
+                "雪"
+              ],
+              "extra": null
+            }
+          },
+          "extra": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_status_204",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 204,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "raw": ""
+      }
+    ]
+  },
+  {
+    "id": "custom_status_400",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 400,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "type": "future",
+              "value": [
+                "one",
+                "雪"
+              ],
+              "extra": null
+            }
+          },
+          "extra": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_status_429",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "type": "future",
+              "value": [
+                "one",
+                "雪"
+              ],
+              "extra": null
+            }
+          },
+          "extra": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_status_500",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true
+      }
+    ],
+    "responses": [
+      {
+        "status": 500,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "type": "future",
+              "value": [
+                "one",
+                "雪"
+              ],
+              "extra": null
+            }
+          },
+          "extra": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "custom_retry",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        },
+        "custom_response": true,
+        "retry": {
+          "max_retries": 1
+        },
+        "extra_headers": {
+          "x-call": "custom",
+          "authorization": "ignored"
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 429,
+        "headers": {
+          "retry-after-ms": "0"
+        },
+        "body": {}
+      },
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "type": "future",
+              "value": [
+                "one",
+                "雪"
+              ],
+              "extra": null
+            }
+          },
+          "extra": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "extensions_mixed_calls",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "future"
+          }
+        },
+        "custom_response": true,
+        "raw_questions": true
+      },
+      {
+        "operation": "list_models"
+      },
+      {
+        "state": "x",
+        "questions": {
+          "q": {
+            "type": "noul"
+          }
+        }
+      }
+    ],
+    "responses": [
+      {
+        "status": 200,
+        "headers": {
+          "x-typesafe-request-id": "extension-id"
+        },
+        "body": {
+          "model": "m",
+          "answers": {
+            "q": {
+              "type": "future",
+              "value": [
+                "one",
+                "雪"
+              ],
+              "extra": null
+            }
+          },
+          "extra": true
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "models": []
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "model": "m",
+          "usage": {},
+          "answers": {}
+        }
+      }
+    ]
+  },
+  {
+    "id": "raw_empty_type",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "raw_questions": true,
+        "questions": {
+          "q": {
+            "type": ""
+          }
+        }
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_numeric_type",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "raw_questions": true,
+        "questions": {
+          "q": {
+            "type": 2
+          }
+        }
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_missing_choice_criteria",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "raw_questions": true,
+        "questions": {
+          "q": {
+            "type": "choice"
+          }
+        }
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_missing_score_criteria",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "raw_questions": true,
+        "questions": {
+          "q": {
+            "type": "score"
+          }
+        }
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_null_score_criteria",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "raw_questions": true,
+        "questions": {
+          "q": {
+            "type": "score",
+            "criteria": null
+          }
+        }
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_false_score_criteria",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "raw_questions": true,
+        "questions": {
+          "q": {
+            "type": "score",
+            "criteria": false
+          }
+        }
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_zero_score_criteria",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "raw_questions": true,
+        "questions": {
+          "q": {
+            "type": "score",
+            "criteria": 0
+          }
+        }
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_empty_object_score_criteria",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "raw_questions": true,
+        "questions": {
+          "q": {
+            "type": "score",
+            "criteria": {}
+          }
+        }
+      }
+    ],
+    "responses": []
+  },
+  {
+    "id": "raw_empty_string_score_criteria",
+    "config": {
+      "retry": {
+        "max_retries": 0
+      }
+    },
+    "calls": [
+      {
+        "state": "x",
+        "raw_questions": true,
+        "questions": {
+          "q": {
+            "type": "score",
+            "criteria": ""
+          }
+        }
+      }
+    ],
+    "responses": []
+  }
+]

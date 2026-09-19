@@ -101,6 +101,7 @@ pub enum InputErrorKind {
     MissingField,
     UnknownField,
     UnknownQuestionKind,
+    EmptyQuestionKind,
     EmptyQuestions,
     EmptyScoreCriteria,
 }
@@ -144,6 +145,7 @@ impl Error {
             InputErrorKind::MissingField => "Required request field is missing",
             InputErrorKind::UnknownField => "Unknown request field",
             InputErrorKind::UnknownQuestionKind => "Expected question type noul, choice, or score",
+            InputErrorKind::EmptyQuestionKind => "Question type must be a nonempty string",
             InputErrorKind::EmptyQuestions => "At least one question is required",
             InputErrorKind::EmptyScoreCriteria => "At least one score criterion is required",
         };

@@ -107,6 +107,142 @@ async fn numeric_limits_fail_explicitly_and_preserve_raw_response() {
     }
 }
 
+#[tokio::test]
+async fn custom_validation_preserves_paths_causes_and_http_context() {
+    #[derive(Debug, serde::Deserialize)]
+    struct CustomResponse {
+        #[serde(rename = "answers")]
+        _answers: BTreeMap<String, Vec<u32>>,
+    }
+    for (body, path) in [
+        (r#"{"answers":{"q":[1,"server-secret"]}}"#, "answers.q[1]"),
+        (r#"{"answers":null}"#, "answers"),
+        (r#"{}"#, ""),
+        (r#"[]"#, ""),
+        (r#"{"answers":{}} trailing-secret"#, ""),
+        (r#"{"answers":{}} {}"#, ""),
+        ("{", ""),
+        (r#"{"answers":{"q":[1,]}}"#, ""),
+        ("", ""),
+    ] {
+        let (client, task) = mock(1, move |_| {
+            response(
+                200,
+                "x-typesafe-request-id: custom-error\r\nx-private: header-secret\r\n",
+                body,
+            )
+        })
+        .await;
+        let error = client
+            .system_one_as_with::<CustomResponse>(
+                &request(),
+                &RequestOptions {
+                    retry: Some(RetryPolicy::default()),
+                    ..Default::default()
+                },
+            )
+            .await
+            .unwrap_err();
+        assert_eq!(error.kind, ErrorKind::Validation);
+        assert!(std::error::Error::source(&error).is_some());
+        let api = error.api.as_ref().unwrap();
+        assert_eq!(api.field_path.as_deref(), Some(path));
+        assert_eq!(api.metadata.body, body.as_bytes());
+        assert_eq!(api.metadata.request_id(), Some("custom-error"));
+        assert!(api.endpoint.starts_with("POST http://127.0.0.1:"));
+        assert!(api.endpoint.ends_with("/v1/systemone"));
+        assert!(!format!("{error} {error:?} {api:?}").contains("secret"));
+        task.await.unwrap();
+    }
+    // A literal dot is a map key, not Serde's root-path display marker.
+    let (client, task) = mock(1, |_| response(200, "", r#"{".":false}"#)).await;
+    let error = client
+        .system_one_as::<BTreeMap<String, u32>>(&request())
+        .await
+        .unwrap_err();
+    assert_eq!(error.api.unwrap().field_path.as_deref(), Some("."));
+    task.await.unwrap();
+}
+
+#[tokio::test]
+async fn custom_response_respects_per_call_retries_and_preserves_http_errors() {
+    let (client, task) = mock(3, |wire| {
+        if wire.contains("x-typesafe-retry-count: 1\r\n") {
+            response(200, "", r#"{"future":{"value":3}}"#)
+        } else {
+            response(429, "retry-after-ms: 0\r\n", r#"{"detail":"try again"}"#)
+        }
+    })
+    .await;
+    let options = RequestOptions {
+        headers: HeaderMap::from_iter([(
+            HeaderName::from_static("x-call"),
+            HeaderValue::from_static("custom"),
+        )]),
+        retry: Some(RetryPolicy {
+            max_retries: 1,
+            ..Default::default()
+        }),
+        ..Default::default()
+    };
+    let result = client
+        .system_one_as_with::<serde_json::Value>(&request(), &options)
+        .await
+        .unwrap();
+    assert_eq!(result.data, serde_json::json!({"future":{"value":3}}));
+    let error = client
+        .system_one_as::<serde_json::Value>(&request())
+        .await
+        .unwrap_err();
+    assert_eq!(error.kind, ErrorKind::RateLimit);
+    let api = error.api.unwrap();
+    assert_eq!(api.body, serde_json::json!({"detail":"try again"}));
+    assert_eq!(api.retry_after, Some(Duration::ZERO));
+    let requests = task.await.unwrap();
+    assert!(requests[0].contains("x-call: custom\r\n"));
+    assert!(requests[1].contains("x-call: custom\r\n"));
+    assert!(!requests[2].contains("x-call:"));
+    assert!(!requests[2].contains("x-typesafe-retry-count:"));
+    assert_eq!(
+        requests[0].split_once("\r\n\r\n").unwrap().1,
+        requests[1].split_once("\r\n\r\n").unwrap().1
+    );
+}
+
+#[tokio::test]
+async fn custom_response_rejects_invalid_options_before_io() {
+    let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+    let client = Client::builder()
+        .api_key("key")
+        .base_url(format!("http://{}", listener.local_addr().unwrap()))
+        .build()
+        .unwrap();
+    for options in [
+        RequestOptions {
+            timeout: Some(Duration::ZERO),
+            ..Default::default()
+        },
+        RequestOptions {
+            retry: Some(RetryPolicy {
+                backoff_jitter: f64::NAN,
+                ..Default::default()
+            }),
+            ..Default::default()
+        },
+    ] {
+        let error = client
+            .system_one_as_with::<serde_json::Value>(&request(), &options)
+            .await
+            .unwrap_err();
+        assert_eq!(error.kind, ErrorKind::Input);
+    }
+    assert!(
+        tokio::time::timeout(Duration::from_millis(50), listener.accept())
+            .await
+            .is_err()
+    );
+}
+
 #[test]
 fn serde_score_keys_are_exact_and_collisions_follow_input_order() {
     let answer: ScoreAnswer = serde_json::from_str(r#"{"score":0,"confidence":1,"legend":{"0.0":"first","0":"last","9007199254740993.0":"exact"},"probabilities":{"1_0.00":1}}"#).unwrap();

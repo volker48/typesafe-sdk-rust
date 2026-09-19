@@ -13,6 +13,40 @@ fn request() -> SystemOneRequest {
     .unwrap()
 }
 
+#[tokio::test]
+async fn custom_response_decodes_the_wire_schema_and_keeps_metadata() {
+    #[derive(Debug, serde::Deserialize, PartialEq)]
+    struct CustomAnswer {
+        value: Vec<String>,
+    }
+    #[derive(Debug, serde::Deserialize)]
+    struct CustomResponse {
+        answers: BTreeMap<String, CustomAnswer>,
+    }
+    let (url, task) = server("HTTP/1.1 200 OK\r\nx-typesafe-request-id: custom-id\r\nconnection: close\r\n\r\n{\"answers\":{\"q\":{\"type\":\"future\",\"value\":[\"kept\"]}},\"extra\":true}").await;
+    let client = Client::builder()
+        .api_key("key")
+        .base_url(url)
+        .build()
+        .unwrap();
+    let response = client
+        .system_one_as::<CustomResponse>(&request())
+        .await
+        .unwrap();
+    assert_eq!(response.data.answers["q"].value, ["kept"]);
+    assert_eq!(response.metadata.request_id(), Some("custom-id"));
+    assert_eq!(response.metadata.status, 200);
+    assert_eq!(
+        serde_json::from_slice::<serde_json::Value>(&response.metadata.body).unwrap()["extra"],
+        true
+    );
+    assert!(
+        task.await
+            .unwrap()
+            .starts_with("POST /v1/systemone HTTP/1.1\r\n")
+    );
+}
+
 #[test]
 fn typed_boundaries_and_presence() {
     assert!(SystemOneRequest::new("x".into(), BTreeMap::new()).is_err());
@@ -50,6 +84,132 @@ fn typed_boundaries_and_presence() {
     );
     assert!(serde_json::from_str::<Question>(r#"{"type":"noul","unexpected":1}"#).is_err());
     assert!(serde_json::from_str::<Question>(r#"{"type":"future"}"#).is_err());
+}
+
+#[tokio::test]
+async fn raw_questions_preserve_extensions_and_share_preview_and_execution() {
+    use serde_json::json;
+    let questions = json!({
+        "future": {"type": "future", "instructions": null, "nested": [null, {"weight": 3}]},
+        "extended": {"type": "noul", "weight": 2},
+        "typed": Question::noul("Keep typed construction"),
+        "server_validates": {"type": "choice", "criteria": false}
+    });
+    assert!(SystemOneRequest::from_json(json!("x"), questions.clone()).is_err());
+    let mut request = SystemOneRequest::from_raw_json(json!("x"), questions.clone()).unwrap();
+    request.model = Some("call-model".into());
+    request.extra_body.insert("extension".into(), json!(null));
+    let (url, task) =
+        server("HTTP/1.1 200 OK\r\nconnection: close\r\n\r\n{\"model\":\"m\",\"usage\":{}}").await;
+    let client = Client::builder()
+        .api_key("key")
+        .base_url(url)
+        .build()
+        .unwrap();
+    let expected =
+        json!({"state": "x", "questions": questions, "model": "call-model", "extension": null});
+    assert_eq!(client.system_one_body(&request).unwrap(), expected);
+    client.system_one(&request).await.unwrap();
+    let wire = task.await.unwrap();
+    let sent: serde_json::Value =
+        serde_json::from_str(wire.split_once("\r\n\r\n").unwrap().1).unwrap();
+    assert_eq!(sent, expected);
+}
+
+#[test]
+fn raw_questions_validate_envelope_and_minimal_question_requirements() {
+    use serde_json::json;
+    for (state, questions, kind, path) in [
+        (
+            json!(null),
+            json!({}),
+            InputErrorKind::InvalidContent,
+            "/state",
+        ),
+        (
+            json!("x"),
+            json!([]),
+            InputErrorKind::InvalidType,
+            "/questions",
+        ),
+        (
+            json!("x"),
+            json!({}),
+            InputErrorKind::EmptyQuestions,
+            "/questions",
+        ),
+        (
+            json!("x"),
+            json!({"q/~": null}),
+            InputErrorKind::InvalidType,
+            "/questions/q~1~0",
+        ),
+        (
+            json!("x"),
+            json!({"z": 1, "a": []}),
+            InputErrorKind::InvalidType,
+            "/questions/a",
+        ),
+    ] {
+        let error = SystemOneRequest::from_raw_json(state, questions).unwrap_err();
+        assert_eq!(error.kind, ErrorKind::Input);
+        assert!(error.api.is_none());
+        let input = error.input_details().unwrap();
+        assert_eq!((input.kind, input.path.as_str()), (kind, path));
+    }
+    for raw in [
+        json!({"type": "future"}),
+        json!({"type": " "}),
+        json!({"type": "noul", "instructions": 2}),
+        json!({"type": "choice", "criteria": false}),
+    ] {
+        assert!(SystemOneRequest::from_raw_json(json!([]), json!({"": raw})).is_ok());
+    }
+    for raw in [
+        json!({}),
+        json!({"type": null}),
+        json!({"type": 2}),
+        json!({"type": ""}),
+        json!({"type": "choice"}),
+        json!({"type": "score"}),
+        json!({"type": "score", "criteria": []}),
+        json!({"type": "score", "criteria": null}),
+        json!({"type": "score", "criteria": false}),
+        json!({"type": "score", "criteria": 0}),
+        json!({"type": "score", "criteria": ""}),
+        json!({"type": "score", "criteria": {}}),
+    ] {
+        assert!(SystemOneRequest::from_raw_json(json!("x"), json!({"q": raw})).is_err());
+    }
+    for (raw, kind, suffix) in [
+        (json!({}), InputErrorKind::MissingField, "type"),
+        (json!({"type": null}), InputErrorKind::InvalidType, "type"),
+        (
+            json!({"type": ""}),
+            InputErrorKind::EmptyQuestionKind,
+            "type",
+        ),
+        (
+            json!({"type": "choice"}),
+            InputErrorKind::MissingField,
+            "criteria",
+        ),
+        (
+            json!({"type": "score", "criteria": []}),
+            InputErrorKind::EmptyScoreCriteria,
+            "criteria",
+        ),
+    ] {
+        let error = SystemOneRequest::from_raw_json(json!("x"), json!({"q/~": raw})).unwrap_err();
+        let input = error.input_details().unwrap();
+        assert_eq!(input.kind, kind);
+        assert_eq!(input.path, format!("/questions/q~1~0/{suffix}"));
+    }
+    let error =
+        SystemOneRequest::from_raw_json(json!("x"), json!({"private-key": "private-value"}))
+            .unwrap_err();
+    assert!(!format!("{error} {error:?}").contains("private-"));
+    assert!(std::error::Error::source(&error).is_some());
 }
 
 #[tokio::test]

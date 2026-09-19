@@ -100,9 +100,10 @@ diff was inspected locally.
 
 ## Remaining scope
 
-This completes model listing, not the entire SDK migration. Custom response
-models, raw question extensions, optional blocking use and opt-in logging remain
-later milestones. Broader malformed-input parity, advanced retry predicates,
+This completes model listing, not the entire SDK migration. The subsequent
+[extension milestone](EXTENSIONS.md) adds custom Serde response decoding and raw
+question construction. Optional blocking use and opt-in logging remain later
+milestones. Broader malformed-input parity, advanced retry predicates,
 phase timeouts/custom transport, expanded date/header handling, compression,
 cookies and error-message extraction remain as documented in the foundation.
 No pagination or streaming is introduced: neither pinned Python operation has it.

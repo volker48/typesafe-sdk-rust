@@ -145,3 +145,6 @@ Only macOS arm64 with Rust 1.96 and Tokio/Rustls is verified. Linux/Windows, loc
 TLS verification, optional blocking use, custom response types, raw questions and
 logging remain later milestones. No pagination/streaming exists in the
 pinned Python operations.
+
+The subsequent [extension milestone](EXTENSIONS.md) implements custom Serde
+responses and raw questions; the limitations above describe this earlier milestone.

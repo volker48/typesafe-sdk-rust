@@ -6,6 +6,26 @@ use std::collections::BTreeMap;
 
 pub(crate) type Failure = (String, Option<Box<dyn std::error::Error + Send + Sync>>);
 
+pub(crate) fn custom<T: DeserializeOwned>(body: &[u8]) -> Result<T, Failure> {
+    let mut deserializer = serde_json::Deserializer::from_slice(body);
+    let data = serde_path_to_error::deserialize(&mut deserializer).map_err(|error| {
+        let path = if error.inner().is_syntax()
+            || error.inner().is_eof()
+            || error.path().iter().next().is_none()
+        {
+            String::new()
+        } else {
+            error.path().to_string()
+        };
+        (path, Some(Box::new(error) as _))
+    })?;
+    // Deserialize alone accepts a valid prefix; the HTTP body must be one JSON value.
+    deserializer
+        .end()
+        .map_err(|error| (String::new(), Some(Box::new(error) as _)))?;
+    Ok(data)
+}
+
 fn invalid(path: &str, message: &str) -> Failure {
     (
         path.into(),

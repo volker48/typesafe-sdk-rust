@@ -3,6 +3,7 @@
 import json
 import sys
 
+from pydantic import BaseModel, ConfigDict
 from typesafe_sdk import (
     Choice,
     Noul,
@@ -13,8 +14,20 @@ from typesafe_sdk import (
     TypeSafeAPIResponseValidationError,
     TypeSafeAPITimeoutError,
     TypeSafeClient,
+    TypeSafeError,
     TypeSafeRateLimitError,
 )
+
+
+class ExtensionAnswer(BaseModel):
+    model_config = ConfigDict(strict=True)
+    value: list[str]
+
+
+class ExtensionResponse(BaseModel):
+    model_config = ConfigDict(strict=True)
+    model: str
+    answers: dict[str, ExtensionAnswer]
 
 
 def policy(raw):
@@ -43,6 +56,15 @@ def main():
             if operation not in {"system_one", "list_models"}:
                 raise ValueError(f"Unsupported operation: {operation}")
             observe_retry_after = args.pop("observe_retry_after", False)
+            # Python already passes dictionary questions through to the API.
+            raw_questions = args.pop("raw_questions", False)
+            custom_response = args.pop("custom_response", False)
+            if operation != "system_one" and (raw_questions or custom_response):
+                raise ValueError("Extensions require system_one")
+            if raw_questions and args.get("typed", False):
+                raise ValueError("Raw and typed question modes are mutually exclusive")
+            if custom_response:
+                args["response_model"] = ExtensionResponse
             if args.pop("typed", False):
                 args["questions"] = {
                     key: {"noul": Noul, "choice": Choice, "score": Score}[q["type"]](
@@ -58,12 +80,11 @@ def main():
                     if operation == "list_models"
                     else client.system_one(**args)
                 )
-                observations.append(
-                    {
-                        "ok": result.model_dump(mode="json"),
-                        "metadata": metadata(result.raw_http_response),
-                    }
-                )
+                observation = {"ok": result.model_dump(mode="json")}
+                # Standalone Pydantic models do not expose Python HTTP metadata.
+                if not custom_response:
+                    observation["metadata"] = metadata(result.raw_http_response)
+                observations.append(observation)
             except TypeSafeAPIError as error:
                 kind = (
                     type(error).__name__.removeprefix("TypeSafe").removesuffix("Error")
@@ -106,6 +127,8 @@ def main():
                 observations.append({"error": "timeout"})
             except TypeSafeAPIConnectionError:
                 observations.append({"error": "connection"})
+            except TypeSafeError:
+                observations.append({"error": "input"})
     json.dump(observations, sys.stdout, ensure_ascii=False)
 
 
