@@ -1,62 +1,26 @@
 //! Test-only JSON-lines boundary; business behavior remains in the public SDK.
-use serde::Deserialize;
-use serde_json::{Value, json};
+use serde::{Deserialize, Serialize};
+use serde_json::{Map, Value, json};
 use std::{
-    collections::BTreeMap,
+    collections::{BTreeMap, BTreeSet},
     io::{self, Read},
-    time::Duration,
+    time::{Duration, TryFromFloatSecsError},
 };
 use typesafe_sdk::*;
 
-#[derive(Deserialize, Default)]
+type AdapterResult<T> = Result<T, Box<dyn std::error::Error>>;
+
+#[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-struct Policy {
-    max_retries: Option<u32>,
-    backoff_initial: Option<f64>,
-    backoff_max: Option<f64>,
-    backoff_jitter: Option<f64>,
+struct Scenario {
+    base_url: String,
+    /// Replaced by `<origin>` in error endpoints, since the port is random.
+    origin: String,
     #[serde(default)]
-    timeout: Field<f64>,
-    http_statuses: Option<std::collections::BTreeSet<u16>>,
-    respect_retry_after: Option<bool>,
-    api_connection_error: Option<bool>,
-    api_timeout_error: Option<bool>,
+    config: Config,
+    calls: Vec<Call>,
 }
-impl Policy {
-    fn convert(self) -> Result<RetryPolicy, std::time::TryFromFloatSecsError> {
-        let mut p = RetryPolicy::default();
-        if let Some(v) = self.max_retries {
-            p.max_retries = v;
-        }
-        if let Some(v) = self.backoff_initial {
-            p.backoff_initial = Duration::try_from_secs_f64(v)?;
-        }
-        if let Some(v) = self.backoff_max {
-            p.backoff_max = Duration::try_from_secs_f64(v)?;
-        }
-        if let Some(v) = self.backoff_jitter {
-            p.backoff_jitter = v;
-        }
-        match self.timeout {
-            Field::Null => p.timeout = None,
-            Field::Value(v) => p.timeout = Some(Duration::try_from_secs_f64(v)?),
-            _ => {}
-        }
-        if let Some(v) = self.http_statuses {
-            p.http_statuses = v;
-        }
-        if let Some(v) = self.respect_retry_after {
-            p.respect_retry_after = v;
-        }
-        if let Some(v) = self.api_connection_error {
-            p.api_connection_error = v;
-        }
-        if let Some(v) = self.api_timeout_error {
-            p.api_timeout_error = v;
-        }
-        Ok(p)
-    }
-}
+
 #[derive(Deserialize, Default)]
 #[serde(deny_unknown_fields)]
 struct Config {
@@ -67,48 +31,56 @@ struct Config {
     #[serde(default)]
     headers: BTreeMap<String, String>,
 }
-#[derive(Deserialize)]
+
+/// Retry overrides in seconds; omitted fields keep the SDK default.
+#[derive(Deserialize, Default)]
 #[serde(deny_unknown_fields)]
-struct SystemOneCall {
+struct Policy {
+    max_retries: Option<u32>,
+    backoff_initial: Option<f64>,
+    backoff_max: Option<f64>,
+    backoff_jitter: Option<f64>,
     #[serde(default)]
-    observe_retry_after: bool,
-    // Selects Python's constructor path for the existing typed scenarios.
-    #[serde(default, rename = "typed")]
-    _typed: bool,
-    #[serde(default)]
-    raw_questions: bool,
-    #[serde(default)]
-    custom_response: bool,
-    state: Content,
-    questions: Value,
-    model: Option<String>,
-    timeout: Option<f64>,
-    retry: Option<Policy>,
-    #[serde(default)]
-    extra_headers: BTreeMap<String, String>,
-    #[serde(default)]
-    extra_body: serde_json::Map<String, Value>,
+    timeout: Field<f64>,
+    http_statuses: Option<BTreeSet<u16>>,
+    respect_retry_after: Option<bool>,
+    api_connection_error: Option<bool>,
+    api_timeout_error: Option<bool>,
 }
-#[derive(Deserialize, serde::Serialize)]
-struct ExtensionAnswer {
-    value: Vec<String>,
+
+impl Policy {
+    fn convert(self) -> Result<RetryPolicy, TryFromFloatSecsError> {
+        let seconds = |value: Option<f64>| value.map(Duration::try_from_secs_f64).transpose();
+        let default = RetryPolicy::default();
+        Ok(RetryPolicy {
+            max_retries: self.max_retries.unwrap_or(default.max_retries),
+            backoff_initial: seconds(self.backoff_initial)?.unwrap_or(default.backoff_initial),
+            backoff_max: seconds(self.backoff_max)?.unwrap_or(default.backoff_max),
+            backoff_jitter: self.backoff_jitter.unwrap_or(default.backoff_jitter),
+            http_statuses: self.http_statuses.unwrap_or(default.http_statuses),
+            respect_retry_after: self
+                .respect_retry_after
+                .unwrap_or(default.respect_retry_after),
+            api_connection_error: self
+                .api_connection_error
+                .unwrap_or(default.api_connection_error),
+            api_timeout_error: self.api_timeout_error.unwrap_or(default.api_timeout_error),
+            timeout: match self.timeout {
+                Field::Omitted => default.timeout,
+                Field::Null => None,
+                Field::Value(value) => Some(Duration::try_from_secs_f64(value)?),
+            },
+        })
+    }
 }
-#[derive(Deserialize, serde::Serialize)]
-struct ExtensionResponse {
-    model: String,
-    answers: BTreeMap<String, ExtensionAnswer>,
-}
+
 #[derive(Deserialize)]
 #[serde(untagged)]
 enum Call {
     Models(ModelsCall),
     SystemOne(Box<SystemOneCall>),
 }
-#[derive(Deserialize)]
-enum ModelsOperation {
-    #[serde(rename = "list_models")]
-    ListModels,
-}
+
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct ModelsCall {
@@ -121,140 +93,188 @@ struct ModelsCall {
     #[serde(default)]
     extra_headers: BTreeMap<String, String>,
 }
+
+#[derive(Deserialize)]
+enum ModelsOperation {
+    #[serde(rename = "list_models")]
+    ListModels,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct SystemOneCall {
+    #[serde(default)]
+    observe_retry_after: bool,
+    /// Selects Python's typed constructors; Rust always builds typed questions
+    /// unless `raw_questions` is set.
+    #[serde(default)]
+    typed: bool,
+    #[serde(default)]
+    raw_questions: bool,
+    #[serde(default)]
+    custom_response: bool,
+    state: Content,
+    questions: Value,
+    model: Option<String>,
+    timeout: Option<f64>,
+    retry: Option<Policy>,
+    #[serde(default)]
+    extra_headers: BTreeMap<String, String>,
+    #[serde(default)]
+    extra_body: Map<String, Value>,
+}
+
+#[derive(Deserialize, Serialize)]
+struct ExtensionResponse {
+    model: String,
+    answers: BTreeMap<String, ExtensionAnswer>,
+}
+
+#[derive(Deserialize, Serialize)]
+struct ExtensionAnswer {
+    value: Vec<String>,
+}
+
+#[tokio::main]
+async fn main() -> AdapterResult<()> {
+    let mut input = String::new();
+    io::stdin().read_to_string(&mut input)?;
+    let scenario: Scenario = serde_json::from_str(&input)?;
+    let client = client(scenario.base_url, scenario.config)?;
+    let mut observations = Vec::new();
+    for call in scenario.calls {
+        let observation = match call {
+            Call::SystemOne(call) => system_one(&client, *call, &scenario.origin).await?,
+            Call::Models(call) => {
+                let options = options(call.extra_headers, call.timeout, call.retry)?;
+                match client.list_models_with(&options).await {
+                    Ok(response) => success(response)?,
+                    Err(error) => failure(error, call.observe_retry_after, &scenario.origin)?,
+                }
+            }
+        };
+        observations.push(observation);
+    }
+    println!("{}", serde_json::to_string(&observations)?);
+    Ok(())
+}
+
+fn client(base_url: String, config: Config) -> AdapterResult<Client> {
+    let mut builder = Client::builder()
+        .base_url(base_url)
+        .headers(headers(config.headers)?);
+    if let Some(api_key) = config.api_key {
+        builder = builder.api_key(api_key);
+    }
+    if let Some(model) = config.model {
+        builder = builder.model(model);
+    }
+    if let Some(timeout) = config.timeout {
+        builder = builder.timeout(Duration::try_from_secs_f64(timeout)?);
+    }
+    if let Some(retry) = config.retry {
+        builder = builder.retry(retry.convert()?);
+    }
+    Ok(builder.build()?)
+}
+
+async fn system_one(client: &Client, call: SystemOneCall, origin: &str) -> AdapterResult<Value> {
+    if call.raw_questions && call.typed {
+        return Err("Raw and typed question modes are mutually exclusive".into());
+    }
+    let request = if call.raw_questions {
+        SystemOneRequest::from_raw_json(serde_json::to_value(call.state)?, call.questions)
+    } else {
+        SystemOneRequest::new(call.state, serde_json::from_value(call.questions)?)
+    };
+    let mut request = match request {
+        Ok(request) => request,
+        Err(error) => return Ok(json!({"error": error.kind})),
+    };
+    request.model = call.model;
+    request.extra_body = call.extra_body;
+    let options = options(call.extra_headers, call.timeout, call.retry)?;
+    if call.custom_response {
+        match client
+            .system_one_as_with::<ExtensionResponse>(&request, &options)
+            .await
+        {
+            // Standalone Pydantic models expose no HTTP metadata to compare.
+            Ok(response) => Ok(json!({"ok": serde_json::to_value(response.data)?})),
+            Err(error) => failure(error, call.observe_retry_after, origin),
+        }
+    } else {
+        match client.system_one_with(&request, &options).await {
+            Ok(response) => success(response),
+            Err(error) => failure(error, call.observe_retry_after, origin),
+        }
+    }
+}
+
 fn options(
     extra_headers: BTreeMap<String, String>,
     timeout: Option<f64>,
     retry: Option<Policy>,
-) -> Result<RequestOptions, Box<dyn std::error::Error>> {
+) -> AdapterResult<RequestOptions> {
     Ok(RequestOptions {
         headers: headers(extra_headers)?,
         timeout: timeout.map(Duration::try_from_secs_f64).transpose()?,
         retry: retry.map(Policy::convert).transpose()?,
     })
 }
-fn observation<T: serde::Serialize>(
-    result: Result<Response<T>, Error>,
-) -> Result<Result<Response<Value>, Error>, serde_json::Error> {
-    match result {
-        Ok(response) => Ok(Ok(Response {
-            data: serde_json::to_value(response.data)?,
-            metadata: response.metadata,
-        })),
-        Err(error) => Ok(Err(error)),
+
+fn success<T: Serialize>(response: Response<T>) -> AdapterResult<Value> {
+    let metadata = &response.metadata;
+    Ok(json!({
+        "ok": serde_json::to_value(&response.data)?,
+        "metadata": {
+            "status": metadata.status,
+            "headers": header_json(&metadata.headers)?,
+            "raw_hex": metadata.body.iter().map(|b| format!("{b:02x}")).collect::<String>(),
+        },
+    }))
+}
+
+fn failure(error: Error, observe_retry_after: bool, origin: &str) -> AdapterResult<Value> {
+    let Some(api) = error.api else {
+        return Ok(json!({"error": error.kind}));
+    };
+    let mut observation = json!({
+        "error": error.kind,
+        "status": api.metadata.status,
+        "body": api.body,
+        "headers": header_json(&api.metadata.headers)?,
+        "request_id": api.metadata.request_id(),
+        "field_path": api.field_path,
+        "endpoint": api.endpoint.replace(origin, "<origin>"),
+    });
+    if observe_retry_after {
+        // Python exposes the delay only on rate-limit errors.
+        let delay = api
+            .retry_after
+            .filter(|_| error.kind == ErrorKind::RateLimit);
+        observation["retry_after_ms"] = json!(delay.map(|delay| delay.as_secs_f64() * 1000.0));
     }
+    Ok(observation)
 }
-#[derive(Deserialize)]
-#[serde(deny_unknown_fields)]
-struct Scenario {
-    base_url: String,
-    origin: String,
-    #[serde(default)]
-    config: Config,
-    calls: Vec<Call>,
-}
-fn headers(values: BTreeMap<String, String>) -> Result<HeaderMap, Box<dyn std::error::Error>> {
+
+fn headers(values: BTreeMap<String, String>) -> AdapterResult<HeaderMap> {
     let mut result = HeaderMap::new();
-    for (k, v) in values {
+    for (name, value) in values {
         result.insert(
-            HeaderName::from_bytes(k.as_bytes())?,
-            HeaderValue::from_str(&v)?,
+            HeaderName::from_bytes(name.as_bytes())?,
+            HeaderValue::from_str(&value)?,
         );
     }
     Ok(result)
 }
-fn header_json(headers: &HeaderMap) -> Result<Value, Box<dyn std::error::Error>> {
-    let mut result = serde_json::Map::new();
+
+fn header_json(headers: &HeaderMap) -> AdapterResult<Value> {
+    let mut result = Map::new();
     for (name, value) in headers {
         result.insert(name.to_string(), Value::String(value.to_str()?.into()));
     }
     Ok(Value::Object(result))
-}
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut input = String::new();
-    io::stdin().read_to_string(&mut input)?;
-    let scenario: Scenario = serde_json::from_str(&input)?;
-    let c = scenario.config;
-    let mut builder = Client::builder()
-        .base_url(scenario.base_url)
-        .headers(headers(c.headers)?);
-    if let Some(v) = c.api_key {
-        builder = builder.api_key(v);
-    }
-    if let Some(v) = c.model {
-        builder = builder.model(v);
-    }
-    if let Some(v) = c.timeout {
-        builder = builder.timeout(Duration::try_from_secs_f64(v)?);
-    }
-    if let Some(v) = c.retry {
-        builder = builder.retry(v.convert()?);
-    }
-    let client = builder.build()?;
-    let mut observations = Vec::new();
-    for call in scenario.calls {
-        let (observe_retry_after, custom_response, result) = match call {
-            Call::SystemOne(call) => {
-                if call.raw_questions && call._typed {
-                    return Err("Raw and typed question modes are mutually exclusive".into());
-                }
-                let request = if call.raw_questions {
-                    SystemOneRequest::from_raw_json(
-                        serde_json::to_value(call.state)?,
-                        call.questions,
-                    )
-                } else {
-                    SystemOneRequest::new(call.state, serde_json::from_value(call.questions)?)
-                };
-                let mut request = match request {
-                    Ok(request) => request,
-                    Err(error) => {
-                        observations.push(json!({"error": error.kind}));
-                        continue;
-                    }
-                };
-                request.model = call.model;
-                request.extra_body = call.extra_body;
-                let options = options(call.extra_headers, call.timeout, call.retry)?;
-                (
-                    call.observe_retry_after,
-                    call.custom_response,
-                    if call.custom_response {
-                        observation(
-                            client
-                                .system_one_as_with::<ExtensionResponse>(&request, &options)
-                                .await,
-                        )?
-                    } else {
-                        observation(client.system_one_with(&request, &options).await)?
-                    },
-                )
-            }
-            Call::Models(call) => {
-                let options = options(call.extra_headers, call.timeout, call.retry)?;
-                (
-                    call.observe_retry_after,
-                    false,
-                    observation(client.list_models_with(&options).await)?,
-                )
-            }
-        };
-        match result {
-            Ok(r) if custom_response => observations.push(json!({"ok": r.data})),
-            Ok(r) => observations.push(json!({"ok": r.data, "metadata": {"status": r.metadata.status, "headers": header_json(&r.metadata.headers)?, "raw_hex": r.metadata.body.iter().map(|b| format!("{b:02x}")).collect::<String>()}})),
-            Err(e) => if let Some(api) = e.api {
-                let mut observation = json!({"error": e.kind, "status": api.metadata.status, "body": api.body, "headers": header_json(&api.metadata.headers)?, "request_id": api.metadata.request_id(), "field_path": api.field_path, "endpoint": api.endpoint.replace(&scenario.origin, "<origin>")});
-                if observe_retry_after {
-                    observation["retry_after_ms"] = json!(if e.kind == ErrorKind::RateLimit {
-                        api.retry_after.map(|delay| delay.as_secs_f64() * 1000.0)
-                    } else { None });
-                }
-                observations.push(observation);
-            } else { observations.push(json!({"error": e.kind})); }
-        }
-    }
-    println!("{}", serde_json::to_string(&observations)?);
-    Ok(())
 }
 
 #[test]
