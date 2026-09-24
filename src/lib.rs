@@ -16,13 +16,17 @@
 //! # Ok(()) }
 //! ```
 mod client;
-mod decode;
 mod error;
-mod models;
 mod request;
+mod response;
 mod retry;
+
 pub use client::{Client, ClientBuilder, RequestOptions};
-pub use error::{ApiError, Error, ErrorKind, InputError, InputErrorKind, Metadata, Response};
-pub use models::*;
+pub use error::{ApiError, Error, ErrorKind, InputError, InputErrorKind};
+pub use request::{Content, Field, NoulCriteria, Question, SystemOneRequest};
 pub use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+pub use response::{
+    Answer, ChoiceAnswer, ListModelsResponse, Metadata, ModelMetadata, NoulAnswer, Response,
+    ScoreAnswer, SystemOneResponse, Usage,
+};
 pub use retry::RetryPolicy;

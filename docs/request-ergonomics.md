@@ -96,7 +96,7 @@ both can contain caller-controlled data. Keep `ErrorKind::Input` for local
 failures, preserve a Serde source where one exists, and do not fabricate HTTP
 metadata. Existing HTTP validation paths and compatibility behavior stay intact.
 
-The private `request` module decodes fields individually to avoid enum buffering
+The private `request::json` module decodes fields individually to avoid enum buffering
 while retaining Serde error causes for typed conversions. Semantic checks are
 shared with `new`; integration fixtures compare the two construction paths across
 presence and content shapes. Failures detected without Serde, such as a missing
