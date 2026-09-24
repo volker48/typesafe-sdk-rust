@@ -113,7 +113,8 @@ struct SystemOneCall {
     raw_questions: bool,
     #[serde(default)]
     custom_response: bool,
-    state: Content,
+    // Raw JSON, so the SDK constructors report invalid input as call outcomes.
+    state: Value,
     questions: Value,
     model: Option<String>,
     timeout: Option<f64>,
@@ -183,9 +184,9 @@ async fn system_one(client: &Client, call: SystemOneCall, origin: &str) -> Adapt
         return Err("Raw and typed question modes are mutually exclusive".into());
     }
     let request = if call.raw_questions {
-        SystemOneRequest::from_raw_json(serde_json::to_value(call.state)?, call.questions)
+        SystemOneRequest::from_raw_json(call.state, call.questions)
     } else {
-        SystemOneRequest::new(call.state, serde_json::from_value(call.questions)?)
+        SystemOneRequest::from_json(call.state, call.questions)
     };
     let mut request = match request {
         Ok(request) => request,
@@ -299,4 +300,23 @@ fn unsupported_adapter_options_fail_instead_of_being_ignored() {
     let policy = policy.convert().unwrap();
     assert!(!policy.api_connection_error);
     assert!(!policy.api_timeout_error);
+}
+
+#[tokio::test]
+async fn invalid_request_input_is_recorded_per_call() {
+    let client = Client::builder()
+        .api_key("key")
+        .base_url("http://127.0.0.1:9")
+        .build()
+        .unwrap();
+    for call in [
+        json!({"state": "x", "questions": {"q": {"type": "future"}}}),
+        json!({"state": "x", "questions": {"q": {"type": "noul", "instruction": "typo"}}}),
+        json!({"state": 3, "questions": {"q": {"type": "noul"}}}),
+        json!({"state": 3, "questions": {"q": {"type": "future"}}, "raw_questions": true}),
+    ] {
+        let call = serde_json::from_value(call).unwrap();
+        let observation = system_one(&client, call, "").await.unwrap();
+        assert_eq!(observation, json!({"error": "input"}));
+    }
 }
