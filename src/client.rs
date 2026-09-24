@@ -226,10 +226,12 @@ impl Client {
 
     /// Custom response decoding with per-call headers, timeout and retry options.
     ///
-    /// Validation failures retain raw metadata and a Serde source. Field paths
-    /// follow Serde: missing fields identify the containing object, and untagged
-    /// enums/custom deserializers may report only their outer path. The empty path
-    /// denotes the root. Validation errors are not retried by the default policy.
+    /// The body must be exactly one JSON value; malformed JSON and trailing content
+    /// fail validation. Validation failures retain raw metadata and a Serde source.
+    /// Field paths follow Serde: missing fields identify the containing object, and
+    /// untagged enums/custom deserializers may report only their outer path. The
+    /// empty path denotes the root. Validation errors are not retried by the
+    /// default policy.
     pub async fn system_one_as_with<T: DeserializeOwned>(
         &self,
         request: &SystemOneRequest,

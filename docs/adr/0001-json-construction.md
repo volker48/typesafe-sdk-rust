@@ -11,5 +11,5 @@ another public compatibility surface; a map macro alone would leave most of the
 wire-presence boilerplate exposed. JSON sacrifices compile-time schema checking
 and duplicate-key detection, so local validation and explicit conversion limits
 are part of the decision. See the
-[request construction guide](../request-ergonomics.md) for the implemented
+[request guide](../requests.md) for the implemented
 interfaces and their contracts.
