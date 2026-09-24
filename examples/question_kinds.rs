@@ -1,3 +1,5 @@
+//! One question of each kind. Run with TYPESAFE_API_KEY set:
+//! `cargo run --example question_kinds` (performs one inference call).
 use serde_json::json;
 use typesafe_sdk::{Client, SystemOneRequest};
 

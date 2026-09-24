@@ -102,7 +102,7 @@ use `serde_json::to_value(data)?`; [`json!` can panic on serialization failures]
 Nonfinite floats can become null during serialization, so validate those before
 conversion when the distinction matters.
 
-See [sdk_smoke.rs](src/bin/sdk_smoke.rs) for all three question kinds, and
+See [question_kinds.rs](examples/question_kinds.rs) for all three question kinds, and
 [support_triage.rs](examples/support_triage.rs) for stable criteria, deadline/retry
 controls, usage reporting, and application-owned decisions with a review branch.
 The examples make live calls when run; their automated checks use local fixtures.
