@@ -8,16 +8,29 @@ use std::{
 /// it does not interrupt an in-flight attempt. Each call has independent state.
 #[derive(Clone, Debug)]
 pub struct RetryPolicy {
+    /// Attempts allowed after the first.
     pub max_retries: u32,
+    /// Backoff before the first retry, doubling for each later retry.
     pub backoff_initial: Duration,
+    /// Upper bound on the backoff delay.
     pub backoff_max: Duration,
+    /// Fraction in `[0, 1]` of each backoff delay that is randomly subtracted.
     pub backoff_jitter: f64,
+    /// HTTP statuses that are retried.
     pub http_statuses: BTreeSet<u16>,
+    /// Wait for the server-requested [`ApiError::retry_after`](crate::ApiError::retry_after)
+    /// delay, when present, instead of backing off.
     pub respect_retry_after: bool,
+    /// Retry transport failures other than timeouts.
     pub api_connection_error: bool,
+    /// Retry attempts that exceeded their timeout.
     pub api_timeout_error: bool,
+    /// Retry admission budget, measured from the start of the call. A retry is
+    /// not started if the elapsed time plus its delay would reach the budget.
+    /// `None` means unlimited.
     pub timeout: Option<Duration>,
 }
+
 impl Default for RetryPolicy {
     fn default() -> Self {
         Self {
@@ -33,22 +46,26 @@ impl Default for RetryPolicy {
         }
     }
 }
+
 impl RetryPolicy {
+    /// The default policy without retries.
     pub fn disabled() -> Self {
         Self {
             max_retries: 0,
             ..Self::default()
         }
     }
+
     pub(crate) fn validate(&self) -> Result<(), Error> {
         if !(0.0..=1.0).contains(&self.backoff_jitter) {
-            return Err(Error::input("backoff_jitter must be between zero and one."));
+            return Err(Error::input("backoff_jitter must be between zero and one"));
         }
-        if self.timeout.is_some_and(|d| d.is_zero()) {
-            return Err(Error::input("Retry timeout must be positive."));
+        if self.timeout.is_some_and(|budget| budget.is_zero()) {
+            return Err(Error::input("Retry timeout must be positive"));
         }
         Ok(())
     }
+
     pub(crate) fn retryable(&self, error: &Error) -> bool {
         match error.kind {
             ErrorKind::Timeout => self.api_timeout_error,
@@ -56,17 +73,19 @@ impl RetryPolicy {
             _ => error
                 .api
                 .as_ref()
-                .is_some_and(|a| self.http_statuses.contains(&a.metadata.status)),
+                .is_some_and(|api| self.http_statuses.contains(&api.metadata.status)),
         }
     }
+
     pub(crate) fn delay(&self, attempt: u32, error: &Error) -> Duration {
         if self.respect_retry_after
-            && let Some(delay) = error.api.as_ref().and_then(|a| a.retry_after)
+            && let Some(delay) = error.api.as_ref().and_then(|api| api.retry_after)
         {
             return delay;
         }
         self.backoff(attempt, fastrand::f64())
     }
+
     fn backoff(&self, attempt: u32, random: f64) -> Duration {
         if self.backoff_initial.is_zero() || self.backoff_max.is_zero() {
             return Duration::ZERO;
@@ -78,31 +97,40 @@ impl RetryPolicy {
         Duration::try_from_secs_f64(seconds).unwrap_or(self.backoff_max)
     }
 }
+
+/// The server-requested delay from `retry-after-ms`, else `retry-after`
+/// (seconds or an HTTP date relative to `now`). Only the first value of each
+/// header is read.
 pub(crate) fn retry_after(headers: &HeaderMap, now: SystemTime) -> Option<Duration> {
-    for (name, multiplier) in [("retry-after-ms", 0.001), ("retry-after", 1.0)] {
-        let Some(raw) = headers.get(name).and_then(|v| v.to_str().ok()) else {
-            continue;
-        };
-        let raw = raw.trim();
-        match if raw.is_empty() {
-            Ok(0.0)
-        } else {
-            raw.parse::<f64>()
-        } {
-            Ok(n) if n.is_finite() && n >= 0.0 => {
-                // A valid millisecond header wins even when its duration overflows.
-                return Duration::try_from_secs_f64(n * multiplier).ok();
-            }
-            Ok(n) if n < 0.0 && name == "retry-after" => return None,
-            Err(_) if name == "retry-after" => {
-                if let Ok(date) = httpdate::parse_http_date(raw) {
-                    return Some(date.duration_since(now).unwrap_or_default());
-                }
-            }
-            _ => {}
-        }
+    if let Some(milliseconds) = header(headers, "retry-after-ms").and_then(delay_number) {
+        // A valid millisecond header wins even when its duration overflows.
+        return Duration::try_from_secs_f64(milliseconds * 0.001).ok();
     }
-    None
+    let raw = header(headers, "retry-after")?;
+    match number(raw) {
+        Ok(seconds) if is_delay(seconds) => Duration::try_from_secs_f64(seconds).ok(),
+        Ok(_) => None,
+        Err(_) => httpdate::parse_http_date(raw)
+            .ok()
+            .map(|date| date.duration_since(now).unwrap_or_default()),
+    }
+}
+
+fn header<'a>(headers: &'a HeaderMap, name: &str) -> Option<&'a str> {
+    Some(headers.get(name)?.to_str().ok()?.trim())
+}
+
+/// An empty value means no delay.
+fn number(raw: &str) -> Result<f64, std::num::ParseFloatError> {
+    if raw.is_empty() { Ok(0.0) } else { raw.parse() }
+}
+
+fn delay_number(raw: &str) -> Option<f64> {
+    number(raw).ok().filter(|&value| is_delay(value))
+}
+
+fn is_delay(value: f64) -> bool {
+    value.is_finite() && value >= 0.0
 }
 
 #[cfg(test)]

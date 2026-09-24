@@ -1,3 +1,7 @@
+//! HTTPS against a loopback Rustls server, without modifying the system trust store.
+//! Every platform rejects the fixture's untrusted CA. Linux additionally trusts it
+//! through `SSL_CERT_FILE`, completing a real exchange and rejecting a certificate
+//! presented for the wrong host; other platforms use native trust stores.
 use std::{process::Command, sync::Arc, time::Duration};
 use tokio::{
     io::{AsyncReadExt, AsyncWriteExt},
