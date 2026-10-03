@@ -18,6 +18,10 @@ pnpm test:e2e
 Prerequisites: Rust 1.96+, Node 22.12+, pnpm 11.17.0, and `uv` with an available
 Python 3.10+. Dependency installation disables lifecycle scripts and enforces a
 24-hour minimum release age. The Python helper uses only the standard library.
+The entry point builds examples and precompiles the native test suites before
+starting the runner, so compilation does not consume each test's timeout.
+Builds use the repository's `target/` directory even when `CARGO_TARGET_DIR` or
+Cargo's `build.target-dir` selects another location.
 
 | Tests                                            | Flows and assertions                                                                                                                                                                                                                                                               |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -45,7 +49,8 @@ Reports are written to `.e2e/report.json`. CI runs the suite on Linux alongside
 the existing Rust platform matrix. To run a single file or scenario after building:
 
 ```sh
-cargo build --locked --examples
+cargo build --locked --target-dir target --examples
+cargo test --locked --target-dir target --no-run --test request --test response --test client --test tls
 pnpm exec e2e run tests/e2e/examples.e2e.ts
 pnpm exec e2e run tests/e2e/compatibility.e2e.ts --grep retry_recover
 ```

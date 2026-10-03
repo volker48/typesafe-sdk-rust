@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test:e2e": "cargo build --locked --examples && e2e run",
+    "test:e2e": "cargo build --locked --target-dir target --examples && cargo test --locked --target-dir target --no-run --test request --test response --test client --test tls && e2e run",
     "typecheck": "tsc --noEmit",
     "format:check": "oxfmt --check e2e.config.ts tests/e2e package.json tsconfig.json",
     "lint": "oxlint e2e.config.ts tests/e2e"

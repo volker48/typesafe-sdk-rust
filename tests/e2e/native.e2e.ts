@@ -5,10 +5,14 @@ import { execute, fixtureEnvironment } from "./process.js";
 // checks at their native seam, while including their verdicts in the e2e report.
 for (const suite of ["request", "response", "client", "tls"]) {
   test(`native ${suite} flows`, async () => {
-    const { stdout } = await execute("cargo", ["test", "--locked", "--test", suite], {
-      env: fixtureEnvironment(),
-      timeout: 35_000,
-    });
+    const { stdout } = await execute(
+      "cargo",
+      ["test", "--locked", "--target-dir", "target", "--test", suite],
+      {
+        env: fixtureEnvironment(),
+        timeout: 35_000,
+      },
+    );
     expect(stdout).toContain("test result: ok.");
     expect(stdout).toContain("0 failed");
   });
