@@ -153,6 +153,18 @@ cargo clippy --locked --all-targets --all-features -- -D warnings
 The [compatibility guide](compat/README.md#running-and-updating) documents the
 separate Python reference checkout needed for cross-language checks.
 
+End-to-end flow verification uses the [TesterArmy e2e runner](https://github.com/tester-army/e2e):
+
+```sh
+pnpm install --frozen-lockfile
+pnpm test:e2e
+```
+
+Requires Node 22.12+, pnpm 11.17.0, `uv` with an available Python 3.10+, and Rust.
+The command builds the SDK adapter and examples, then runs local fixtures without
+API credentials or model calls. See the [flow coverage guide](tests/e2e/README.md)
+for the covered flows, focused runs, and report locations.
+
 The [platform and TLS verification guide](compat/PLATFORM.md) describes the
 Linux/macOS/Windows CI matrix and credential-free loopback HTTPS tests. Run the
 TLS tests alone with `cargo test --locked --test tls`; trusted-CA and hostname

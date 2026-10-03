@@ -3,3 +3,6 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 migration/
+node_modules/
+.pnpm-store/
+.e2e/

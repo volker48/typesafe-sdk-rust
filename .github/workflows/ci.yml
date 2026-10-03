@@ -41,3 +41,43 @@ jobs:
         run: cargo +1.96.0 clippy --locked --all-targets --all-features -- -D warnings
       - name: Documentation
         run: cargo +1.96.0 doc --locked --no-deps --all-features
+
+  e2e:
+    name: SDK end-to-end flows
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      E2E_TELEMETRY_DISABLED: '1'
+      NO_PROXY: '*'
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@a8198c4bff370c8506180b035930dea56dbd5288 # v5
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: pnpm
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          enable-cache: false
+      - name: Install declared minimum Rust version
+        run: rustup toolchain install 1.96.0 --profile minimal
+      - name: Select Rust version
+        run: rustup default 1.96.0
+      - name: Install test tooling
+        run: pnpm install --frozen-lockfile
+      - name: Format, lint and type check tests
+        run: |
+          pnpm format:check
+          pnpm lint
+          pnpm typecheck
+      - name: Verify SDK flows
+        run: pnpm test:e2e
+      - name: Save flow report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sdk-e2e-report
+          path: .e2e/report.json
+          include-hidden-files: true
