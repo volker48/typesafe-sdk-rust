@@ -62,8 +62,8 @@ async function runExample(name: string, responses: unknown[]) {
   }
 }
 
-test("smoke program sends all three question kinds and reports answers and metadata", async () => {
-  const { stdout, requests } = await runExample("sdk_smoke", [
+test("question-kinds example sends all three question kinds and reports answers and metadata", async () => {
+  const { stdout, requests } = await runExample("examples/question_kinds", [
     {
       model: "smoke-model",
       usage: { input_tokens: 12, output_tokens: 3 },
@@ -142,7 +142,7 @@ for (const [team, confidence, decision] of [
   });
 }
 
-for (const name of ["sdk_smoke", "examples/support_triage"]) {
+for (const name of ["examples/question_kinds", "examples/support_triage"]) {
   test(`${name} fails when credentials are absent`, async () => {
     await rejects(
       execute(executable(name), [], { env: fixtureEnvironment(), timeout: 5_000 }),

@@ -25,8 +25,8 @@ Python 3.10+. Dependency installation disables lifecycle scripts and enforces a
 | Foundation, 68 scenarios                         | Exact score-key parsing and collisions, response validation paths and error ordering, alternate successful statuses, retry headers/delay precedence and request sequences                                                                                                          |
 | Models, 67 scenarios                             | Bodyless GET, server order and duplicate models, required metadata strings, unknown fields, per-call headers, malformed envelopes, errors and retries                                                                                                                              |
 | Extensions, 40 scenarios                         | Raw question extensions, local rejection, custom Serde response schemas, validation, metadata, status errors and mixed operation sequences                                                                                                                                         |
-| `examples.e2e.ts`: 7 tests                       | Smoke executable's three answer kinds and metadata; support triage's billing, technical, low-confidence and unknown-team decisions plus routine-case review; both programs fail without credentials                                                                                |
-| `native.e2e.ts`: 3 tests                         | Runs the native SDK, foundation and TLS integration suites, including typed/JSON/raw constructors, body preview, input diagnostics/redaction, custom response metadata, concurrent options, per-attempt timeouts, cancellation and certificate rejection                           |
+| `examples.e2e.ts`: 7 tests                       | Question-kinds example's three answer kinds and metadata; support triage's billing, technical, low-confidence and unknown-team decisions plus routine-case review; both programs fail without credentials                                                                          |
+| `native.e2e.ts`: 4 tests                         | Runs the native request, response, client and TLS integration suites, including typed/JSON/raw constructors, body preview, input diagnostics/redaction, custom response metadata, concurrent options, per-attempt timeouts, cancellation and certificate rejection                 |
 
 The 215 compatibility scenarios reuse the existing recorded Python oracle through
 `compat/e2e.py`. Every scenario starts a fresh server and compiled Rust adapter.
@@ -45,12 +45,12 @@ Reports are written to `.e2e/report.json`. CI runs the suite on Linux alongside
 the existing Rust platform matrix. To run a single file or scenario after building:
 
 ```sh
-cargo build --locked --bins --examples
+cargo build --locked --examples
 pnpm exec e2e run tests/e2e/examples.e2e.ts
 pnpm exec e2e run tests/e2e/compatibility.e2e.ts --grep retry_recover
 ```
 
 Set `E2E_TELEMETRY_DISABLED=1` to disable the runner's anonymous telemetry.
 The SDK subprocesses receive only fixture credentials and a controlled environment.
-See [compatibility limits](../../compat/README.md#current-limits-and-rust-specific-behavior)
+See [compatibility limits](../../compat/README.md#deliberate-differences-from-python)
 for the characterized contract and deliberate Python differences.

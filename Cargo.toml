@@ -7,17 +7,17 @@ description = "Native async Rust SDK for TypeSafe AI"
 license = "MIT"
 
 [dependencies]
+fastrand = "=2.3.0"
+httpdate = "=1.0.3"
 reqwest = { version = "=0.13.5", default-features = false, features = ["rustls"] }
 serde = { version = "=1.0.229", features = ["derive"] }
 serde_json = { version = "=1.0.151", features = ["preserve_order"] }
-tokio = { version = "=1.53.1", features = ["macros", "rt-multi-thread", "time"] }
-fastrand = "=2.3.0"
-httpdate = "=1.0.3"
 serde_path_to_error = "=0.1.20"
+tokio = { version = "=1.53.1", features = ["time"] }
 
 [dev-dependencies]
+tokio = { version = "=1.53.1", features = ["io-util", "macros", "net", "rt-multi-thread", "time"] }
 tokio-rustls = { version = "=0.26.5", default-features = false, features = ["aws_lc_rs", "tls12"] }
-tokio = { version = "=1.53.1", features = ["macros", "rt-multi-thread", "net", "io-util", "test-util"] }
 
 [lints.rust]
 unsafe_code = "forbid"
