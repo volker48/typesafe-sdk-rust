@@ -1,0 +1,7 @@
+packages:
+  - '.'
+ignoreScripts: true
+allowBuilds:
+  esbuild: false
+minimumReleaseAge: 1440
+autoInstallPeers: false

@@ -170,5 +170,17 @@ trust store. Untrusted certificates are rejected on every platform; trusted-CA
 and hostname checks run on Linux only. The [fixture notes](tests/fixtures/tls/README.md)
 explain how to regenerate the certificates.
 
+End-to-end flow verification uses the [TesterArmy e2e runner](https://github.com/tester-army/e2e):
+
+```sh
+pnpm install --frozen-lockfile
+pnpm test:e2e
+```
+
+Requires Node 22.12+, pnpm 11.17.0, `uv` with an available Python 3.10+, and Rust.
+The command builds the SDK adapter and examples, then runs local fixtures without
+API credentials or model calls. See the [flow coverage guide](tests/e2e/README.md)
+for the covered flows, focused runs, and report locations.
+
 The [compatibility harness](compat/README.md) compares this SDK with the pinned
 Python SDK and needs a separate Python checkout.

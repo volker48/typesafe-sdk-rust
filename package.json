@@ -1,0 +1,22 @@
+{
+  "name": "typesafe-sdk-rust-e2e",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:e2e": "cargo build --locked --target-dir target --examples && cargo test --locked --target-dir target --no-run --test request --test response --test client --test tls && e2e run",
+    "typecheck": "tsc --noEmit",
+    "format:check": "oxfmt --check e2e.config.ts tests/e2e package.json tsconfig.json",
+    "lint": "oxlint e2e.config.ts tests/e2e"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.4",
+    "e2e": "0.16.0",
+    "oxfmt": "0.71.0",
+    "oxlint": "1.86.0",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@11.17.0"
+}
